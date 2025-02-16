@@ -21,7 +21,7 @@
             <div class="header__top">
                 <div class="header__container container">
                     <div class="header__contact">
-                        <span> +1 (757) - 648 - 9243</span>
+                        <span> +1 (757) 648-9243 </span>
                         <span>Our Location</span>
                     </div>
                     <p class="header__alert-news">
@@ -84,12 +84,93 @@
 
         <main class="main">
             
-        @yield('content')
-            
+            @yield('content')
+
+            <footer class="footer container">
+                <div class="footer__container grid">
+                    
+                    <div class="footer__content">
+                        <a href="" class="footer__logo">
+                            <img src="{{ asset('assets/T&T logo.jpg') }}" alt="" class="footer__logo-img">
+                        </a>
+                        <h4 class="footer__subtitle">Contact</h4>
+                        
+                        <p class="footer__description">
+                            <span>Address: </span> 811 Admissions Court Virginia Beach VA 23462 USA
+                        </p>
+
+                        <p class="footer__description">
+                            <span>Phone: </span> +1 (757) 648-9243 
+                        </p>
+
+                        <p class="footer__description">
+                            <span>Hours: </span> 10:00 - 18:00 Mon - Sat
+                        </p>
+
+                        <div class="footer__social">
+                            
+                            <h4 class="footer__subtitle">Follow Us</h4>
+
+                            <div class="footer__social-links flex-1">
+                                
+                                <a href="" class="footer__logo">
+                                    <img src="{{ asset('assets/icon-facebook.svg') }}" alt="" class="footer__social-icon">
+                                </a>
+
+                                <a href="" class="footer__logo">
+                                    <img src="{{ asset('assets/icon-twitter.svg') }}" alt="" class="footer__social-icon">
+                                </a>
+
+                                <a href="" class="footer__logo">
+                                    <img src="{{ asset('assets/icon-instagram.svg') }}" alt="" class="footer__social-icon">
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="footer__content">
+                        <h3 class="footer__title">Address</h3>
+                        <ul class="footer__links">
+                            <li> <a href="" class="footer__link">About Us</a> </li>
+                            <li> <a href="" class="footer__link">Delivery Information</a> </li>
+                            <li> <a href="" class="footer__link">Privacy Policy</a> </li>
+                            <li> <a href="" class="footer__link">Terms & Conditions</a> </li>
+                            <li> <a href="" class="footer__link">Contact Us</a> </li>
+                            <li> <a href="" class="footer__link">Support Center</a> </li>
+                        </ul>
+                    </div>
+
+                    <div class="footer__content">
+                        <h3 class="footer__title">My Account</h3>
+                        <ul class="footer__links">
+                            <li> <a href="" class="footer__link">Sign In</a> </li>
+                            <li> <a href="" class="footer__link">View Cart</a> </li>
+                            <li> <a href="" class="footer__link">My Wishlist</a> </li>
+                            <li> <a href="" class="footer__link">Track My Order</a> </li>
+                            <li> <a href="" class="footer__link">Help</a> </li>
+                            <li> <a href="" class="footer__link">Order</a> </li>
+                        </ul>
+                    </div>
+
+                    <div class="footer__content">
+                        <h3 class="footer__title">Secure Payments Gateways</h3>
+                        <img src="{{ asset('assets/payment-method.png') }}" alt="" class="payment__img">
+                    </div>
+
+                </div>
+
+                <div class="footer__bottom">
+                    <p class="copyright">&copy; 2023 T&T Africa. All Rights Reserved</p>
+                    <span class="designer">Designed by Developers</span>
+                </div>
+            </footer>
+
         </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src=" {{ asset('js/script.js') }} "></script>
-</body>
-
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src=" {{ asset('js/script.js') }} "></script>
+    </body>
 </html>

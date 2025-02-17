@@ -11,6 +11,9 @@
 
         <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontisto/3.0.4/css/fontisto.min.css">
+
         
         {{-- fontawesome kit --}}
         <script src="https://kit.fontawesome.com/23bcbedea7.js" crossorigin="anonymous"></script>
@@ -85,6 +88,26 @@
         <main class="main">
             
             @yield('content')
+
+            <section class="newsletter section home__newsletter">
+        <div class="newsletter__container container grid">
+            <h3 class="newsletter__title flex">
+                <img src="{{ asset('assets/icon-email.svg') }}" class="newsletter__icon" alt="">
+                Sign up to Newsletter
+            </h3>
+            <p class="newsletter__description">
+                ... and receive $25 coupon for shopping
+            </p>
+            <form action="" class="newsletter__form">
+                <input 
+                    type="text" 
+                    placeholder="Enter your email" 
+                    class="newsletter__input"
+                >
+                <button type="submit" class="newsletter__btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
 
             <footer class="footer container">
                 <div class="footer__container grid">

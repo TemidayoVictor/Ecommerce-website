@@ -14,6 +14,22 @@ Route::get('/cart', function () {
     return view('cart');
 });
 
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::get('/checkout', function () {
+    return view('checkout');
+});
+
+Route::get('/compare', function () {
+    return view('compare');
+});
+
+Route::get('/account', function () {
+    return view('account');
+});
+
 Route::get('/wishlist', function () {
     return view('wishlist');
 });

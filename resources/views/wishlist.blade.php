@@ -7,14 +7,14 @@
 @section('content')
 
 <section class="breadcrumb">
-        <ul class="breadcrumb__list flex-1 container">
-            <li><a href="" class="breadcrumb__link">Home</a></li>
-            <li><span class="breadcrumb__link">></span></li>
-            <li><span class="breadcrumb__link">Shop</span></li>
-            <li><span class="breadcrumb__link">></span></li>
-            <li><span class="breadcrumb__link">Wishlist</span></li>
-        </ul>
-    </section>
+    <ul class="breadcrumb__list flex-1 container">
+        <li><a href="" class="breadcrumb__link">Home</a></li>
+        <li><span class="breadcrumb__link">></span></li>
+        <li><span class="breadcrumb__link">Shop</span></li>
+        <li><span class="breadcrumb__link">></span></li>
+        <li><span class="breadcrumb__link">Wishlist</span></li>
+    </ul>
+</section>
      
 <!-- WISHLIST -->
 <section class="wishlist section--lg container">

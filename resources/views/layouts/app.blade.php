@@ -41,6 +41,15 @@
                     <img src="{{ asset('assets/T&T logo.jpg') }}" alt="" class="nav__logo-img">
                 </a>
                 <div class="nav__menu" id="nav-menu">
+                    <div class="nav__menu-top">
+                        <a href="" class="nav__menu-logo">
+                            <img src="{{ asset('assets/T&T logo.jpg') }}" alt="">
+                        </a>
+
+                        <div class="nav__close" id="nav-close">
+                            <i class="ri-close-line"></i>
+                        </div>
+                    </div>
                     <ul class="nav__list">
                         <li class="nav__item">
                             <a href="" class="nav__link">Home</a>

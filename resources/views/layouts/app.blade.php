@@ -90,6 +90,10 @@
                         <img src="{{ asset('assets/icon-cart.svg') }}" alt="">
                         <span class="count">3</span>
                     </a>
+
+                    <div class="header__action-btn  nav__toggle" id="nav-toggle">
+                        <img src="{{ asset('assets/menu-burger.svg') }}" alt="">
+                    </div>
                 </div>
             </nav>
         </header>

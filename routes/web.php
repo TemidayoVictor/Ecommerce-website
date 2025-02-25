@@ -38,6 +38,9 @@ Route::get('/details', function () {
     return view('details');
 });
 
+Route::get('/admin/dashboard', function () {
+    return view('admin.index');
+});
 
 Route::get('/home', function () {
     return view('welcome');

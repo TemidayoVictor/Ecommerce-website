@@ -10,12 +10,13 @@
 <body class="admin">
 
     <div class="">
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="logo">
                 <img src="{{ asset('assets/T&T logo.jpg') }}" alt="">
+                <i class="fas fa-arrow-right mobile" id="admin-menu-close"></i>
             </div>
             <ul class="sidebar-nav">
-                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="sidebar-item active"><a href="#" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-users"></i> Users</a></li>
                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-box"></i> Products</a></li>
                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-chart-line"></i> Reports</a></li>
@@ -35,7 +36,8 @@
                     </div>
                 </div>
                 <div>
-                    <p>Admin <span><i class="fas fa-tachometer-alt"></i></span> </p>
+                    <p class="desktop">Admin <span><i class="fas fa-chevron-down"></i></span> </p>
+                    <p class="mobile"><span><i class="fas fa-bars" id="admin-menu-open"></i></span> </p>
                 </div>
             </div>
         </header>
@@ -48,6 +50,6 @@
             <p>&copy; {{ date('Y') }} T & T African Heritage LLC. All rights reserved.</p>
         </footer>
     </main>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>

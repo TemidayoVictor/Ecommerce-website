@@ -344,7 +344,7 @@ table {
 .btn {
     display: inline-block;
     background-color: var(--first-color);
-    border: 2px solid var(--first-color);
+    border: 1px solid var(--first-color);
     color: var(--body-color);
     padding-inline: 1.75rem;
     height: 3rem;
@@ -374,6 +374,16 @@ table {
 .btn--sm {
     height: 2.8rem;
     line-height: 2.8rem;
+}
+
+.btn.delete {
+    background-color: orangered;
+    border: 1px solid orangered;
+}
+
+.btn.delete:hover {
+    color: orangered;
+    background-color: transparent;
 }
 
 .flex {
@@ -1899,17 +1909,39 @@ table {
     font-style: var(--body-font);
 }
 
+.admin .desktop {
+    display: block;
+}
+
+.admin .mobile {
+    display: none;
+}
+
 .admin .flex {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
+.admin .flex-2 {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+}
+
+.admin .btn.btn--sm {
+    height: 2rem;
+    line-height: 1.8rem;
+}
+
 .admin .admin-section {
     background-color: white;
     padding: 1em;
     border-radius: .5rem;
-    box-shadow: 1px 1px 8px rgba(0, 0, 0, .1);
+    box-shadow: 0px 1px 8px rgba(0, 0, 0, .1);
+    margin-top: 2rem;
+    overflow: hidden;
+    overflow-x: scroll;
 }
 
 .admin .sidebar {
@@ -1951,11 +1983,20 @@ table {
     display: block;
     padding: 1rem;
     margin-bottom: .5rem;
-    border-radius: .5rem;
+    border-radius: .2rem;
+}
+
+.admin .sidebar-nav .sidebar-item:hover, .admin .sidebar-nav .sidebar-item.active {
+    background-color: var(--first-color);
+    color: white;
 }
 
 .admin .sidebar-nav li a.sidebar-link {
     color: #000;
+}
+
+.admin .sidebar-nav .sidebar-item:hover a.sidebar-link, .admin .sidebar-nav .sidebar-item.active a.sidebar-link{
+    color: white;
 }
 
 .admin .main-content header{
@@ -1975,14 +2016,16 @@ table {
     grid-template-columns: repeat(auto-fit, minmax(8em, 1fr));
 }
 
+.admin .product-box-container {
+    display: grid;
+    gap: .7em;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+}
+
 .admin .view {
     border: 1px solid black;
     text-align: center;
     border-radius: .3rem;
-}
-
-.admin .product-continer {
-    margin-top: 2rem;
 }
 
 .admin .section-title {
@@ -2007,5 +2050,76 @@ table {
 
 .admin textarea {
     height: 100px;
+}
+
+.admin .product-continer .left img {
+    width: 5rem;
+}
+
+.admin .product-box {
+    width: 100%;
+    border: 1px solid var(--border-color);
+    padding: .5em;
+    border-radius: .3em;
+}
+
+.admin .product-title {
+    text-overflow: ellipsis;
+}
+
+.admin .product-box p {
+    font-size: .8rem;
+}
+
+
+/* Media Queries */
+
+@media screen and (max-width:992px) {
+    .admin .mobile {
+        display: block;
+    }
+
+    .admin .desktop {
+        display: none;
+    }
+
+    .admin .sidebar {
+        width: 100%;
+        display: none;
+        background-color: white;
+    }
+
+    .admin .sidebar.active {
+        display: block;
+    }
+
+    .admin .main-content {
+        left: 0;
+    }
+
+    .admin .inner-content {
+        margin: 1rem;
+    }
+
+    .admin .logo {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgb(240, 239, 239);
+        padding-inline: 1rem;
+    }
+
+    .admin .logo img {
+        width: 5em;
+    }
+
+    .admin .logo i, #admin-menu-open {
+        font-size: 1.3rem;
+    }
+
+    .admin .main-content header{
+        height: 5em;
+    }
 }
 

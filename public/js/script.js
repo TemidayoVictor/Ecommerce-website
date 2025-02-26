@@ -1,7 +1,10 @@
 // SHOW MENU
 const navMenu = document.getElementById('nav-menu'),
       navToggle = document.getElementById('nav-toggle'),
-      navClose = document.getElementById('nav-close');
+      navClose = document.getElementById('nav-close'),
+      adminMenuOpen = document.getElementById('admin-menu-open'),
+      adminMenuClose = document.getElementById('admin-menu-close'),
+      sidebar = document.getElementById('sidebar');
 
 // MENU SHOW
 if(navToggle) {
@@ -17,12 +20,26 @@ if(navClose) {
   })
 }
 
+// ADMIN MENU SHOW
+if(adminMenuOpen) {
+  adminMenuOpen.addEventListener('click', () => {
+    sidebar.classList.add('active');
+  })
+}
+
+// ADMIN MENU HIDE
+if(adminMenuClose) {
+  adminMenuClose.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+  })
+}
+
 
 // image gallery
 
 function imgGallery() {
   const mainImg = document.querySelector('.details__img')
-  smallImg = document.querySelectorAll('.details__small-img') 
+  smallImg = document.querySelectorAll('.details__small-img')
 
   smallImg.forEach((img) => {
     img.addEventListener('click', function() {
@@ -42,7 +59,7 @@ var swiperCategories = new Swiper(".categories__container", {
       nextEl: ".swiper-move-next",
       prevEl: ".swiper-move-prev",
     },
-    
+
     breakpoints: {
           350: {
             slidesPerView: 2,
@@ -81,7 +98,7 @@ var swiperCategories = new Swiper(".categories__container", {
       nextEl: ".swiper-prod-move-next",
       prevEl: ".swiper-prod-move-prev",
     },
-    
+
     breakpoints: {
         350: {
           slidesPerView: 2,

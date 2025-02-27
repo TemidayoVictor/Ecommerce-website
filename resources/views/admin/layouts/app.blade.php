@@ -12,7 +12,7 @@
     <div class="">
         <aside class="sidebar" id="sidebar">
             <div class="logo">
-                <img src="{{ asset('assets/T&T logo.jpg') }}" alt="">
+                <img src="{{ asset('assets/T&T logo.png') }}" alt="">
                 <i class="fas fa-arrow-right mobile" id="admin-menu-close"></i>
             </div>
             <ul class="sidebar-nav">

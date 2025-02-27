@@ -38,7 +38,7 @@
 
             <nav class="nav container">
                 <a href="" class="nav__logo">
-                    <img src="{{ asset('assets/T&T logo.jpg') }}" alt="" class="nav__logo-img">
+                    <img src="{{ asset('assets/T&T logo.png') }}" alt="" class="nav__logo-img">
                 </a>
                 <div class="nav__menu" id="nav-menu">
                     <div class="nav__menu-top">

@@ -6,6 +6,7 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>E Commerce Website || @yield('title') </title>
 </head>
 <body class="admin">
 
@@ -30,9 +31,9 @@
         <header>
             <div class="flex">
                 <div class="navbar-title">
-                    <h2>Dashboard</h2>
+                    <h2>{{ $pageTitle ?? 'Dashboard' }}</h2>
                     <div class="flex-1">
-                        <p>T & T</p> > <p>Dashboard</p>
+                        <p>T & T</p> > <p>{{ $pageTitle ?? 'Dashboard' }}</p>
                     </div>
                 </div>
                 <div>

@@ -5,6 +5,7 @@ const navMenu = document.getElementById('nav-menu'),
       adminMenuOpen = document.getElementById('admin-menu-open'),
       adminMenuClose = document.getElementById('admin-menu-close'),
       sidebar = document.getElementById('sidebar');
+let notification = document.getElementById("notification");
 
 // MENU SHOW
 if(navToggle) {
@@ -34,6 +35,13 @@ if(adminMenuClose) {
   })
 }
 
+if (notification) {
+    setTimeout(() => {
+        notification.style.transition = "opacity 0.5s ease";
+        notification.style.opacity = "0";
+        setTimeout(() => notification.remove(), 500);
+    }, 5000); // 5 seconds before disappearing
+}
 
 // image gallery
 

@@ -1,6 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+
+
+// Admin routes (Will be put in middleware later)
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
+    Route::get('/add-products', [ProductController::class, 'addProducts'])->name('add-products');
+
+    // Categories
+    Route::get('/categories', [ProductController::class, 'categories'])->name('categories');
+    Route::post('/categories', [ProductController::class, 'addCategory']);
+
+    // Brands
+    Route::get('/brands', [ProductController::class, 'brands'])->name('brands');
+    Route::post('/brands', [ProductController::class, 'addBrand']);
+});
 
 Route::get('/', function () {
     return view('index');

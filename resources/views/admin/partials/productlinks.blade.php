@@ -1,6 +1,6 @@
 <div>
     @if($pageTitle != 'Products')
-        <a href="{{ route('admin.add-products') }}" class="btn btn--sm">Products</a>
+        <a href="{{ route('admin.add-products') }}" class="btn btn--sm">Add Products</a>
     @endif
     @if($pageTitle != 'Categories')
         <a href=" {{ route('admin.categories') }} " class="btn btn--sm">Categories</a>

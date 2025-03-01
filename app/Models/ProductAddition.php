@@ -13,4 +13,8 @@ class ProductAddition extends Model
         'name',
         'value'
     ];
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -17,9 +17,9 @@
                 <i class="fas fa-arrow-right mobile" id="admin-menu-close"></i>
             </div>
             <ul class="sidebar-nav">
-                <li class="sidebar-item active"><a href="#" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="sidebar-item active"><a href="/admin/dashboard" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-users"></i> Users</a></li>
-                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-box"></i> Products</a></li>
+                <li class="sidebar-item"><a href=" {{ route('admin.products') }} " class="sidebar-link"><i class="fas fa-box"></i> Products</a></li>
                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-chart-line"></i> Reports</a></li>
                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-cogs"></i> Settings</a></li>
             </ul>
@@ -43,7 +43,7 @@
             </div>
         </header>
 
-        <div class="inner-content">
+        <div class="inner-content" style="margin-bottom: 2em;">
             @yield('content')
         </div>
 

@@ -113,7 +113,7 @@ table {
     font-weight: var(--weight-600);
     position: absolute;
     top: 10%;
-    right: 0%;
+    right: 42%;
     color: white;
 }
 
@@ -2045,7 +2045,13 @@ body .admin {
 .admin .product-box-container {
     display: grid;
     gap: .7em;
-    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+}
+
+.admin .images-container {
+    display: grid;
+    gap: .7em;
+    grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
 }
 
 .admin .view {
@@ -2065,6 +2071,7 @@ body .admin {
     display: flex;
     flex-direction: column;
     gap: .5rem;
+    width: 100%;
 }
 
 .admin input, .admin select, .admin textarea {
@@ -2073,6 +2080,7 @@ body .admin {
     border: 1px solid black;
     border-radius: .3rem;
     font-style: var(--second-font);
+    width: 100%;
 }
 
 .admin textarea {
@@ -2096,6 +2104,14 @@ body .admin {
 
 .admin .product-box p {
     font-size: .8rem;
+}
+
+/* footer */
+.admin footer {
+    background-color: var(--first-color);
+    color: white;
+    text-align: center;
+    padding-block: 1em;
 }
 
 

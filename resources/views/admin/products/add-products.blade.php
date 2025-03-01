@@ -83,8 +83,16 @@
                 <input type="file" name="images[]" multiple required accept="image/*">
             </div>
 
+            <h3 class="section-title">Add Extra Fields</h3>
+
+            <div id="extraFields">
+                <div class="extra-field flex"></div>
+            </div>
+
+            <button type="button" onclick="addField()" class="btn btn--sm add">Add More</button>
+
             <div class="input-field">
-                <button type="submit" class="btn btn--md">Add Product</button>
+                <button type="submit" class="btn btn--md" style="margin-top: 1rem">Add Product</button>
             </div>
         </form>
     </div>

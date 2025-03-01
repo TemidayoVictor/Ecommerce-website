@@ -17,4 +17,16 @@ class Product extends Model
         'sales',
         'stock',
     ];
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function productImage() {
+        return $this->hasMany(ProductImage::class);
+    }
+
+    public function productAddition() {
+        return $this->hasMany(ProductAddition::class);
+    }
 }

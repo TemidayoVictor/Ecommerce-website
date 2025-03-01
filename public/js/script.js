@@ -6,6 +6,7 @@ const navMenu = document.getElementById('nav-menu'),
       adminMenuClose = document.getElementById('admin-menu-close'),
       sidebar = document.getElementById('sidebar');
 let notification = document.getElementById("notification");
+let fieldIndex = 0;
 
 // MENU SHOW
 if(navToggle) {
@@ -21,20 +22,7 @@ if(navClose) {
   })
 }
 
-// ADMIN MENU SHOW
-if(adminMenuOpen) {
-  adminMenuOpen.addEventListener('click', () => {
-    sidebar.classList.add('active');
-  })
-}
-
-// ADMIN MENU HIDE
-if(adminMenuClose) {
-  adminMenuClose.addEventListener('click', () => {
-    sidebar.classList.remove('active');
-  })
-}
-
+// function to make notifiction disappper after 5 seconds
 if (notification) {
     setTimeout(() => {
         notification.style.transition = "opacity 0.5s ease";
@@ -136,7 +124,6 @@ var swiperCategories = new Swiper(".categories__container", {
   });
 
   // Products tab
-
   const tabs = document.querySelectorAll('[data-target]')
   tabContents = document.querySelectorAll('[content]')
 
@@ -157,3 +144,44 @@ var swiperCategories = new Swiper(".categories__container", {
 
     })
   })
+
+  // ADMIN MENU SHOW
+if(adminMenuOpen) {
+    adminMenuOpen.addEventListener('click', () => {
+      sidebar.classList.add('active');
+    })
+  }
+
+  // ADMIN MENU HIDE
+  if(adminMenuClose) {
+    adminMenuClose.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+    })
+  }
+
+
+  function addField() {
+    let newField = `
+        <div class="extra-field">
+            <div class="flex">
+                <div class="input-field">
+                    <label for="">  <h4>Name</h4> </label>
+                    <input type="text" name="extra_fields[${fieldIndex}][name]" placeholder="Field Name" required>
+                </div>
+
+                <div class="input-field">
+                    <label for="">  <h4>Name</h4> </label>
+                    <input type="text" name="extra_fields[${fieldIndex}][value]" placeholder="Field Value" required>
+                </div>
+            </div>
+            <button type="button" onclick="removeField(this)" class="btn btn--sm delete" style="margin-bottom: .5rem">Remove</button>
+        </div>
+    `;
+
+    document.getElementById('extraFields').insertAdjacentHTML('beforeend', newField);
+    fieldIndex++;
+}
+
+function removeField(element) {
+    element.parentElement.remove();
+}

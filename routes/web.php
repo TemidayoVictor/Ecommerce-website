@@ -6,8 +6,16 @@ use App\Http\Controllers\ProductController;
 
 // Admin routes (Will be put in middleware later)
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
+    // Products
+    Route::get('/products', [ProductController::class, 'index'])->name('products');
+
     Route::get('/add-products', [ProductController::class, 'addProducts'])->name('add-products');
     Route::post('/add-products', [ProductController::class, 'addProductPost']);
+
+    Route::get('/edit-product/{id}', [ProductController::class, 'editProduct'])->name('edit-products');
+    Route::post('/edit-product/{id}', [ProductController::class, 'editProductPost']);
+
+    Route::post('/delete-product/{id}', [ProductController::class, 'deleteProduct'])->name('delete-product');
 
     // Categories
     Route::get('/categories', [ProductController::class, 'categories'])->name('categories');
@@ -16,6 +24,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     // Brands
     Route::get('/brands', [ProductController::class, 'brands'])->name('brands');
     Route::post('/brands', [ProductController::class, 'addBrand']);
+
+    // Product Images
+    Route::post('/delete-image/{id}', [ProductController::class, 'deleteImage'])->name('delete-image');
+
+    // Product Additions
+    Route::post('/delete-addition/{id}', [ProductController::class, 'deleteAddition'])->name('delete-addition');
 });
 
 Route::get('/', function () {

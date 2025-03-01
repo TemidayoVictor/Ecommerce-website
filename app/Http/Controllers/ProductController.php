@@ -7,9 +7,20 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\ProductImage;
+use App\Models\ProductAddition;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+
+    public function index() {
+        $pageTitle = "All Products";
+        $products = Product::with('productImage', 'category')->orderBy('id', 'desc') ->get();
+        return view('admin.products.index', [
+            'pageTitle' => $pageTitle,
+            'products' => $products,
+        ]);
+    }
 
     public function addProducts()
     {
@@ -33,6 +44,7 @@ class ProductController extends Controller
             'sales',
             'stock' => 'required',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'extra_fields' => 'nullable|array'
         ]);
 
         if(empty($request->sales)) {
@@ -50,6 +62,8 @@ class ProductController extends Controller
             'sales' => $sales,
             'stock' => $request->stock,
         ]);
+
+        // store images
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -70,7 +84,140 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Product added successfully');
+        // store extra fields if present
+
+        if (!empty($request->extra_fields)) {
+            foreach ($request->extra_fields as $field) {
+                if(!empty($field['name']) && !empty($field['value'])) {
+                    ProductAddition::create([
+                        'product_id' => $product->id,
+                        'name' => $field['name'],
+                        'value' => $field['value'],
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->route('admin.products')->with('success', "Product added successfully");
+    }
+
+    public function editProduct($id) {
+        $pageTitle = "Edit Product";
+        $product = Product::where('id', $id)->with('productImage', 'category', 'productAddition')->first();
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('admin.products.edit', [
+            'pageTitle' => $pageTitle,
+            'product' => $product,
+            'categories' => $categories,
+            'brands' => $brands,
+        ]);
+
+    }
+
+    public function editProductPost(Request $request, $id) {
+        $request->validate([
+            'category' => 'required',
+            'brand',
+            'product_name' => 'required',
+            'product_description' => 'required',
+            'price' => 'required',
+            'sales',
+            'stock' => 'required',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'extra_fields' => 'nullable|array'
+        ]);
+
+        if(empty($request->sales)) {
+            $sales = $request->price;
+        } else {
+            $sales = $request->sales;
+        }
+
+        // update products
+
+        Product::where('id', $id)->update([
+            'category_id' => $request->category,
+            'brand_id' => $request->brand,
+            'name' => $request->product_name,
+            'price' => $request->price,
+            'description' => $request->product_description,
+            'sales' => $sales,
+            'stock' => $request->stock,
+        ]);
+
+        // store images
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                // generate a unique name
+                $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $image->getClientOriginalExtension();
+
+                $filename = $originalName . '_' . time() . '.' . $extension;
+
+                // Save to storage
+                $imagePath = $image->storeAs('uploads', $filename, 'public');
+
+                // Save to database
+                ProductImage::create([
+                    'product_id' => $id,
+                    'image' => $imagePath,
+                ]);
+            }
+        }
+
+        // store extra fields if present
+
+        if (!empty($request->extra_fields)) {
+            foreach ($request->extra_fields as $field) {
+                if(!empty($field['name']) && !empty($field['value'])) {
+                    ProductAddition::create([
+                        'product_id' => $id,
+                        'name' => $field['name'],
+                        'value' => $field['value'],
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->back()->with('success', 'Product edited successfully');
+    }
+
+    public function deleteProduct(Request $request, $id) {
+        $product = Product::with('productImage', 'productAddition')->find($id);
+
+        if ($product) {
+
+            // delete product images
+            $productImages = $product->productImage;
+            if(count($productImages) > 0) {
+                foreach($productImages as $productImage) {
+                    $imagePath = public_path('uploads/' . $productImage->image); // Adjust path as needed
+                    // Check if file exists, then delete it
+                    if (file_exists($imagePath) && is_file($imagePath)) {
+                        Storage::delete('public/uploads/' . $productImage->image);
+                    }
+                    // Delete the database record
+                    $productImage->delete();
+                }
+            }
+
+            // delete product additions
+            $productAdditions = $product->productAddition;
+            if(count($productAdditions) > 0) {
+                foreach($productAdditions as $productAddition) {
+                    $productAddition->delete();
+                }
+            }
+
+            // delete product row
+            $product->delete();
+
+            return redirect()->back()->with('success', 'Product deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Product not found.');
     }
 
     public function categories()
@@ -137,6 +284,39 @@ class ProductController extends Controller
             ]);
 
             return redirect()->back()->with('success', 'Brand added successfully');
+        }
+    }
+
+    public function deleteImage(Request $request, $id) {
+        $productImage = ProductImage::find($id);
+
+        if ($productImage) {
+            // Get the image path
+            $imagePath = public_path('uploads/' . $productImage->image); // Adjust path as needed
+
+            // Check if file exists, then delete it
+            if (file_exists($imagePath) && is_file($imagePath)) {
+                Storage::delete('public/uploads/' . $productImage->image);
+            }
+
+            // Delete the database record
+            $productImage->delete();
+
+            return redirect()->back()->with('success', 'Image deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Image not found.');
+    }
+
+    public function deleteAddition(Request $request, $id) {
+        $productAddition = ProductAddition::find($id);
+        if ($productAddition) {
+            $productAddition->delete();
+            return redirect()->back()->with('success', 'Field deleted Successfully');
+        }
+
+        else {
+            return redirect()->back()->with('error', 'Field not found');
         }
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 // Admin routes (Will be put in middleware later)
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::get('/add-products', [ProductController::class, 'addProducts'])->name('add-products');
+    Route::post('/add-products', [ProductController::class, 'addProductPost']);
 
     // Categories
     Route::get('/categories', [ProductController::class, 'categories'])->name('categories');

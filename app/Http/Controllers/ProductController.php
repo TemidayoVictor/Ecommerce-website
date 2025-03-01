@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
+use App\Models\ProductImage;
 
 class ProductController extends Controller
 {
@@ -20,6 +21,56 @@ class ProductController extends Controller
             'categories' => $categories,
             'brands' => $brands,
         ]);
+    }
+
+    public function addProductPost(Request $request) {
+        $request->validate([
+            'category' => 'required',
+            'brand',
+            'product_name' => 'required',
+            'product_description' => 'required',
+            'price' => 'required',
+            'sales',
+            'stock' => 'required',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
+        ]);
+
+        if(empty($request->sales)) {
+            $sales = $request->price;
+        } else {
+            $sales = $request->sales;
+        }
+
+        $product = Product::create([
+            'category_id' => $request->category,
+            'brand_id' => $request->brand,
+            'name' => $request->product_name,
+            'price' => $request->price,
+            'description' => $request->product_description,
+            'sales' => $sales,
+            'stock' => $request->stock,
+        ]);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                // generate a unique name
+                $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $image->getClientOriginalExtension();
+
+                $filename = $originalName . '_' . time() . '.' . $extension;
+
+                // Save to storage
+                $imagePath = $image->storeAs('uploads', $filename, 'public');
+
+                // Save to database
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image' => $imagePath,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Product added successfully');
     }
 
     public function categories()

@@ -1,3 +1,8 @@
+@php
+    $cart = session('cart', []);
+    $totalProducts = count($cart); 
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -52,11 +57,11 @@
                     </div>
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="" class="nav__link">Home</a>
+                            <a href="{{ route('index') }}" class="nav__link">Home</a>
                         </li>
 
                         <li class="nav__item">
-                            <a href="" class="nav__link">Shop</a>
+                            <a href="{{ route('shop') }}" class="nav__link">Shop</a>
                         </li>
 
                         <li class="nav__item">
@@ -86,9 +91,9 @@
                         <span class="count">3</span>
                     </a>
 
-                    <a href="" class="header__action-btn">
+                    <a href="cart" class="header__action-btn">
                         <img src="{{ asset('assets/icon-cart.svg') }}" alt="">
-                        <span class="count">3</span>
+                        <span class="count">{{ $totalProducts }}</span>
                     </a>
 
                     <div class="header__action-btn  nav__toggle" id="nav-toggle">
@@ -208,5 +213,88 @@
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src=" {{ asset('js/script.js') }} "></script>
+
+        <script src="{{ asset('js/app.js') }}"></script>
+
+    <script>
+        document.querySelectorAll('.cart__btn').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+        var productId = this.getAttribute('data-product-id');
+
+        fetch('{{ route("cart.add") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                quantity: 1
+            })
+        })
+        .then(response => {
+            if(!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Simple notification using alert
+            alert(data.success);
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was an error adding the product to the cart.');
+        });
+    });
+});
+</script>
+
+        <script>
+document.querySelector('.btn-update-cart').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // Create an object to hold the new quantities
+    let updatedQuantities = {};
+
+    // Loop through each quantity input
+    document.querySelectorAll('.quantity').forEach(function(input) {
+        let productId = input.getAttribute('data-product-id');
+        let quantity = input.value;
+        updatedQuantities[productId] = quantity;
+    });
+
+    // Send the updated quantities via AJAX (using fetch)
+    fetch('{{ route("cart.updateAll") }}', {
+    method: 'PATCH',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    },
+    credentials: 'include', // or 'same-origin'
+    body: JSON.stringify(updatedQuantities)
+})
+.then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+.then(data => {
+    alert(data.message);
+    location.reload();
+})
+.catch(error => {
+    console.error('Error updating cart:', error);
+    alert('There was an error updating your cart.');
+});
+
+
+});
+
+</script>
+
     </body>
 </html>

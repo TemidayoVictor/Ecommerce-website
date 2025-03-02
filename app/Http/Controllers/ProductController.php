@@ -71,7 +71,7 @@ class ProductController extends Controller
                 $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = $image->getClientOriginalExtension();
 
-                $filename = $originalName . '_' . time() . '.' . $extension;
+                    $filename = $originalName . '_' . time() . '.' . $extension;
 
                 // Save to storage
                 $imagePath = $image->storeAs('uploads', $filename, 'public');

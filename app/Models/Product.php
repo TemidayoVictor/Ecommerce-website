@@ -29,4 +29,6 @@ class Product extends Model
     public function productAddition() {
         return $this->hasMany(ProductAddition::class);
     }
+
+    
 }

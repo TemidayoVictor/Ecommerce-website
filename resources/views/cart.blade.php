@@ -6,6 +6,12 @@
 
 @section('content')
 
+@php 
+        $cart = session('cart', []);
+        $total = 0;
+    @endphp
+
+
 <section class="breadcrumb">
         <ul class="breadcrumb__list flex-1 container">
             <li><a href="" class="breadcrumb__link">Home</a></li>
@@ -19,6 +25,8 @@
     <!-- CART -->
     <section class="cart section--lg container">
         <div class="table__container">
+        @if(count($cart) > 0)
+        
             <table class="table">
                 <tr>
                     <th>Image</th>
@@ -28,78 +36,53 @@
                     <th>Subtotal</th>
                     <th>Remove</th>
                 </tr>
+                @foreach($cart as $productId => $item)
+                    @php 
+                        $lineTotal = $item['price'] * $item['quantity'];
+                        $total += $lineTotal;
+                    @endphp
 
                 <tr>
                     <td>
-                        <img src="{{ asset('assets/product-1-2.jpg') }}" alt="" class="table__img">
+                        <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" class="table__img">
                     </td>
 
                     <td>
-                        <h3 class="table__title">J-crew Mercantile womens short sleeve</h3>
+                        <h3 class="table__title">{{ $item['name'] }}</h3>
                         <p class="table__description">
-                            Maboriosam in a tonto nesciung eget distingy.
+                        {{ $item['description'] ?? 'No description available' }}
                         </p>
                     </td>
 
-                    <td><span class="table__price">$110</span></td>
+                    <td><span class="table__price">NGN{{ number_format($item['price'], 2) }}</span></td>
 
-                    <td><input type="number" value="3" class="quantity"></td>
+                    <td><input type="number" name="quantity" data-product-id="{{ $productId }}" value="{{ $item['quantity'] }}" class="quantity" min="1"></td>
 
-                    <td><span class="table__subtotal">$220</span></td>
+                    <td><span class="table__subtotal">NGN{{ number_format($item['price'] * $item['quantity'], 2) }}</span></td>
 
-                    <td><i class="ri-delete-bin-line table__trash"></i></td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <img src="{{ asset('assets/product-7-1.jpg') }}" alt="" class="table__img">
+                    <td><form action="{{ route('cart.remove', $productId) }}" method="POST">
+                        @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="ri-delete-bin-line table__trash"></i>
+                    </button>
                     </td>
-
-                    <td>
-                        <h3 class="table__title">J-crew Mercantile womens short sleeve</h3>
-                        <p class="table__description">
-                            Maboriosam in a tonto nesciung eget distingy.
-                        </p>
-                    </td>
-
-                    <td><span class="table__price">$110</span></td>
-
-                    <td><input type="number" value="3" class="quantity"></td>
-
-                    <td><span class="table__subtotal">$220</span></td>
-
-                    <td><i class="ri-delete-bin-line table__trash"></i></td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <img src="{{ asset('assets/product-2-1.jpg') }}" alt="" class="table__img">
-                    </td>
-
-                    <td>
-                        <h3 class="table__title">J-crew Mercantile womens short sleeve</h3>
-                        <p class="table__description">
-                            Maboriosam in a tonto nesciung eget distingy.
-                        </p>
-                    </td>
-
-                    <td><span class="table__price">$110</span></td>
-
-                    <td><input type="number" value="3" class="quantity"></td>
-
-                    <td><span class="table__subtotal">$220</span></td>
-
-                    <td><i class="ri-delete-bin-line table__trash"></i></td>
-                </tr>
+                    </form>
+                    </tr>
+                @endforeach
+              
             </table>
+            @else
+        <p>Your cart is empty.</p>
+    @endif
         </div>
 
         <div class="cart__actions">
-            <a href="" class="btn flex btn--md">
+            <a href="" class="btn flex btn--md btn-update-cart">
                 <i class="ri-shuffle-line"></i> Update Cart
             </a>
 
-            <a href="" class="btn flex btn--md">
+            <a href="{{ route('shop') }}" class="btn flex btn--md">
                 <i class="ri-shopping-bag-line"></i> Continue Shopping
             </a>
         </div>
@@ -107,6 +90,7 @@
         <div class="divider">
         <i class="ri-fingerprint-line"></i>
         </div>
+
 
         <div class="cart__group grid">
             <div>
@@ -174,3 +158,4 @@
         </div>
     </section>
     @endsection
+    

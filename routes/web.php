@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\WishlistController;
 
 
 // Admin routes (Will be put in middleware later)
@@ -32,13 +36,25 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::post('/delete-addition/{id}', [ProductController::class, 'deleteAddition'])->name('delete-addition');
 });
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [HomeController::class, 'index'])->name('index');
 
-Route::get('/shop', function () {
-    return view('shop');
-});
+Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
+
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+
+Route::delete('/cart/remove/{productId}', [CartController::class, 'remove'])->name('cart.remove');
+
+Route::patch('/cart/update-all', [CartController::class, 'updateAll'])->name('cart.updateAll');
+
+// Display wishlist
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index')->middleware('auth');
+
+// Add product to wishlist (can be POST)
+Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');//->middleware('auth');
+
+// Remove product from wishlist (you can use DELETE, here we use GET or POST for simplicity)
+Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove');//->middleware('auth');
+
 
 Route::get('/cart', function () {
     return view('cart');

@@ -10,16 +10,20 @@
         <ul class="breadcrumb__list flex-1 container">
             <li><a href="" class="breadcrumb__link">Home</a></li>
             <li><span class="breadcrumb__link">></span></li>
-            <li><span class="breadcrumb__link">Fashion</span></li>
+            <li><span class="breadcrumb__link">{{ $product->category->name }}</span></li>
             <li><span class="breadcrumb__link">></span></li>
-            <li><span class="breadcrumb__link">Henley Shirt</span></li>
+            <li><span class="breadcrumb__link">{{ $product->name }} </span></li>
         </ul>
     </section>
 
     <section class="details section--lg">
         <div class="details__container container grid">
             <div class="details__group">
-                <img src="{{ asset('assets/product-8-1.jpg') }}" alt="" class="details__img">
+            @if($product->productImage->isNotEmpty())
+                <img src="{{ asset('storage/' . $product->productImage->first()->image) }}" alt="{{ $product->name }}" class="details__img">
+                @else
+                <img src="{{ asset('assets/product-8-1.jpg') }}" alt="Default Product" class="details__img">
+                @endif
 
                 <div class="details__small-images grid">
                     <img src="{{ asset('assets/product-8-2.jpg') }}" alt="" class="details__small-img">
@@ -29,16 +33,19 @@
             </div>
 
             <div class="details__group">
-                <h3 class="details__title">Henley Shirt</h3>
-                <p class="details__brand">Brands: <span>Addidas</span></p>
+                <h3 class="details__title">{{ $product->name }}</h3>
+                @if($product->brand)
+                <p class="details__brand">Brands: <span>{{ $product->brand->name }}</span></p>
+                @else
+                <p class="product__brand">Brand: Not specified</p>
+                @endif
                 <span class="details__price flex-1">
-                    <span class="new__price">$116</span>
+                    <span class="new__price">NGN{{ number_format($product->price, 2) }}</span>
                     <span class="old__price">$200</span>
                     <span class="save__price">25% off</span>
                 </span>
                 <p class="short__description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, aliquid! Reprehenderit odio minus esse quasi praesentium quod laborum ab assumenda.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, aliquid! Reprehenderit odio minus esse quasi praesentium quod laborum ab assumenda.
+                {{ $product->description }}
                 </p>
 
                 <ul class="product__list">
@@ -94,8 +101,8 @@
                 </div>
 
                 <div class="details__action">
-                    <input type="number" class="quantity" value="3">
-                    <a href="" class="btn btn--sm">Add To Cart</a>
+                    <input type="number" class="quantity" value="1" min="1">
+                    <a href="" class="btn btn--sm" aria-label="Add To Cart" data-product-id="{{ $product->id }}">Add To Cart</a>
                     <a href="" class="details__action-btn">
                         <i class="ri-heart-line"></i>
                     </a>

@@ -88,7 +88,7 @@ Home
                 @foreach($products as $product)
                     <div class="product__item">
                         <div class="product__banner">
-                            <a href="" class="product_images">
+                            <a href="{{ route('product.show', $product->id) }}" class="product_images">
                                 <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="Product Image" class="product__img default">
                                 <img src="{{ asset('assets/product-1-2.jpg') }}" alt="" class="product__img hover">
                             </a>
@@ -113,7 +113,7 @@ Home
 
                         <div class="product__content">
                             <span class="product__category">{{ $product->category->name }} </span>
-                            <a href="">
+                            <a href="{{ route('product.show', $product->id) }}">
                                 <h3 class="product__title">{{ $product->name }}</h3>
                             </a>
                             <div class="product__rating">
@@ -478,7 +478,7 @@ Home
                 @foreach($products as $product)
                 <div class="product__item">
                         <div class="product__banner">
-                            <a href="" class="product_images">
+                            <a href="{{ route('product.show', $product->id) }}" class="product_images">
                                 <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="Product Image" class="product__img default">
                                 <img src="{{ asset('assets/product-1-2.jpg') }}" alt="" class="product__img hover">
                             </a>

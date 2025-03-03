@@ -30,5 +30,9 @@ class Product extends Model
         return $this->hasMany(ProductAddition::class);
     }
 
-    
+    public function brand()
+{
+    return $this->belongsTo(Brand::class);
+}
+
 }

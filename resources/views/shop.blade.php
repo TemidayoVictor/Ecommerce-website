@@ -47,7 +47,7 @@
 
                 <div class="product__content">
                     <span class="product__category">{{ $product->category->name }}</span>
-                    <a href="">
+                    <a href="{{ route('product.show', $product->id) }}">
                         <h3 class="product__title">{{ $product->name }}</h3>
                     </a>
                     <div class="product__rating">

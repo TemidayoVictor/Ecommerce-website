@@ -55,6 +55,9 @@ Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist
 // Remove product from wishlist (you can use DELETE, here we use GET or POST for simplicity)
 Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove');//->middleware('auth');
 
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+
+
 
 Route::get('/cart', function () {
     return view('cart');

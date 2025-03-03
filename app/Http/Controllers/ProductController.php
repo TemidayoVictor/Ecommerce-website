@@ -319,4 +319,12 @@ class ProductController extends Controller
             return redirect()->back()->with('error', 'Field not found');
         }
     }
+
+    public function show($id)
+{
+    $product = Product::with('productImage', 'brand')->findOrFail($id);
+    return view('details', compact('product'));
+}
+
+
 }

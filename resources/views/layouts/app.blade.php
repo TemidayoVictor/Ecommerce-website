@@ -1,6 +1,6 @@
 @php
     $cart = session('cart', []);
-    $totalProducts = count($cart); 
+    $totalProducts = count($cart);
 @endphp
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@
         <meta name="csrf-token" content="content">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <link rel="icon" href="" type="image/png" sizes="160x160">
         <link rel="stylesheet" href="{{ asset ('css/style.css')}}">
 
@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css" type="image/x-icon">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontisto/3.0.4/css/fontisto.min.css">
 
-        
+
         {{-- fontawesome kit --}}
         <script src="https://kit.fontawesome.com/23bcbedea7.js" crossorigin="anonymous"></script>
         <title>E Commerce Website || @yield('title')</title>
@@ -104,7 +104,7 @@
         </header>
 
         <main class="main">
-            
+
             @yield('content')
 
             <section class="newsletter section home__newsletter">
@@ -117,9 +117,9 @@
                 ... and receive $25 coupon for shopping
             </p>
             <form action="" class="newsletter__form">
-                <input 
-                    type="text" 
-                    placeholder="Enter your email" 
+                <input
+                    type="text"
+                    placeholder="Enter your email"
                     class="newsletter__input"
                 >
                 <button type="submit" class="newsletter__btn">Subscribe</button>
@@ -129,19 +129,19 @@
 
             <footer class="footer container">
                 <div class="footer__container grid">
-                    
+
                     <div class="footer__content">
                         <a href="" class="footer__logo">
                             <img src="{{ asset('assets/T&T logo.jpg') }}" alt="" class="footer__logo-img">
                         </a>
                         <h4 class="footer__subtitle">Contact</h4>
-                        
+
                         <p class="footer__description">
                             <span>Address: </span> 811 Admissions Court Virginia Beach VA 23462 USA
                         </p>
 
                         <p class="footer__description">
-                            <span>Phone: </span> +1 (757) 648-9243 
+                            <span>Phone: </span> +1 (757) 648-9243
                         </p>
 
                         <p class="footer__description">
@@ -149,11 +149,11 @@
                         </p>
 
                         <div class="footer__social">
-                            
+
                             <h4 class="footer__subtitle">Follow Us</h4>
 
                             <div class="footer__social-links flex-1">
-                                
+
                                 <a href="" class="footer__logo">
                                     <img src="{{ asset('assets/icon-facebook.svg') }}" alt="" class="footer__social-icon">
                                 </a>
@@ -214,42 +214,40 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src=" {{ asset('js/script.js') }} "></script>
 
-        <script src="{{ asset('js/app.js') }}"></script>
-
     <script>
         document.querySelectorAll('.cart__btn').forEach(function(button) {
-    button.addEventListener('click', function(event) {
-        event.preventDefault();
-        var productId = this.getAttribute('data-product-id');
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            var productId = this.getAttribute('data-product-id');
 
-        fetch('{{ route("cart.add") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                product_id: productId,
-                quantity: 1
+            fetch('{{ route("cart.add") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    quantity: 1
+                })
             })
-        })
-        .then(response => {
-            if(!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Simple notification using alert
-            alert(data.success);
-            console.log(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('There was an error adding the product to the cart.');
+            .then(response => {
+                if(!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Simple notification using alert
+                alert(data.success);
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error adding the product to the cart.');
+            });
         });
     });
-});
 </script>
 
         <script>

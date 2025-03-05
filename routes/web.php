@@ -6,7 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\WishlistController;
-
+use App\Http\Controllers\OrderController;
 
 // Admin routes (Will be put in middleware later)
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
@@ -57,7 +57,8 @@ Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->n
 
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
-
+Route::get('/checkout', [OrderController::class, 'index'])->name('place-order');
+Route::post('/checkout', [OrderController::class, 'placeOrder']);
 
 Route::get('/cart', function () {
     return view('cart');
@@ -65,10 +66,6 @@ Route::get('/cart', function () {
 
 Route::get('/login', function () {
     return view('login');
-});
-
-Route::get('/checkout', function () {
-    return view('checkout');
 });
 
 Route::get('/compare', function () {

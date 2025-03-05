@@ -13,19 +13,19 @@ class CartController extends Controller
             'product_id' => 'required|integer|exists:products,id',
             'quantity'   => 'sometimes|integer|min:1'
         ]);
-    
+
         $productId = $request->input('product_id');
         $quantity  = $request->input('quantity', 1);
-    
+
         $cart = session()->get('cart', []);
-    
+
         if(isset($cart[$productId])) {
             $cart[$productId]['quantity'] += $quantity;
         } else {
             $product = Product::find($productId);
             // Get the image using the productImage relationship
-            $image = $product->productImage->isNotEmpty() 
-            ? $product->productImage->last()->image 
+            $image = $product->productImage->isNotEmpty()
+            ? $product->productImage->last()->image
             : 'default.png'; // Optionally provide a default image if none exists
 
             $cart[$productId] = [
@@ -33,12 +33,13 @@ class CartController extends Controller
                 "quantity" => $quantity,
                 "description" => $product->description,
                 "price"    => $product->price,
-                "image"  => $image, 
+                "image"  => $image,
+                "id" => $product->id,
             ];
         }
-    
+
         session()->put('cart', $cart);
-    
+
         return response()->json([
             'success' => 'Product added to cart successfully!'
         ]);
@@ -66,7 +67,7 @@ public function updateAll(Request $request)
 {
     // The request's JSON payload is an object with product IDs as keys.
     $updatedQuantities = $request->all();
-    
+
     // Retrieve the current cart from session.
     $cart = session()->get('cart', []);
 
@@ -76,13 +77,13 @@ public function updateAll(Request $request)
             $cart[$productId]['quantity'] = $quantity;
         }
     }
-    
+
     // Save the updated cart back into the session.
     session()->put('cart', $cart);
-    
+
     return response()->json(['message' => 'Cart updated successfully!']);
 }
 
 
-    
+
 }

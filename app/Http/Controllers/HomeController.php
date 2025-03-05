@@ -11,7 +11,7 @@ class HomeController extends Controller
         {
             // Retrieve all products (consider pagination for a large number of products)
             $products = Product::all(); // or Product::paginate(10);
-    
+
             // Pass the products to your homepage view
             return view('index', compact('products'));
         }

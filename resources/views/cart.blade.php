@@ -6,7 +6,7 @@
 
 @section('content')
 
-@php 
+@php
         $cart = session('cart', []);
         $total = 0;
     @endphp
@@ -26,7 +26,7 @@
     <section class="cart section--lg container">
         <div class="table__container">
         @if(count($cart) > 0)
-        
+
             <table class="table">
                 <tr>
                     <th>Image</th>
@@ -37,7 +37,7 @@
                     <th>Remove</th>
                 </tr>
                 @foreach($cart as $productId => $item)
-                    @php 
+                    @php
                         $lineTotal = $item['price'] * $item['quantity'];
                         $total += $lineTotal;
                     @endphp
@@ -70,7 +70,7 @@
                     </form>
                     </tr>
                 @endforeach
-              
+
             </table>
             @else
         <p>Your cart is empty.</p>
@@ -148,7 +148,7 @@
                     <tr>
                         <td><span class="cart__total-title">Total</span></td>
                         <td><span class="cart__total-price">$240.00</span></td>
-                    </tr> 
+                    </tr>
                 </table>
 
                 <a href="#" class="btn flex btn--md">
@@ -158,4 +158,3 @@
         </div>
     </section>
     @endsection
-    

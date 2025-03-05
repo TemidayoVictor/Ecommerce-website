@@ -26,7 +26,7 @@ Home
                 </div>
                 <div class="">
                     <i class=" swiper-move-next ri-arrow-right-s-line"></i>
-                </div>                    
+                </div>
             </div>
         </div>
         <div class="categories__container swiper">
@@ -471,7 +471,7 @@ Home
                     </div> -->
                     @endforeach
                 </div>
-            </div> 
+            </div>
 
             <div class="tab__item" content id="popular">
                 <div class="products__container grid">
@@ -739,7 +739,7 @@ Home
 
                             <div class="product__badge light-orange">Hot</div>
 
-                        </div> 
+                        </div>
 
                         <div class="product__content">
                             <span class="product__category">Clothing</span>
@@ -862,7 +862,7 @@ Home
                     @endforeach
                 </div>
             </div>
-                
+
             <div class="tab__item" content id="new-added">
                 <div class="products__container grid">
                 @foreach($products as $product)
@@ -1351,7 +1351,7 @@ Home
                 </div>
                 <div class="">
                     <i class=" swiper-prod-move-next ri-arrow-right-s-line"></i>
-                </div>                    
+                </div>
             </div>
         </div>
         <div class="new__container swiper">
@@ -1930,5 +1930,5 @@ Home
         </div>
     </section>
 
-    
+
 @endsection

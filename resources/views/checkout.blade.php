@@ -6,132 +6,131 @@
 
 @section('content')
 
-<section class="breadcrumb">
-    <ul class="breadcrumb__list flex-1 container">
-        <li><a href="" class="breadcrumb__link">Home</a></li>
-        <li><span class="breadcrumb__link">></span></li>
-        <li><span class="breadcrumb__link">Shop</span></li>
-        <li><span class="breadcrumb__link">></span></li>
-        <li><span class="breadcrumb__link">Checkout</span></li>
-    </ul>
-</section>
+    <section class="breadcrumb">
+        <ul class="breadcrumb__list flex-1 container">
+            <li><a href="" class="breadcrumb__link">Home</a></li>
+            <li><span class="breadcrumb__link">></span></li>
+            <li><span class="breadcrumb__link">Shop</span></li>
+            <li><span class="breadcrumb__link">></span></li>
+            <li><span class="breadcrumb__link">Checkout</span></li>
+        </ul>
+    </section>
 
-<section class="checkout section--lg">
-    <div class="checkout__container container grid">
-        <div class="checkout__group">
-            <h3 class="section__title">Billing Details</h3>
-
-            <form action="" class="form grid">
-                <input type="text" placeholder="Name" class="form__input">
-
-                <input type="text" placeholder="Address" class="form__input">
-
-                <input type="text" placeholder="City" class="form__input">
-
-                <input type="text" placeholder="Country" class="form__input">
-
-                <input type="text" placeholder="Postcode" class="form__input">
-
-                <input type="text" placeholder="Phone" class="form__input">
-
-                <input type="text" placeholder="Email" class="form__input">
-
-                <h3 class="checkout__title">Additional Information</h3>
-
-                <textarea name="" placeholder="Order note" id="" cols="30" rows="10" class="form__input textarea"></textarea>
-            </form>
-
+    @if (session('success'))
+        <div id="notification" class="status stat-2 success">
+            <p>{{ session('success') }}</p>
         </div>
+    @endif
 
-        <div class="checkout__group">
-            <h3 class="section__title">Cart Totals</h3>
+    @if (session('error'))
+        <div  class=" notification status stat-2 failed">
+            <p>{{ session('error') }}</p>
+        </div>
+    @endif
 
-            <table class="order__table">
-                <tr>
-                    <th colspan="2">Products</th>
-                    <th>Total</th>
-                </tr>
+    <section class="checkout section--lg">
+        <div class="checkout__container container grid">
+            <div class="checkout__group">
+                <h3 class="section__title">Cart Totals</h3>
 
-                <tr>
-                    <td>
-                        <img src="{{ asset('assets/product-8-2.jpg') }}" alt="" class="order__img">
-                    </td>
+                <table class="order__table">
+                    <tr>
+                        <th colspan="2">Products</th>
+                        <th>Total</th>
+                    </tr>
 
-                    <td>
-                        <h3 class="table__title">Yidarton Women Summer Blue</h3>
-                        <p class="table__quantity">x 2</p>
-                    </td>
+                    @forelse($cartItem as $key => $item)
+                        <tr>
+                            <td>
+                                <img src="{{ asset('storage/' . $item['image']) }}" alt="" class="order__img">
+                            </td>
 
-                    <td><span class="table__price">$180</span></td>
-                </tr>
+                            <td>
+                                <h3 class="table__title">{{ $item['name'] }}</h3>
+                                <p class="table__quantity">x {{ $item['quantity'] }}</p>
+                            </td>
 
-                <tr>
-                    <td>
-                        <img src="{{ asset('assets/product-8-2.jpg') }}" alt="" class="order__img">
-                    </td>
+                            <td><span class="table__price"> NGN {{ number_format($item['price'] * $item['quantity']) }}</span></td>
+                        </tr>
+                    @empty
+                        <p>You have not added any products to the cart</p>
+                    @endforelse
 
-                    <td>
-                        <h3 class="table__title">Yidarton Women Summer Blue</h3>
-                        <p class="table__quantity">x 2</p>
-                    </td>
+                    <tr>
+                        <td>
+                            <span  class="order__subtitle">Sub-Total</span>
+                        </td>
+                        <td colspan="2"><span class="table__price">NGN {{ number_format($total) }} </span></td>
+                    </tr>
 
-                    <td><span class="table__price">$180</span></td>
-                </tr>
+                    <tr>
+                        <td><span class="order__subtitle">Shipping</span></td>
+                        <td colspan="2"><span class="table__price">NGN {{ number_format($shipping) }}</span></td>
+                    </tr>
 
-                <tr>
-                    <td>
-                        <img src="{{ asset('assets/product-8-2.jpg') }}" alt="" class="order__img">
-                    </td>
+                    <tr>
+                        <td><span class="order__subtitle">Grand Total</span></td>
+                        <td colspan="2"><span class="order__grand-total">NGN {{ number_format($total + $shipping) }}</span></td>
+                    </tr>
+                </table>
 
-                    <td>
-                        <h3 class="table__title">Yidarton Women Summer Blue</h3>
-                        <p class="table__quantity">x 2</p>
-                    </td>
+                <div class="payment__methods">
+                    <h3 class="checkout__title payment__title">Payment</h3>
+                    <div class="payment__option flex-1">
+                        <input type="radio" class="payment__input">
+                        <label for="" class="payment__label" checked>Direct Bank Transfer</label>
+                    </div>
 
-                    <td><span class="table__price">$180</span></td>
-                </tr>
+                    <div class="payment__option flex-1">
+                        <input type="radio" class="payment__input">
+                        <label for="" class="payment__label">Checkout Payment</label>
+                    </div>
 
-                <tr>
-                    <td>
-                        <span  class="order__subtitle">SubTotal</span>
-                    </td>
-                    <td colspan="2"><span class="table__price">$280.00</span></td>
-                </tr>
-
-                <tr>
-                    <td><span class="order__subtitle">Shipping</span></td>
-                    <td colspan="2"><span class="table__price">$280.00</span></td>
-                </tr>
-
-                <tr>
-                    <td><span class="order__subtitle">Shipping</span></td>
-                    <td colspan="2"><span class="order__grand-total">$280.00</span></td>
-                </tr>
-            </table>
-
-            <div class="payment__methods">
-                <h3 class="checkout__title payment__title">Payment</h3>
-                <div class="payment__option flex-1">
-                    <input type="radio" class="payment__input">
-                    <label for="" class="payment__label" checked>Direct Bank Transfer</label>
-                </div>
-
-                <div class="payment__option flex-1">
-                    <input type="radio" class="payment__input">
-                    <label for="" class="payment__label">Checkout Payment</label>
-                </div>
-
-                <div class="payment__option flex-1">
-                    <input type="radio" class="payment__input">
-                    <label for="" class="payment__label">Paypal</label>
+                    <div class="payment__option flex-1">
+                        <input type="radio" class="payment__input">
+                        <label for="" class="payment__label">Paypal</label>
+                    </div>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn--sm">Place Order</button>
+            <div class="checkout__group">
+                <h3 class="section__title">Billing Details</h3>
+
+                <form action="" class="form grid" method="post">
+                    @csrf
+                    <div style="width:100%;">
+                        <h4 class="checkout__title">Name</h4>
+                        <input style="width:100%;" type="text" placeholder="Name" name="name" value="{{ old('name') }}" required class="form__input">
+                    </div>
+                    <div>
+                        <h4 class="checkout__title">Address</h4>
+                        <input style="width:100%;" type="text" placeholder="Address" name="address" value="{{ old('address') }}" required class="form__input">
+                    </div>
+                    <div>
+                        <h4 class="checkout__title">City</h4>
+                        <input style="width:100%;" type="text" placeholder="City" name="city" value="{{ old('city') }}" required class="form__input">
+                    </div>
+                    <div>
+                        <h4 class="checkout__title">Country</h4>
+                        <input style="width:100%;" type="text" placeholder="Country" name="country" value="{{ old('country') }}" required class="form__input">
+                    </div>
+                    <div>
+                        <h4 class="checkout__title">Phone</h4>
+                        <input style="width:100%;" type="text" placeholder="Phone" name="phone" value="{{ old('phone') }}" required class="form__input">
+                    </div>
+                    <div>
+                        <h4 class="checkout__title">Email</h4>
+                        <input style="width:100%;" type="email" placeholder="Email" name="email" value="{{ old('email') }}" required class="form__input">
+                    </div>
+
+                    <h3 class="checkout__title">Additional Information</h3>
+
+                    <textarea name="note" placeholder="Order note" id="" cols="10" rows="10" class="form__input textarea"> {{ old('note') }} </textarea>
+
+                    <button type="submit" class="btn btn--sm">Place Order</button>
+                </form>
+
+            </div>
         </div>
-    </div>
-</section>
-
-
-
+    </section>
 @endsection

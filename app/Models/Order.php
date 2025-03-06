@@ -20,5 +20,11 @@ class Order extends Model
         'additional_information',
         'user_id',
         'shipping_status',
+        'order_number',
+        'shipping'
     ];
+
+    public function orderItem() {
+        return $this->hasMany(OrderItem::class);
+    }
 }

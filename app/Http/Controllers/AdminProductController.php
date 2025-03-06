@@ -10,7 +10,7 @@ use App\Models\ProductImage;
 use App\Models\ProductAddition;
 use Illuminate\Support\Facades\Storage;
 
-class ProductController extends Controller
+class AdminProductController extends Controller
 {
 
     public function index() {
@@ -223,8 +223,10 @@ class ProductController extends Controller
     public function categories()
     {
         $pageTitle = 'Categories';
+        $categories = Category::all();
         return view('admin.products.category', [
             'pageTitle' => $pageTitle,
+            'categories' => $categories
         ]);
     }
 
@@ -255,9 +257,11 @@ class ProductController extends Controller
     {
         $pageTitle = 'Brands';
         $categories = Category::all();
+        $brands = Brand::with('category')->get();
         return view('admin.products.brand', [
             'pageTitle' => $pageTitle,
             'categories' => $categories,
+            'brands' => $brands,
         ]);
     }
 

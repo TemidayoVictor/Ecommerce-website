@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
@@ -11,29 +12,37 @@ use App\Http\Controllers\OrderController;
 // Admin routes (Will be put in middleware later)
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     // Products
-    Route::get('/products', [ProductController::class, 'index'])->name('products');
+    Route::get('/products', [AdminProductController::class, 'index'])->name('products');
 
-    Route::get('/add-products', [ProductController::class, 'addProducts'])->name('add-products');
-    Route::post('/add-products', [ProductController::class, 'addProductPost']);
+    Route::get('/add-products', [AdminProductController::class, 'addProducts'])->name('add-products');
+    Route::post('/add-products', [AdminProductController::class, 'addProductPost']);
 
-    Route::get('/edit-product/{id}', [ProductController::class, 'editProduct'])->name('edit-products');
-    Route::post('/edit-product/{id}', [ProductController::class, 'editProductPost']);
+    Route::get('/edit-product/{id}', [AdminProductController::class, 'editProduct'])->name('edit-products');
+    Route::post('/edit-product/{id}', [AdminProductController::class, 'editProductPost']);
 
-    Route::post('/delete-product/{id}', [ProductController::class, 'deleteProduct'])->name('delete-product');
+    Route::post('/delete-product/{id}', [AdminProductController::class, 'deleteProduct'])->name('delete-product');
 
     // Categories
-    Route::get('/categories', [ProductController::class, 'categories'])->name('categories');
-    Route::post('/categories', [ProductController::class, 'addCategory']);
+    Route::get('/categories', [AdminProductController::class, 'categories'])->name('categories');
+    Route::post('/categories', [AdminProductController::class, 'addCategory']);
 
     // Brands
-    Route::get('/brands', [ProductController::class, 'brands'])->name('brands');
-    Route::post('/brands', [ProductController::class, 'addBrand']);
+    Route::get('/brands', [AdminProductController::class, 'brands'])->name('brands');
+    Route::post('/brands', [AdminProductController::class, 'addBrand']);
 
     // Product Images
-    Route::post('/delete-image/{id}', [ProductController::class, 'deleteImage'])->name('delete-image');
+    Route::post('/delete-image/{id}', [AdminProductController::class, 'deleteImage'])->name('delete-image');
 
     // Product Additions
-    Route::post('/delete-addition/{id}', [ProductController::class, 'deleteAddition'])->name('delete-addition');
+    Route::post('/delete-addition/{id}', [AdminProductController::class, 'deleteAddition'])->name('delete-addition');
+
+    // Orders
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders');
+    Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('order.show');
+
+    Route::post('/update-payment/{id}', [AdminOrderController::class, 'updatePayment'])->name('update-payment');
+    Route::post('/update-shipping/{id}', [AdminOrderController::class, 'updateShipping'])->name('update-shipping');
+
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -55,10 +64,14 @@ Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist
 // Remove product from wishlist (you can use DELETE, here we use GET or POST for simplicity)
 Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove');//->middleware('auth');
 
-Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/product/{id}', [AdminProductController::class, 'show'])->name('product.show');
 
+// checkout
 Route::get('/checkout', [OrderController::class, 'index'])->name('place-order');
 Route::post('/checkout', [OrderController::class, 'placeOrder']);
+
+// checkout -success
+Route::get('/order/{id}', [OrderController::class, 'details'])->name('order-details');
 
 Route::get('/cart', function () {
     return view('cart');

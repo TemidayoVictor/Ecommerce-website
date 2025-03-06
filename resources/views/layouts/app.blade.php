@@ -25,6 +25,25 @@
         <title>E Commerce Website || @yield('title')</title>
     </head>
     <body>
+        <div>
+            @foreach ($errors->all() as $message)
+                <div id="notification" class="status stat-2 failed">
+                    <p>{{ $message }}</p>
+                </div>
+            @endforeach
+
+            @if (session('success'))
+                <div id="notification" class="status stat-2 success">
+                    <p>{{ session('success') }}</p>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div  class=" notification status stat-2 failed">
+                    <p>{{ session('error') }}</p>
+                </div>
+            @endif
+        </div>
         <header class="header">
             <div class="header__top">
                 <div class="header__container container">

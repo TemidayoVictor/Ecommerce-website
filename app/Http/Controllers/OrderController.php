@@ -66,6 +66,8 @@ class OrderController extends Controller
             $userId = $user->id;
         }
 
+        $orderNumber = rand(100000000, 999999999);
+
         // create order
         $order = Order::create([
             'name' => $request->name,
@@ -79,6 +81,7 @@ class OrderController extends Controller
             'additional_information' => $note,
             'user_id' => $userId,
             'shipping_status' => "Pending",
+            'order_number' => $orderNumber,
         ]);
 
         // add each item in the cart to he database
@@ -86,12 +89,26 @@ class OrderController extends Controller
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $item['id'],
-                'quantity' => $item['price'],
+                'quantity' => $item['quantity'],
                 'amount' => $item['price'] * $item['quantity'],
             ]);
         }
+        session()->forget('cart');
+        return redirect()->route('order-details', ['id' => $order->id])->with('success', 'Your Order has been placed successfully');
+    }
 
-        return redirect()->back()->with('success', 'Your Order has been placed successfully');
+    public function details($id) {
+        $order = Order::where('id', $id)->with('orderItem.product.productImage')->first();
+        if($order) {
+            $pageTitle = "Order #".$order->order_number;
+            return view('order-details', [
+                'pageTitle' => $pageTitle,
+                'order' => $order,
+            ]);
+        }
 
+        else {
+            return back()->with('error', 'Order not Found');
+        }
     }
 }

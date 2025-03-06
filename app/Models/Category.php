@@ -13,6 +13,10 @@ class Category extends Model
         'status'
     ];
 
+    public function brands() {
+        return $this->hasMany(Brand::class);
+    }
+
     public function products() {
         return $this->hasMany(Product::class);
     }

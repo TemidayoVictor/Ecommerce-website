@@ -22,6 +22,10 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function brand() {
+        return $this->belongsTo(Brand::class);
+    }
+
     public function productImage() {
         return $this->hasMany(ProductImage::class);
     }
@@ -29,10 +33,5 @@ class Product extends Model
     public function productAddition() {
         return $this->hasMany(ProductAddition::class);
     }
-
-    public function brand()
-{
-    return $this->belongsTo(Brand::class);
-}
 
 }

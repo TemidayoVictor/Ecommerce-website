@@ -12,23 +12,6 @@
         </div>
         <div>
             <div class="product-box-container">
-                @foreach ($errors->all() as $message)
-                    <div id="notification" class="status stat-2 failed">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endforeach
-
-                @if (session('success'))
-                    <div id="notification" class="status stat-2 success">
-                        <p>{{ session('success') }}</p>
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div  class=" notification status stat-2 failed">
-                        <p>{{ session('error') }}</p>
-                    </div>
-                @endif
                 @forelse ($products as $product)
                     <div class="flex product-box">
                         <div class="flex-2 left">

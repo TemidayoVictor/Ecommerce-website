@@ -20,6 +20,7 @@
                 <li class="sidebar-item active"><a href="/admin/dashboard" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-users"></i> Users</a></li>
                 <li class="sidebar-item"><a href=" {{ route('admin.products') }} " class="sidebar-link"><i class="fas fa-box"></i> Products</a></li>
+                <li class="sidebar-item"><a href=" {{ route('admin.orders') }} " class="sidebar-link"><i class="fas fa-cart-plus"></i> Orders</a></li>
                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-chart-line"></i> Reports</a></li>
                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-cogs"></i> Settings</a></li>
             </ul>
@@ -27,6 +28,26 @@
     </div>
 
     <main class="main-content">
+
+        <div>
+            @foreach ($errors->all() as $message)
+                <div id="notification" class="status stat-2 failed">
+                    <p>{{ $message }}</p>
+                </div>
+            @endforeach
+
+            @if (session('success'))
+                <div id="notification" class="status stat-2 success">
+                    <p>{{ session('success') }}</p>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div  class=" notification status stat-2 failed">
+                    <p>{{ session('error') }}</p>
+                </div>
+            @endif
+        </div>
 
         <header>
             <div class="flex">
@@ -43,13 +64,10 @@
             </div>
         </header>
 
-        <div class="inner-content" style="margin-bottom: 2em;">
+        <div class="inner-content" style="padding-bottom: 2em;">
             @yield('content')
         </div>
 
-        <footer>
-            <p>&copy; {{ date('Y') }} T & T African Heritage LLC. All rights reserved.</p>
-        </footer>
     </main>
     <script src="{{ asset('js/script.js') }}"></script>
 </body>

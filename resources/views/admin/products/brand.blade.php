@@ -12,23 +12,6 @@
         </div>
         <form action="" method="POST">
             @csrf
-            @foreach ($errors->all() as $message)
-                <div id="notification" class="status stat-2 failed">
-                    <p>{{ $message }}</p>
-                </div>
-            @endforeach
-
-            @if (session('success'))
-                <div id="notification" class="status stat-2 success">
-                    <p>{{ session('success') }}</p>
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div  class=" notification status stat-2 failed">
-                    <p>{{ session('error') }}</p>
-                </div>
-            @endif
 
             <div class="input-field">
                 <label for=""> <h4>Select Category</h4> </label>
@@ -49,5 +32,29 @@
                 <button type="submit" class="btn btn--md">Add Category</button>
             </div>
         </form>
+
+        <div class="data">
+            <h3>All Brands</h3>
+            <div>
+                @forelse ($brands as $brand)
+                    <div class="data-body">
+                        <p><strong> {{ $brand->name }} </strong></p>
+                        <div class="flex" style="margin-block: .5em;">
+                            <p>Category:</p>
+                            <p> {{ $brand->category->name }} </p>
+                        </div>
+                        <div class="flex">
+                            <p>Status:</p>
+                            <form action="" method="post">
+                                @csrf
+                                <button class="btn btn--sm delete">Deactivate</button>
+                            </form>
+                        </div>
+                    </div>
+                @empty
+                    <p>You have not added any brand yet</p>
+                @endforelse
+            </div>
+        </div>
     </div>
 @endsection

@@ -13,24 +13,6 @@
         <form action="" method="post" enctype="multipart/form-data">
             @csrf
 
-            @foreach ($errors->all() as $message)
-                <div id="notification" class="status stat-2 failed">
-                    <p>{{ $message }}</p>
-                </div>
-            @endforeach
-
-            @if (session('success'))
-                <div id="notification" class="status stat-2 success">
-                    <p>{{ session('success') }}</p>
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div  class=" notification status stat-2 failed">
-                    <p>{{ session('error') }}</p>
-                </div>
-            @endif
-
             <div class="input-field">
                 <label for=""> <h4>Category</h4> </label>
                 <select name="category" id="" required>

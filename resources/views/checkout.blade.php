@@ -16,81 +16,44 @@
         </ul>
     </section>
 
-    @if (session('success'))
-        <div id="notification" class="status stat-2 success">
-            <p>{{ session('success') }}</p>
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div  class=" notification status stat-2 failed">
-            <p>{{ session('error') }}</p>
-        </div>
-    @endif
-
     <section class="checkout section--lg">
         <div class="checkout__container container grid">
             <div class="checkout__group">
                 <h3 class="section__title">Cart Totals</h3>
-
-                <table class="order__table">
-                    <tr>
-                        <th colspan="2">Products</th>
-                        <th>Total</th>
-                    </tr>
-
-                    @forelse($cartItem as $key => $item)
-                        <tr>
-                            <td>
+                <div class="order-body">
+                    @forelse ($cartItem as $key => $item)
+                        <div class="order-container">
+                            <div class="right-con">
                                 <img src="{{ asset('storage/' . $item['image']) }}" alt="" class="order__img">
-                            </td>
-
-                            <td>
-                                <h3 class="table__title">{{ $item['name'] }}</h3>
-                                <p class="table__quantity">x {{ $item['quantity'] }}</p>
-                            </td>
-
-                            <td><span class="table__price"> NGN {{ number_format($item['price'] * $item['quantity']) }}</span></td>
-                        </tr>
+                            </div>
+                            <div class="left-con">
+                                <h4>{{ $item['name'] }}</h4>
+                                <div class="flex-4">
+                                    <p>Qty: {{ $item['name'] }} {{ $item['name'] > 1 ? "Units" : "Unit" }}</p>
+                                    <p>NGN {{ number_format($item['price'] * $item['quantity']) }}</p>
+                                </div>
+                            </div>
+                        </div>
                     @empty
                         <p>You have not added any products to the cart</p>
                     @endforelse
-
-                    <tr>
-                        <td>
-                            <span  class="order__subtitle">Sub-Total</span>
-                        </td>
-                        <td colspan="2"><span class="table__price">NGN {{ number_format($total) }} </span></td>
-                    </tr>
-
-                    <tr>
-                        <td><span class="order__subtitle">Shipping</span></td>
-                        <td colspan="2"><span class="table__price">NGN {{ number_format($shipping) }}</span></td>
-                    </tr>
-
-                    <tr>
-                        <td><span class="order__subtitle">Grand Total</span></td>
-                        <td colspan="2"><span class="order__grand-total">NGN {{ number_format($total + $shipping) }}</span></td>
-                    </tr>
-                </table>
-
-                <div class="payment__methods">
-                    <h3 class="checkout__title payment__title">Payment</h3>
-                    <div class="payment__option flex-1">
-                        <input type="radio" class="payment__input">
-                        <label for="" class="payment__label" checked>Direct Bank Transfer</label>
-                    </div>
-
-                    <div class="payment__option flex-1">
-                        <input type="radio" class="payment__input">
-                        <label for="" class="payment__label">Checkout Payment</label>
-                    </div>
-
-                    <div class="payment__option flex-1">
-                        <input type="radio" class="payment__input">
-                        <label for="" class="payment__label">Paypal</label>
+                    <div class="checkout_total">
+                        <div class="flex-4">
+                            <h4>Sub-Total</h4>
+                            <p>NGN {{ number_format($total) }}</p>
+                        </div>
+                        <div class="flex-4">
+                            <h4>Shipping</h4>
+                            <p>NGN  {{number_format($shipping) }}</p>
+                        </div>
+                        <div class="flex-4">
+                            <h4>Grand Total</h4>
+                            <p>NGN  {{number_format($shipping + $total) }}</p>
+                        </div>
                     </div>
                 </div>
+
+
             </div>
 
             <div class="checkout__group">

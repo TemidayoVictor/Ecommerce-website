@@ -151,7 +151,7 @@
                     </tr>
                 </table>
 
-                <a href="#" class="btn flex btn--md">
+                <a href="{{ route('place-order') }}" class="btn flex btn--md">
                     <i class="ri-shopping-cart-line"></i></i> Proceed To checkout
                 </a>
             </div>

@@ -29,7 +29,7 @@
                             <div class="left-con">
                                 <h4>{{ $item['name'] }}</h4>
                                 <div class="flex-4">
-                                    <p>Qty: {{ $item['name'] }} {{ $item['name'] > 1 ? "Units" : "Unit" }}</p>
+                                    <p>Qty: {{ $item['quantity'] }} {{ $item['quantity'] > 1 ? "Units" : "Unit" }}</p>
                                     <p>NGN {{ number_format($item['price'] * $item['quantity']) }}</p>
                                 </div>
                             </div>

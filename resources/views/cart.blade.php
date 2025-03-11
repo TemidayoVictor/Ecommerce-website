@@ -6,14 +6,14 @@
 
 @section('content')
 
-@php
+    @php
         $cart = session('cart', []);
         $total = 0;
         $subtotal = 0;
     @endphp
 
 
-<section class="breadcrumb">
+    <section class="breadcrumb">
         <ul class="breadcrumb__list flex-1 container">
             <li><a href="" class="breadcrumb__link">Home</a></li>
             <li><span class="breadcrumb__link">></span></li>
@@ -43,34 +43,36 @@
                         $subtotal += $lineTotal;
                     @endphp
 
-                <tr>
-                    <td>
-                        <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" class="table__img">
-                    </td>
+                    <tr class="cart-item" data-id="{{ $productId }}">
+                        <td>
+                            <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" class="table__img">
+                        </td>
 
-                    <td>
-                        <h3 class="table__title">{{ $item['name'] }}</h3>
-                        <p class="table__description">
-                        {{ $item['description'] ?? 'No description available' }}
-                        </p>
-                    </td>
+                        <td>
+                            <h3 class="table__title">{{ $item['name'] }}</h3>
+                            <p class="table__description">
+                            {{ $item['description'] ?? 'No description available' }}
+                            </p>
+                        </td>
 
-                    <td><span class="table__price">NGN{{ number_format($item['price'], 2) }}</span></td>
+                        <td hidden><span class="table__price" id="price">{{$item['price']}}</span></td>
+                        <td><span class="table__price">NGN{{ number_format($item['price'], 2) }}</span></td>
 
-                    <td>
-                        <input type="number" name="quantity[{{ $productId }}]" value="{{ $item['quantity'] }}" min="1" class="quantity" form="update-cart-form">
-                    </td>
+                        <td>
+                            <div>
+                                <span id="decrease" class="cartbtn" data-id="{{ $productId }}">-</span>
+                                <span id="quantity" class="cartprice">{{ $item['quantity'] }}</span>
+                                <span id="increase" class="cartbtn" data-id="{{ $productId }}">+</span>
+                            </div>
+                        </td>
 
-                    <td><span class="table__subtotal">NGN{{ number_format($item['price'] * $item['quantity'], 2) }}</span></td>
+                        <td><span class="table__subtotal" id="subtotal">NGN{{ number_format($item['price'] * $item['quantity'], 2) }}</span></td>
 
-                    <td><form action="{{ route('cart.remove', $productId) }}" method="POST">
-                        @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">
-                    <i class="ri-delete-bin-line table__trash"></i>
-                    </button>
-                    </td>
-                    </form>
+                        <td>
+                            <button type="submit" id="remove-from-cart" data-id="{{ $productId }}">
+                            <i class="ri-delete-bin-line table__trash" style="color: red;"></i>
+                            </button>
+                        </td>
                     </tr>
                 @endforeach
 
@@ -79,16 +81,8 @@
             <p>Your cart is empty.</p>
         @endif
         </div>
-        
-        <form id="update-cart-form" action="{{ route('cart.updateAll') }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-        <div class="cart__actions">
-            <button type="submit" class="btn flex btn--md">
-                <i class="ri-shuffle-line"></i> Update Cart
-            </button>
-        </form>
 
+        <div class="cart__actions">
             <a href="{{ route('shop') }}" class="btn flex btn--md">
                 <i class="ri-shopping-bag-line"></i> Continue Shopping
             </a>

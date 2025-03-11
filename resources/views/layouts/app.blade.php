@@ -44,6 +44,7 @@
                 </div>
             @endif
         </div>
+        <div id="cart-notification" class="cart-notification"></div>
         <header class="header">
             <div class="header__top">
                 <div class="header__container container">
@@ -54,13 +55,13 @@
                     <p class="header__alert-news">
                         Super Value Deals - Save more with coupons
                     </p>
-                    @if(auth()->check())
+                    {{-- @if(auth()->check())
                         <!-- User is logged in -->
                         <a href="{{ route('account') }}">Account</a>
                     @else
                         <!-- User is not logged in -->
                         <a href="{{ route('login') }}">Login / Sign up</a>
-                    @endif
+                    @endif --}}
 
                     <!-- <a href="#" class="header__top-action">
                         Log In / Sign up
@@ -75,7 +76,7 @@
                 <div class="nav__menu" id="nav-menu">
                     <div class="nav__menu-top">
                         <a href="" class="nav__menu-logo">
-                            <img src="{{ asset('assets/T&T logo.jpg') }}" alt="">
+                            <img src="{{ asset('assets/T&T logo.png') }}" alt="">
                         </a>
 
                         <div class="nav__close" id="nav-close">
@@ -120,7 +121,7 @@
 
                     <a href="/cart" class="header__action-btn">
                         <img src="{{ asset('assets/icon-cart.svg') }}" alt="">
-                        <span class="count">{{ $totalProducts }}</span>
+                        <span class="count" id="cart-count">0</span>
                     </a>
 
                     <div class="header__action-btn  nav__toggle" id="nav-toggle">
@@ -159,7 +160,7 @@
 
                     <div class="footer__content">
                         <a href="" class="footer__logo">
-                            <img src="{{ asset('assets/T&T logo.jpg') }}" alt="" class="footer__logo-img">
+                            <img src="{{ asset('assets/T&T logo.png') }}" alt="" class="footer__logo-img">
                         </a>
                         <h4 class="footer__subtitle">Contact</h4>
 
@@ -241,41 +242,144 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src=" {{ asset('js/script.js') }} "></script>
 
-    <script>
-        document.querySelectorAll('.add__btn').forEach(function(button) {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            var productId = this.getAttribute('data-product-id');
-
-            fetch('{{ route("cart.add") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({
-                    product_id: productId,
-                    quantity: 1
-                })
-            })
-            .then(response => {
-                if(!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Simple notification using alert
-                alert(data.success);
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error adding the product to the cart.');
+        <script>
+            document.querySelectorAll(".add__btn").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    let product = {
+                        id: this.dataset.id,
+                    };
+                    addToCart(product);
+                });
             });
-        });
-    });
-</script>
+
+            function showNotification(message) {
+                let notification = document.getElementById("cart-notification");
+                notification.innerText = message;
+                notification.classList.add("show");
+
+                setTimeout(() => {
+                    notification.classList.remove("show");
+                }, 3000); // Hide after 3 seconds
+            }
+
+            function updateCartCount() {
+                fetch("{{ route('cart.count') }}")
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('cart-count').innerText = data.cartCount;
+                    });
+            }
+
+            function addToCart(product) {
+                fetch("{{ route('cart.add') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({ product })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showNotification(data.message);
+                    updateCartCount();
+                });
+            }
+
+            document.querySelectorAll("#remove-from-cart").forEach(button => {
+                button.addEventListener("click", function () {
+                    let productId = this.dataset.id;
+                    removeFromCart(productId);
+                });
+            });
+
+            function removeFromCart(id) {
+                fetch("{{ route('cart.remove') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({ id })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showNotification(data.message);
+                    updateCartCount();
+
+                    // Remove item from the DOM
+                    let cartItem = document.querySelector(`.cart-item[data-id="${id}"]`);
+                    if (cartItem) {
+                        cartItem.remove();
+                    }
+                });
+            }
+
+
+            document.querySelectorAll("#increase").forEach(button => {
+                button.addEventListener("click", function () {
+                    let cartItem = this.closest(".cart-item");
+                    let productId = this.dataset.id;
+                    let quantitySpan = cartItem.querySelector("#quantity");
+                    let subtotalSpan = cartItem.querySelector("#subtotal");
+                    let price = parseFloat(cartItem.querySelector("#price").innerText);
+
+                    let quantity = parseInt(quantitySpan.innerText);
+                    quantity++;
+                    quantitySpan.innerText = quantity;
+
+                    // Update subtotal
+                    let newSubtotal = (quantity * price).toFixed(2);
+                    subtotalSpan.innerText = newSubtotal;
+
+                    updateCart(productId, quantity); // Send update to backend
+                });
+            });
+
+            document.querySelectorAll("#decrease").forEach(button => {
+                button.addEventListener("click", function () {
+                    let cartItem = this.closest(".cart-item");
+                    let productId = this.dataset.id;
+                    let quantitySpan = cartItem.querySelector("#quantity");
+                    let subtotalSpan = cartItem.querySelector("#subtotal");
+                    let price = parseFloat(cartItem.querySelector("#price").innerText);
+
+                    let quantity = parseInt(quantitySpan.innerText);
+                    if (quantity > 1) {  // Prevent going below 1
+                        quantity--;
+                        quantitySpan.innerText = quantity;
+
+                        // Update subtotal
+                        let newSubtotal = (quantity * price).toFixed(2);
+                        subtotalSpan.innerText = newSubtotal;
+
+                        updateCart(productId, quantity); // Send update to backend
+                    }
+                });
+            });
+
+            // Function to update cart in the backend
+            function updateCart(id, quantity) {
+
+                fetch("{{ route('cart.update') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({ id, quantity })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showNotification(data.message);
+                    updateCartCount(); // Refresh cart count if needed
+                });
+            }
+
+            // Ensure the cart count is updated when the page loads
+            document.addEventListener("DOMContentLoaded", updateCartCount);
+        </script>
 
     </body>
 </html>

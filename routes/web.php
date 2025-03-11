@@ -48,35 +48,27 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 
 });
 
+// General Routes
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
 
-Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-
-Route::delete('/cart/remove/{productId}', [CartController::class, 'remove'])->name('cart.remove');
-
-// Route::patch('/cart/update-all', [CartController::class, 'updateAll'])->name('cart.updateAll');
-
-Route::patch('/cart/update-all', [CartController::class, 'updateAll'])->name('cart.updateAll');
-
-
-// Display wishlist
-Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index')->middleware('auth');
-
-// Add product to wishlist (can be POST)
-Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');//->middleware('auth');
-
-// Remove product from wishlist (you can use DELETE, here we use GET or POST for simplicity)
-Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove');//->middleware('auth');
-
 Route::get('/product/{id}', [AdminProductController::class, 'show'])->name('product.show');
+
+// cart
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.count');
+
+// Wishlist
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index')->middleware('auth');
+Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');//->middleware('auth');
+Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove');//->middleware('auth');
 
 // checkout
 Route::get('/checkout', [OrderController::class, 'index'])->name('place-order');
 Route::post('/checkout', [OrderController::class, 'placeOrder']);
-
-// checkout -success
 Route::get('/order/{id}', [OrderController::class, 'details'])->name('order-details');
 
 // GET route for displaying the combined login/register page

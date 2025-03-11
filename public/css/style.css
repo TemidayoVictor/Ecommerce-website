@@ -105,26 +105,28 @@ table {
 }
 
 .status {
-    display: inline-block;
-    position: relative;
-    padding: .25rem .5rem;
-    border-radius: .25rem;
-    font-size: var(--small-font-size);
-    font-weight: var(--weight-600);
-    position: absolute;
-    top: 10%;
-    right: 42%;
+    position: fixed;
+    top: 20px;
+    right: 20px;
     color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: bold;
+    display: none; /* Initially hidden */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: translateY(-20px);
+    z-index: 1000;
 }
 
 .status.failed {
-    background-color: orangered;
-    border: 1px solid orangered;
+    background-color: #4CAF50; /* Green for success */
 }
 
 .status.success {
-    background-color: green;
-    border: 1px solid green;
+    background-color: #4CAF50; /* Green for success */
 }
 
 .stat {
@@ -1850,6 +1852,48 @@ a.stat {
     display: inline-flex;
 }
 
+.cart-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50; /* Green for success */
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: bold;
+    display: none; /* Initially hidden */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: translateY(-20px);
+    z-index: 1000;
+}
+
+/* Show notification */
+.cart-notification.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cartbtn {
+    border: 1px solid var(--first-color);
+    padding: .3rem .6rem;
+    background-color: var(--first-color);
+    border-radius: .3rem;
+    color: white;
+}
+
+.cartbtn:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.cartprice {
+    margin-inline: .5rem;
+}
 
 /* FOR MEDIUM DEVICES */
 @media screen and (max-width: 992px) {

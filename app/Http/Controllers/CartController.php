@@ -9,28 +9,23 @@ class CartController extends Controller
 {
     public function add(Request $request)
     {
-        $request->validate([
-            'product_id' => 'required|integer|exists:products,id',
-            'quantity'   => 'sometimes|integer|min:1'
-        ]);
-
-        $productId = $request->input('product_id');
-        $quantity  = $request->input('quantity', 1);
 
         $cart = session()->get('cart', []);
 
-        if(isset($cart[$productId])) {
-            $cart[$productId]['quantity'] += $quantity;
+        $product = $request->product;
+        $productId = $product['id'];
+
+        if (isset($cart[$productId])) {
+            $cart[$productId]['quantity'] += 1;
         } else {
             $product = Product::find($productId);
-            // Get the image using the productImage relationship
-            $image = $product->productImage->isNotEmpty()
-            ? $product->productImage->last()->image
-            : 'default.png'; // Optionally provide a default image if none exists
+
+            // Get the last image of product else use default image
+            $image = $product->productImage->isNotEmpty() ? $product->productImage->last()->image : 'default.png';
 
             $cart[$productId] = [
                 "name"     => $product->name,
-                "quantity" => $quantity,
+                "quantity" => 1,
                 "description" => $product->description,
                 "price"    => $product->price,
                 "image"  => $image,
@@ -40,57 +35,49 @@ class CartController extends Controller
 
         session()->put('cart', $cart);
 
-return response()->json([
-    'success' => 'Product added to cart successfully!',
+        return response()->json([
+            'message' => 'Product added to cart',
+            'cartCount' => count($cart)
+        ]);
+
+    }
+
+    public function remove(Request $request)
+    {
+        $cart = session()->get('cart', []);
+
+        unset($cart[$request->id]);
+
+        session()->put('cart', $cart);
+
+        return response()->json([
+            'message' => 'Product removed from cart',
+            'cartCount' => count($cart)
         ]);
     }
 
 
+    public function update(Request $request)
+    {
+        $cart = session()->get('cart', []);
 
-    public function remove($productId)
-{
-    // Retrieve the current cart or an empty array if it doesn't exist
-    $cart = session()->get('cart', []);
+        if (isset($cart[$request->id])) {
+            $cart[$request->id]['quantity'] = $request->quantity;
+            $cart[$request->id]['subtotal'] = $cart[$request->id]['price'] * $request->quantity;
+        }
 
-    // Check if the product exists in the cart
-    if(isset($cart[$productId])) {
-        // Remove the product from the cart
-        unset($cart[$productId]);
-        // Update the session with the new cart data
         session()->put('cart', $cart);
 
-        return redirect()->back()->with('success', 'Item removed from cart.');
+        return response()->json([
+            'message' => 'Cart updated successfully',
+            'cart' => $cart
+        ]);
     }
 
-    return redirect()->back()->with('error', 'Item not found in cart.');
-}
-
-
-public function updateAll(Request $request)
-{
-    // Validate that each quantity is a positive integer
-    $request->validate([
-        'quantity.*' => 'required|integer|min:1'
-    ]);
-
-    // Retrieve the updated quantities as an associative array where the keys are product IDs
-    $updatedQuantities = $request->input('quantity', []);
-
-    // Get the current cart from the session
-    $cart = session()->get('cart', []);
-
-    // Update each product's quantity in the cart
-    foreach ($updatedQuantities as $productId => $quantity) {
-        if (isset($cart[$productId])) {
-            $cart[$productId]['quantity'] = $quantity;
-        }
+    public function getCartCount()
+    {
+        $cart = session()->get('cart', []);
+        return response()->json(['cartCount' => count($cart)]);
     }
-
-    // Save the updated cart back into the session
-    session()->put('cart', $cart);
-
-    return redirect()->back()->with('success', 'Cart updated successfully!');
-}
-
 
 }

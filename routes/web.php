@@ -53,7 +53,10 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
 Route::delete('/cart/remove/{productId}', [CartController::class, 'remove'])->name('cart.remove');
 
+// Route::patch('/cart/update-all', [CartController::class, 'updateAll'])->name('cart.updateAll');
+
 Route::patch('/cart/update-all', [CartController::class, 'updateAll'])->name('cart.updateAll');
+
 
 // Display wishlist
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index')->middleware('auth');

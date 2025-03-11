@@ -62,9 +62,9 @@
                         <span class="old__price">$245.8</span>
                     </div>
 
-                    <a href="" class="action__btn cart__btn" aria-label="Add To Cart" data-product-id="{{ $product->id }}">
+                    <button class="action__btn cart__btn" aria-label="Add To Cart" data-product-id="{{ $product->id }}">
                         <i class="ri-shopping-cart-2-line"></i>
-                    </a>
+</button>
                 </div>
             </div>
 

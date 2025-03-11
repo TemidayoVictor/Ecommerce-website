@@ -40,10 +40,12 @@ class CartController extends Controller
 
         session()->put('cart', $cart);
 
-        return response()->json([
-            'success' => 'Product added to cart successfully!'
+return response()->json([
+    'success' => 'Product added to cart successfully!',
         ]);
     }
+
+
 
     public function remove($productId)
 {
@@ -63,27 +65,32 @@ class CartController extends Controller
     return redirect()->back()->with('error', 'Item not found in cart.');
 }
 
+
 public function updateAll(Request $request)
 {
-    // The request's JSON payload is an object with product IDs as keys.
-    $updatedQuantities = $request->all();
+    // Validate that each quantity is a positive integer
+    $request->validate([
+        'quantity.*' => 'required|integer|min:1'
+    ]);
 
-    // Retrieve the current cart from session.
+    // Retrieve the updated quantities as an associative array where the keys are product IDs
+    $updatedQuantities = $request->input('quantity', []);
+
+    // Get the current cart from the session
     $cart = session()->get('cart', []);
 
-    // Loop through each updated quantity and update the cart.
+    // Update each product's quantity in the cart
     foreach ($updatedQuantities as $productId => $quantity) {
         if (isset($cart[$productId])) {
             $cart[$productId]['quantity'] = $quantity;
         }
     }
 
-    // Save the updated cart back into the session.
+    // Save the updated cart back into the session
     session()->put('cart', $cart);
 
-    return response()->json(['message' => 'Cart updated successfully!']);
+    return redirect()->back()->with('success', 'Cart updated successfully!');
 }
-
 
 
 }

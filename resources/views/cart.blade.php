@@ -56,7 +56,9 @@
 
                     <td><span class="table__price">NGN{{ number_format($item['price'], 2) }}</span></td>
 
-                    <td><input type="number" name="quantity" data-product-id="{{ $productId }}" value="{{ $item['quantity'] }}" class="quantity" min="1"></td>
+                    <td>
+                        <input type="number" name="quantity[{{ $productId }}]" value="{{ $item['quantity'] }}" min="1" class="quantity" form="update-cart-form">
+                    </td>
 
                     <td><span class="table__subtotal">NGN{{ number_format($item['price'] * $item['quantity'], 2) }}</span></td>
 
@@ -73,14 +75,18 @@
 
             </table>
             @else
-        <p>Your cart is empty.</p>
-    @endif
+            <p>Your cart is empty.</p>
+        @endif
         </div>
-
+        
+        <form id="update-cart-form" action="{{ route('cart.updateAll') }}" method="POST">
+                        @csrf
+                        @method('PATCH')
         <div class="cart__actions">
-            <a href="" class="btn flex btn--md btn-update-cart">
+            <button type="submit" class="btn flex btn--md">
                 <i class="ri-shuffle-line"></i> Update Cart
-            </a>
+            </button>
+        </form>
 
             <a href="{{ route('shop') }}" class="btn flex btn--md">
                 <i class="ri-shopping-bag-line"></i> Continue Shopping

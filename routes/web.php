@@ -8,6 +8,9 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AccountController;
+
 
 // Admin routes (Will be put in middleware later)
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
@@ -75,6 +78,22 @@ Route::post('/checkout', [OrderController::class, 'placeOrder']);
 
 // checkout -success
 Route::get('/order/{id}', [OrderController::class, 'details'])->name('order-details');
+
+// GET route for displaying the combined login/register page
+Route::get('/login', [AuthController::class, 'showCombinedForm'])->name('login');
+
+// POST route for login submission
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+
+// POST route for registration submission
+Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
+
+// Logout route
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/account', [AccountController::class, 'index'])
+    ->name('account')
+    ->middleware('auth');
 
 Route::get('/cart', function () {
     return view('cart');

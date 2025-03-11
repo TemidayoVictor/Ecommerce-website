@@ -54,9 +54,17 @@
                     <p class="header__alert-news">
                         Super Value Deals - Save more with coupons
                     </p>
-                    <a href="#" class="header__top-action">
+                    @if(auth()->check())
+                        <!-- User is logged in -->
+                        <a href="{{ route('account') }}">Account</a>
+                    @else
+                        <!-- User is not logged in -->
+                        <a href="{{ route('login') }}">Login / Sign up</a>
+                    @endif
+
+                    <!-- <a href="#" class="header__top-action">
                         Log In / Sign up
-                    </a>
+                    </a> -->
                 </div>
             </div>
 

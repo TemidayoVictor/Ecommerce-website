@@ -5,6 +5,11 @@
 @endsection
 
 @section('content')
+
+@php
+    $cart = session('cart', []);
+    $productQuantity = isset($cart[$product->id]) ? $cart[$product->id]['quantity'] : 1;
+@endphp
     
     <section class="breadcrumb">
         <ul class="breadcrumb__list flex-1 container">
@@ -26,10 +31,10 @@
                 @endif
 
                 <div class="details__small-images grid">
-                    <img src="{{ asset('assets/product-8-2.jpg') }}" alt="" class="details__small-img">
-                    <img src="{{ asset('assets/product-8-2.jpg') }}" alt="" class="details__small-img">
-                    <img src="{{ asset('assets/product-8-2.jpg') }}" alt="" class="details__small-img">
-                </div>
+                    @foreach($product->productImage as $image)
+                        <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $product->name }}" class="details__small-img">
+                    @endforeach
+                </div>  
             </div>
 
             <div class="details__group">
@@ -60,7 +65,7 @@
                     </li>
                 </ul>
 
-                <div class="details__color flex-1">
+                <!-- <div class="details__color flex-1">
                     <span class="details__color-title">Color</span>
 
                     <ul class="color__list">
@@ -80,7 +85,7 @@
                             <a href="" class="color__link" style="background-color: yellow"></a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
 
                 <div class="details__size flex-1">
                     <span class="details__size-title">Size</span>
@@ -101,8 +106,12 @@
                 </div>
 
                 <div class="details__action">
-                    <input type="number" class="quantity" value="1" min="1">
-                    <a href="" class="btn btn--sm" aria-label="Add To Cart" data-product-id="{{ $product->id }}">Add To Cart</a>
+                
+                    <input type="number" name="quantity" value="{{ $productQuantity }}" min="1" class="quantity">
+               
+                    <button href="" class="btn btn--sm add__btn" aria-label="Add To Cart" data-product-id="{{ $product->id }}">
+                        Add To Cart
+                    </button>
                     <a href="" class="details__action-btn">
                         <i class="ri-heart-line"></i>
                     </a>
@@ -111,7 +120,11 @@
                 <ul class="details__meta">
                     <li class="meta__list flex-1">  <span>SKU:</span> FWM15VKT</li>
                     <li class="meta__list flex-1">  <span>Tags:</span> Clothes, Men</li>
-                    <li class="meta__list flex-1">  <span>Availability:</span> 8 Items in Stock</li>
+                    @if($product->stock > 0)
+                    <li class="meta__list flex-1">  <span>Availability:</span> {{ $product->stock }} Items in Stock</li>
+                    @else
+                    <li class="meta__list flex-1">  <span>Availability:</span><b> Out of Stock</b></li>
+                    @endif
                 </ul>
             </div>
         </div>

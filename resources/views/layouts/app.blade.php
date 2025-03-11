@@ -110,7 +110,7 @@
                         <span class="count">3</span>
                     </a>
 
-                    <a href="cart" class="header__action-btn">
+                    <a href="/cart" class="header__action-btn">
                         <img src="{{ asset('assets/icon-cart.svg') }}" alt="">
                         <span class="count">{{ $totalProducts }}</span>
                     </a>
@@ -234,7 +234,7 @@
         <script src=" {{ asset('js/script.js') }} "></script>
 
     <script>
-        document.querySelectorAll('.cart__btn').forEach(function(button) {
+        document.querySelectorAll('.add__btn').forEach(function(button) {
         button.addEventListener('click', function(event) {
             event.preventDefault();
             var productId = this.getAttribute('data-product-id');

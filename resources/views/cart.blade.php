@@ -9,6 +9,7 @@
 @php
         $cart = session('cart', []);
         $total = 0;
+        $subtotal = 0;
     @endphp
 
 
@@ -39,7 +40,7 @@
                 @foreach($cart as $productId => $item)
                     @php
                         $lineTotal = $item['price'] * $item['quantity'];
-                        $total += $lineTotal;
+                        $subtotal += $lineTotal;
                     @endphp
 
                 <tr>
@@ -143,17 +144,17 @@
                 <table class="cart__total-table">
                     <tr>
                         <td><span class="cart__total-title">Cart Subtotal</span></td>
-                        <td><span class="cart__total-price">$240.00</span></td>
+                        <td><span class="cart__total-price">NGN{{ number_format($subtotal, 2) }}</span></td>
                     </tr>
 
                     <tr>
                         <td><span class="cart__total-title">Shipping</span></td>
-                        <td><span class="cart__total-price">$10.00</span></td>
+                        <td><span class="cart__total-price">NGN 0</span></td>
                     </tr>
 
                     <tr>
                         <td><span class="cart__total-title">Total</span></td>
-                        <td><span class="cart__total-price">$240.00</span></td>
+                        <td><span class="cart__total-price">NGN{{ number_format($subtotal, 2) }}</span></td>
                     </tr>
                 </table>
 

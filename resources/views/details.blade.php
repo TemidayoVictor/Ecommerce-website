@@ -109,10 +109,11 @@
                 
                     <input type="number" name="quantity" value="{{ $productQuantity }}" min="1" class="quantity">
                
-                    <button href="" class="btn btn--sm add__btn" aria-label="Add To Cart" data-product-id="{{ $product->id }}">
+                    <button href="" class="btn btn--sm add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
                         Add To Cart
                     </button>
-                    <a href="" class="details__action-btn">
+                    
+                    <a href="" class="details__action-btn wishlist__btn" data-id="{{ $product->id }}">
                         <i class="ri-heart-line"></i>
                     </a>
                 </div>

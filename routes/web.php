@@ -63,8 +63,9 @@ Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.c
 
 // Wishlist
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index')->middleware('auth');
-Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');//->middleware('auth');
-Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove');//->middleware('auth');
+Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add')->middleware('auth');
+Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove')->middleware('auth');
+Route::get('/wishlist/count', [WishlistController::class, 'count'])->name('wishlist.count')->middleware('auth');
 
 // checkout
 Route::get('/checkout', [OrderController::class, 'index'])->name('place-order');
@@ -91,21 +92,11 @@ Route::get('/cart', function () {
     return view('cart');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
 
 Route::get('/compare', function () {
     return view('compare');
 });
 
-Route::get('/account', function () {
-    return view('account');
-});
-
-Route::get('/wishlist', function () {
-    return view('wishlist');
-});
 
 Route::get('/details', function () {
     return view('details');

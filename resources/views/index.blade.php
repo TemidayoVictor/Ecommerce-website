@@ -98,7 +98,7 @@ Home
                                     <i class="ri-eye-line"></i>
                                 </a>
 
-                                <a href="" class="action__btn" aria-label="Add to Wishlist">
+                                <a href="" class="action__btn wishlist__btn" aria-label="Add to Wishlist" data-id="{{ $product->id }}">
                                     <i class="ri-heart-line"></i>
                                 </a>
 
@@ -488,7 +488,7 @@ Home
                                     <i class="ri-eye-line"></i>
                                 </a>
 
-                                <a href="" class="action__btn" aria-label="Add to Wishlist">
+                                <a href="" class="action__btn wishlist__btn" aria-label="Add to Wishlist" data-id="{{ $product->id }}">
                                     <i class="ri-heart-line"></i>
                                 </a>
 
@@ -518,7 +518,7 @@ Home
                                 <span class="old__price">$245.8</span>
                             </div>
 
-                            <a href="" class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-product-id="{{ $product->id }}">
+                            <a href="" class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
                                 <i class="ri-shopping-cart-2-line"></i>
                             </a>
                         </div>

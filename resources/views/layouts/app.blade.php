@@ -55,17 +55,14 @@
                     <p class="header__alert-news">
                         Super Value Deals - Save more with coupons
                     </p>
-                    {{-- @if(auth()->check())
+                     @if(auth()->check())
                         <!-- User is logged in -->
-                        <a href="{{ route('account') }}">Account</a>
+                        <a href="{{ route('account') }}" class="header__top-action"><i class="ri-user-line" style="font-size: 20px;"></i></a>
                     @else
                         <!-- User is not logged in -->
-                        <a href="{{ route('login') }}">Login / Sign up</a>
-                    @endif --}}
+                        <a href="{{ route('login') }}" class="header__top-action">Login / Sign up</a>
+                    @endif
 
-                    <!-- <a href="#" class="header__top-action">
-                        Log In / Sign up
-                    </a> -->
                 </div>
             </div>
 
@@ -114,9 +111,9 @@
                 </div>
 
                 <div class="header__user-actions">
-                    <a href="" class="header__action-btn">
+                    <a href="{{ route('wishlist.index') }}" class="header__action-btn">
                         <img src="{{ asset('assets/icon-heart.svg') }}" alt="">
-                        <span class="count">3</span>
+                        <span class="count" id="wishlist-count">{{ \App\Models\Wishlist::where('user_id', auth()->id())->count() }}</span>
                     </a>
 
                     <a href="/cart" class="header__action-btn">
@@ -380,6 +377,58 @@
             // Ensure the cart count is updated when the page loads
             document.addEventListener("DOMContentLoaded", updateCartCount);
         </script>
+
+<script>
+document.querySelectorAll(".wishlist__btn").forEach(button => { 
+    button.addEventListener("click", function (event) {
+        event.preventDefault();
+        let product = {
+            id: this.dataset.id,
+        };
+        addToWishlist(product);
+    });
+});
+
+function showNotification(message) {
+    let notification = document.getElementById("cart-notification");
+    notification.innerText = message;
+    notification.classList.add("show");
+
+    setTimeout(() => {
+        notification.classList.remove("show");
+    }, 3000); // Hide after 3 seconds
+}
+
+function updateWishlistCount() {
+    fetch("{{ route('wishlist.count') }}")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('wishlist-count').innerText = data.wishlistCount;
+        });
+}
+
+function addToWishlist(product) {
+    fetch("{{ route('wishlist.add') }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        },
+        body: JSON.stringify({ product_id: product.id })
+    })
+    .then(response => response.json())
+    .then(data => {
+        showNotification(data.message);
+        updateWishlistCount();
+    })
+    .catch(error => {
+        console.error('Error adding product to wishlist:', error);
+        alert('Error adding product to wishlist: ' + error.message);
+    });
+}
+
+</script>
+
 
     </body>
 </html>

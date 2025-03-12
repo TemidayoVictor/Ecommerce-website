@@ -37,9 +37,14 @@
                 <i class="ri-delete-bin-line table__trash"></i> Change Password
             </p>
 
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <p class="account__tab" >
                 <i class="ri-delete-bin-line table__trash"></i> Logout
             </p>
+            </a>
         </div>
 
         <div class="tabs__content">

@@ -9,7 +9,7 @@
 
 <section class="breadcrumb">
     <ul class="breadcrumb__list flex-1 container">
-        <li><a href="" class="breadcrumb__link">Home</a></li>
+        <li><a href="{{ url('/') }}" class="breadcrumb__link">Home</a></li>
         <li><span class="breadcrumb__link">></span></li>
         <li><span class="breadcrumb__link">Shop</span></li>
         <li><span class="breadcrumb__link">></span></li>
@@ -58,19 +58,16 @@
 
                     <td><span class="table__stock">{{ $item->product->stock_status ?? 'In Stock' }}</span></td>
 
-                    <td><a href="" class="btn btn btn--sm">Add to cart</a></td>
+                    <td><a href="" class="btn btn btn--sm add__btn">Add to cart</a></td>
 
-                    <td><form action="{{ route('wishlist.remove', $item->id) }}" method="POST" onsubmit="return confirm('Remove this product from your wishlist?');">
-                        @csrf
-                        @method('DELETE')
-                    <button type="submit" class="btn btn--sm">
-                        <i class="ri-delete-bin-line table__trash"></i>
-                    </button>
+                    <td>
+                        <button type="submit" id="remove-wishlist-btn" data-id="{{ $item->id }}">
+                            <i class="ri-delete-bin-line table__trash"></i>
+                        </button>
                     </form>
                     </td>
                 </tr>
 
-                
                 @endforeach
             </table>
         </div>

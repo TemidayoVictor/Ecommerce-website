@@ -121,6 +121,12 @@ table {
     z-index: 1000;
 }
 
+.status.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .status.failed {
     background-color: #4CAF50; /* Green for success */
 }
@@ -241,7 +247,7 @@ a.stat {
     resize: none;
 }
 /* Header and Nav */
-header {
+header.user {
     position: fixed;
     left: 0;
     right: 0;
@@ -2296,7 +2302,7 @@ body .admin {
     border: 1px solid black;
     border-radius: .3rem;
     font-style: var(--second-font);
-    width: 100%;
+    /* width: 100%; */
 }
 
 .admin textarea {

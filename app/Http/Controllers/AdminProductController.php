@@ -53,6 +53,9 @@ class AdminProductController extends Controller
             $sales = $request->sales;
         }
 
+        $featured = $request->has('featured') ? 1 : 0;
+
+
         $product = Product::create([
             'category_id' => $request->category,
             'brand_id' => $request->brand,
@@ -61,6 +64,7 @@ class AdminProductController extends Controller
             'description' => $request->product_description,
             'sales' => $sales,
             'stock' => $request->stock,
+            'featured' => $featured,
         ]);
 
         // store images
@@ -134,8 +138,9 @@ class AdminProductController extends Controller
             $sales = $request->sales;
         }
 
-        // update products
+        $featured = $request->has('featured') ? 1 : 0;
 
+        // update products
         Product::where('id', $id)->update([
             'category_id' => $request->category,
             'brand_id' => $request->brand,
@@ -144,6 +149,7 @@ class AdminProductController extends Controller
             'description' => $request->product_description,
             'sales' => $sales,
             'stock' => $request->stock,
+            'featured' => $featured,
         ]);
 
         // store images

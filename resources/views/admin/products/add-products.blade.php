@@ -64,6 +64,11 @@
                 <input type="file" name="images[]" multiple required accept="image/*">
             </div>
 
+            <div style="margin-block: 1em;">
+                <input type="checkbox" name="featured">
+                <span style="margin-left: .5rem;">Add to Featured Products</span>
+            </div>
+
             <h3 class="section-title">Add Extra Fields</h3>
 
             <div id="extraFields">

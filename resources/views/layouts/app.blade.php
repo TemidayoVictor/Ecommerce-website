@@ -44,8 +44,10 @@
                 </div>
             @endif
         </div>
+
         <div id="cart-notification" class="cart-notification"></div>
-        <header class="header">
+
+        <header class="header user">
             <div class="header__top">
                 <div class="header__container container">
                     <div class="header__contact">
@@ -103,10 +105,13 @@
                     </ul>
 
                     <div class="header__search">
-                        <input type="text" placeholder="Search for Items" class="form__input">
-                        <button class="search__btn">
-                            <img src=" {{ asset('assets/search.png') }} " alt="">
-                        </button>
+                        <form action="{{ route('search') }}" method="post">
+                            @csrf
+                            <input type="text" name="search" placeholder="Search for Items" class="form__input">
+                            <button class="search__btn" type="submit">
+                                <img src=" {{ asset('assets/search.png') }} " alt="">
+                            </button>
+                        </form>
                     </div>
                 </div>
 

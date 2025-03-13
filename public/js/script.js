@@ -24,11 +24,10 @@ if(navClose) {
 
 // function to make notifiction disappper after 5 seconds
 if (notification) {
+    notification.classList.add("show");
     setTimeout(() => {
-        notification.style.transition = "opacity 0.5s ease";
-        notification.style.opacity = "0";
-        setTimeout(() => notification.remove(), 500);
-    }, 5000); // 5 seconds before disappearing
+        notification.classList.remove("show");
+    }, 3000); // Hide after 3 seconds
 }
 
 // image gallery

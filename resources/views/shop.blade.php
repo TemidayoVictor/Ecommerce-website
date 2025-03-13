@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    
+
     <section class="breadcrumb">
         <ul class="breadcrumb__list flex-1 container">
             <li><a href="" class="breadcrumb__link">Home</a></li>
@@ -15,16 +15,16 @@
     </section>
 
     <section class="products section--lg container">
-    
+
         <p class="total__products">We found <span>{{ $products->count() }}</span> items from you</p>
-        
+
         <div class="products__container grid">
         @foreach($products as $product)
             <div class="product__item">
                 <div class="product__banner">
                     <a href="{{ route('product.show', $product->id) }}" class="product_images">
                         <img src="{{ asset('storage/' . $product->productImage->first()->image) }}" alt="Product Image" class="product__img default">
-                        <img src="{{ asset('assets/product-1-2.jpg') }}" alt="" class="product__img hover">
+                        <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="" class="product__img hover">
                     </a>
 
                     <div class="product__actions">
@@ -597,7 +597,7 @@
             </div> -->
             @endforeach
         </div>
-       
+
         <ul class="pagination">
             <li><a href="" class="pagination__link active">01</a></li>
             <li><a href="" class="pagination__link">02</a></li>

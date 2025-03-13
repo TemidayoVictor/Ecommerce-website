@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Wishlist;
 use App\Models\Product;
-    
+
 class WishlistController extends Controller
 {
     // Display the wishlist for the authenticated user
@@ -26,45 +26,46 @@ class WishlistController extends Controller
         $request->validate([
             'product_id' => 'required|integer|exists:products,id',
         ]);
-    
+
         if (!auth::check()) {
             return response()->json(['error' => 'Please log in to add products to your wishlist.'], 401);
         }
-    
+
         $userId = auth::id();
         $productId = $request->input('product_id');
-    
+
         // Prevent duplicate wishlist entries
         $exists = Wishlist::where('user_id', $userId)
             ->where('product_id', $productId)
             ->exists();
-    
+
         if (!$exists) {
             Wishlist::create([
                 'user_id'    => $userId,
                 'product_id' => $productId,
             ]);
         }
-    
+
         $newCount = Wishlist::where('user_id', $userId)->count();
-    
+
         return response()->json([
             'message'  => 'Product added to wishlist successfully!',
             'wishlistCount' => $newCount,
         ]);
     }
-    
+
     public function count()
     {
         $count = Wishlist::where('user_id', auth::id())->count();
         return response()->json(['wishlistCount' => $count]);
     }
-    
+
 
 
     // Remove a product from the wishlist
-    public function remove($id)
+    public function remove(Request $request)
     {
+        $id = $request->id;
         $wishlistItem = Wishlist::findOrFail($id);
 
         // Make sure the logged in user owns the wishlist item
@@ -73,6 +74,12 @@ class WishlistController extends Controller
         }
 
         $wishlistItem->delete();
-        return redirect()->back()->with('success', 'Product removed from wishlist!');
+
+        $count = Wishlist::where('user_id', auth::id())->count();
+
+        return response()->json([
+            'message'  => 'Product removed from wishlist successfully!',
+            'wishlistCount' => $count,
+        ]);
     }
 }

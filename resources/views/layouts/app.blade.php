@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <nav class="nav container">
+            <nav class="nav container white">
                 <a href="" class="nav__logo">
                     <img src="{{ asset('assets/T&T logo.png') }}" alt="" class="nav__logo-img">
                 </a>
@@ -133,24 +133,24 @@
             @yield('content')
 
             <section class="newsletter section home__newsletter">
-        <div class="newsletter__container container grid">
-            <h3 class="newsletter__title flex">
-                <img src="{{ asset('assets/icon-email.svg') }}" class="newsletter__icon" alt="">
-                Sign up to Newsletter
-            </h3>
-            <p class="newsletter__description">
-                ... and receive $25 coupon for shopping
-            </p>
-            <form action="" class="newsletter__form">
-                <input
-                    type="text"
-                    placeholder="Enter your email"
-                    class="newsletter__input"
-                >
-                <button type="submit" class="newsletter__btn">Subscribe</button>
-            </form>
-        </div>
-    </section>
+                <div class="newsletter__container container grid">
+                    <h3 class="newsletter__title flex">
+                        <img src="{{ asset('assets/icon-email.svg') }}" class="newsletter__icon" alt="">
+                        Sign up to Newsletter
+                    </h3>
+                    <p class="newsletter__description">
+                        ... and receive $25 coupon for shopping
+                    </p>
+                    <form action="" class="newsletter__form">
+                        <input
+                            type="text"
+                            placeholder="Enter your email"
+                            class="newsletter__input"
+                        >
+                        <button type="submit" class="newsletter__btn">Subscribe</button>
+                    </form>
+                </div>
+            </section>
 
             <footer class="footer container">
                 <div class="footer__container grid">
@@ -376,59 +376,84 @@
 
             // Ensure the cart count is updated when the page loads
             document.addEventListener("DOMContentLoaded", updateCartCount);
+
+            document.querySelectorAll(".wishlist__btn").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    let product = {
+                        id: this.dataset.id,
+                    };
+                    addToWishlist(product);
+                });
+            });
+
+            function showNotification(message) {
+                let notification = document.getElementById("cart-notification");
+                notification.innerText = message;
+                notification.classList.add("show");
+
+                setTimeout(() => {
+                    notification.classList.remove("show");
+                }, 3000); // Hide after 3 seconds
+            }
+
+            function updateWishlistCount() {
+                fetch("{{ route('wishlist.count') }}")
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('wishlist-count').innerText = data.wishlistCount;
+                    });
+            }
+
+            function addToWishlist(product) {
+                fetch("{{ route('wishlist.add') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({ product_id: product.id })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showNotification(data.message);
+                    updateWishlistCount();
+                })
+                .catch(error => {
+                    console.error('Error adding product to wishlist:', error);
+                    alert('Error adding product to wishlist: ' + error.message);
+                });
+            }
+
+            document.querySelectorAll("#remove-wishlist-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    let productId = this.dataset.id;
+                    removeFromWishlist(productId);
+                });
+            });
+
+            function removeFromWishlist(id) {
+                fetch("{{ route('wishlist.remove') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({ id })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showNotification(data.message);
+                    updateWishlistCount(data.count);
+
+                    // Remove item from the DOM
+                    let wishlistItem = document.querySelector(`.wishlist-item[data-id="${id}"]`);
+                    if (wishlistItem) {
+                        wishlistItem.remove();
+                    }
+                });
+            }
         </script>
-
-<script>
-document.querySelectorAll(".wishlist__btn").forEach(button => { 
-    button.addEventListener("click", function (event) {
-        event.preventDefault();
-        let product = {
-            id: this.dataset.id,
-        };
-        addToWishlist(product);
-    });
-});
-
-function showNotification(message) {
-    let notification = document.getElementById("cart-notification");
-    notification.innerText = message;
-    notification.classList.add("show");
-
-    setTimeout(() => {
-        notification.classList.remove("show");
-    }, 3000); // Hide after 3 seconds
-}
-
-function updateWishlistCount() {
-    fetch("{{ route('wishlist.count') }}")
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('wishlist-count').innerText = data.wishlistCount;
-        });
-}
-
-function addToWishlist(product) {
-    fetch("{{ route('wishlist.add') }}", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-        },
-        body: JSON.stringify({ product_id: product.id })
-    })
-    .then(response => response.json())
-    .then(data => {
-        showNotification(data.message);
-        updateWishlistCount();
-    })
-    .catch(error => {
-        console.error('Error adding product to wishlist:', error);
-        alert('Error adding product to wishlist: ' + error.message);
-    });
-}
-
-</script>
-
 
     </body>
 </html>

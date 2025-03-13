@@ -64,7 +64,7 @@ Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.c
 // Wishlist
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index')->middleware('auth');
 Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add')->middleware('auth');
-Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove')->middleware('auth');
+Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove')->middleware('auth');
 Route::get('/wishlist/count', [WishlistController::class, 'count'])->name('wishlist.count')->middleware('auth');
 
 // checkout

@@ -599,6 +599,7 @@
             <div>
                 <p>Sorry, we could not find any products</p>
             </div>
+
             @endforelse
 
         </div>

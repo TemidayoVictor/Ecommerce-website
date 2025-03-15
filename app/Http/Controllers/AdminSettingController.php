@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DeliveryLocation;
 use App\Models\Coupon;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminSettingController extends Controller
@@ -83,5 +84,46 @@ class AdminSettingController extends Controller
             'pageTitle' => $pageTitle,
             'coupons' => $coupons,
         ]);
+    }
+
+    public function generateCouponPost(Request $request) {
+        $request->validate([
+            'type' => 'required',
+            'discount' => 'required',
+            'usage_limit' => 'required',
+            'expires_at' => 'required',
+            'amount',
+        ]);
+
+        if(empty($request->amount)) {
+            $amount = 1;
+        }
+
+        elseif($request->amount < 1) {
+            return redirect()->back()->with('error', 'Amount cannot be less than 1');
+        }
+
+        else {
+            $amount = $request->amount;
+        }
+
+        for ($i = 1; $i <= $amount; $i++) {
+            $code = $this->generateCode();
+            $coupon = Coupon::create([
+                'code' => $code,
+                'type' => $request->type,
+                'discount' => $request->discount,
+                'usage_limit' => $request->usage_limit,
+                'expires_at' => Carbon::parse($request->expires_at)->format('Y-m-d'),
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Coupon codes generated Successfully');
+    }
+
+    private function generateCode() {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $length = 8;
+        return substr(str_shuffle($characters), 0, $length);
     }
 }

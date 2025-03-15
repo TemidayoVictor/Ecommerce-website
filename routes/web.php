@@ -61,6 +61,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 
     // Coupon
     Route::get('/settings/generate-coupon', [AdminSettingController::class, 'generateCoupon'])->name('settings.generate-coupon');
+    Route::post('/settings/generate-coupon', [AdminSettingController::class, 'generateCouponPost']);
 });
 
 // General Routes

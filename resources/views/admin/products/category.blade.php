@@ -27,7 +27,7 @@
             <div>
                 @forelse ($categories as $category)
                     <div class="data-body">
-                        <p><strong> {{ $category->name }} </strong></p>
+                        <h4><strong> {{ $category->name }} </strong></h4>
                         <div class="flex">
                             <p>Status:</p>
                             <form action="" method="post">

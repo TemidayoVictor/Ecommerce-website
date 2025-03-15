@@ -38,7 +38,7 @@
             <div>
                 @forelse ($brands as $brand)
                     <div class="data-body">
-                        <p><strong> {{ $brand->name }} </strong></p>
+                        <h4><strong> {{ $brand->name }} </strong></h4>
                         <div class="flex" style="margin-block: .5em;">
                             <p>Category:</p>
                             <p> {{ $brand->category->name }} </p>

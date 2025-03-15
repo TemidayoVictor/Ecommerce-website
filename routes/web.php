@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ShippingAddressController;
+use App\Http\Controllers\AdminSettingController;
 // use App\Http\Controllers\ProfileController;
 
 
@@ -48,6 +49,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::post('/update-payment/{id}', [AdminOrderController::class, 'updatePayment'])->name('update-payment');
     Route::post('/update-shipping/{id}', [AdminOrderController::class, 'updateShipping'])->name('update-shipping');
 
+    // Settings
+    // Delivery Location
+    Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings');
+    Route::post('/settings/add-delivery-location', [AdminSettingController::class, 'addLocation'])->name('settings.add-location');
+
+    Route::get('/settings/edit-delivery-location/{id}', [AdminSettingController::class, 'editLocation'])->name('settings.edit-location');
+    Route::post('/settings/edit-delivery-location/{id}', [AdminSettingController::class, 'editLocationPost']);
+
+    Route::post('/settings/delete-delivery-location/{id}', [AdminSettingController::class, 'deleteLocation'])->name('settings.delete-location');
+
+    // Coupon
+    Route::get('/settings/generate-coupon', [AdminSettingController::class, 'generateCoupon'])->name('settings.generate-coupon');
 });
 
 // General Routes

@@ -21,7 +21,9 @@ class Order extends Model
         'user_id',
         'shipping_status',
         'order_number',
-        'shipping'
+        'shipping',
+        'delivery_location_id',
+        'coupon_id',
     ];
 
     public function orderItem() {

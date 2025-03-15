@@ -85,12 +85,13 @@ Home
         <div class="tab__items">
             <div class="tab__item active-tab" content id="featured">
                 <div class="products__container grid">
-                @foreach($products as $product)
+                @if(isset($featuredProducts) && $featuredProducts->count() > 0)
+                @foreach($featuredProducts as $product)
                     <div class="product__item">
                         <div class="product__banner">
                             <a href="{{ route('product.show', $product->id) }}" class="product_images">
-                                <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="Product Image" class="product__img default">
-                                <img src="{{ asset('storage/' . $product->productImage->first()->image) }}" alt="" class="product__img hover">
+                                <img src="{{ asset('storage/' . $product->productImage->first()->image) }}" alt="Product Image" class="product__img default">
+                                <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="" class="product__img hover">
                             </a>
 
                             <div class="product__actions">
@@ -102,12 +103,12 @@ Home
                                     <i class="ri-heart-line"></i>
                                 </a>
 
-                                <a href="" class="action__btn" aria-label="Compare">
+                                <!-- <a href="" class="action__btn" aria-label="Compare">
                                     <i class="ri-shuffle-line"></i>
-                                </a>
+                                </a> -->
                             </div>
 
-                            <div class="product__badge light-pink">Hot</div>
+                            <div class="product__badge light-green">Hot</div>
 
                         </div>
 
@@ -470,6 +471,9 @@ Home
                         </div>
                     </div> -->
                     @endforeach
+                    @else
+                    <p>No featured products available.</p>
+                @endif
                 </div>
             </div>
 
@@ -492,9 +496,9 @@ Home
                                     <i class="ri-heart-line"></i>
                                 </a>
 
-                                <a href="" class="action__btn" aria-label="Compare">
+                                <!-- <a href="" class="action__btn" aria-label="Compare">
                                     <i class="ri-shuffle-line"></i>
-                                </a>
+                                </a> -->
                             </div>
 
                             <div class="product__badge light-pink">Hot</div>
@@ -503,7 +507,7 @@ Home
 
                         <div class="product__content">
                             <span class="product__category">{{ $product->category->name }} </span>
-                            <a href="">
+                            <a href="{{ route('product.show', $product->id) }}">
                                 <h3 class="product__title">{{ $product->name }}</h3>
                             </a>
                             <div class="product__rating">
@@ -865,12 +869,13 @@ Home
 
             <div class="tab__item" content id="new-added">
                 <div class="products__container grid">
-                @foreach($products as $product)
+                @if(isset($newlyAddedProducts) && $newlyAddedProducts->count() > 0)
+                @foreach ($newlyAddedProducts as $product)
                     <div class="product__item">
                         <div class="product__banner">
-                            <a href="" class="product_images">
-                                <img src="{{ asset('assets/product-6-1.jpg') }}" alt="" class="product__img default">
-                                <img src="{{ asset('assets/product-6-2.jpg') }}" alt="" class="product__img hover">
+                        <a href="{{ route('product.show', $product->id) }}" class="product_images">
+                            <img src="{{ asset('storage/' . $product->productImage->first()->image) }}" alt="Product Image" class="product__img default">
+                            <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="" class="product__img hover">
                             </a>
 
                             <div class="product__actions">
@@ -878,13 +883,13 @@ Home
                                     <i class="ri-eye-line"></i>
                                 </a>
 
-                                <a href="" class="action__btn" aria-label="Add to Wishlist">
+                                <a href="" class="action__btn wishlist__btn" aria-label="Add to Wishlist" data-id="{{ $product->id }}">
                                     <i class="ri-heart-line"></i>
                                 </a>
 
-                                <a href="" class="action__btn" aria-label="Compare">
+                                <!-- <a href="" class="action__btn" aria-label="Compare">
                                     <i class="ri-shuffle-line"></i>
-                                </a>
+                                </a> -->
                             </div>
 
                             <div class="product__badge light-pink">Hot</div>
@@ -892,9 +897,9 @@ Home
                         </div>
 
                         <div class="product__content">
-                            <span class="product__category">Clothing</span>
-                            <a href="">
-                                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                        <span class="product__category">{{ $product->category->name }} </span>
+                        <a href="{{ route('product.show', $product->id) }}">
+                               <h3 class="product__title">{{ $product->name }}</h3>
                             </a>
                             <div class="product__rating">
                                 <i class="ri-star-line"></i>
@@ -904,11 +909,11 @@ Home
                                 <i class="ri-star-line"></i>
                             </div>
                             <div class="product__price flex-1">
-                                <span class="new__price">$238.85</span>
-                                <span class="old__price">$245.8</span>
+                            <span class="new__price">NGN {{ number_format($product->price) }}</span>
+                                <span class="old__price">NGN {{ number_format($product->sales) }}</span>
                             </div>
 
-                            <a href="" class="action__btn cart__btn" aria-label="Add To Cart">
+                            <a href="" class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
                                 <i class="ri-shopping-cart-2-line"></i>
                             </a>
                         </div>
@@ -1250,6 +1255,9 @@ Home
                         </div>
                     </div> -->
                     @endforeach
+                    @else
+                    <p style="color: red;">No new products available.</p>
+                @endif
                 </div>
             </div>
         </div>
@@ -1356,11 +1364,13 @@ Home
         </div>
         <div class="new__container swiper">
             <div class="swiper-wrapper">
+            @if(isset($newArrivalProducts) && $newArrivalProducts->count() > 0)
+            @foreach ($newArrivalProducts as $product)
                 <div class="product__item swiper-slide">
                     <div class="product__banner">
-                        <a href="" class="product_images">
-                            <img src="{{ asset('assets/product-6-1.jpg') }}" alt="" class="product__img default">
-                            <img src="{{ asset('assets/product-6-2.jpg') }}" alt="" class="product__img hover">
+                        <a href="{{ route('product.show', $product->id) }}" class="product_images">
+                            <img src="{{ asset('storage/' . $product->productImage->first()->image) }}" alt="Product Image" class="product__img default">
+                            <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="" class="product__img hover">
                         </a>
 
                         <div class="product__actions">
@@ -1368,23 +1378,23 @@ Home
                                 <i class="ri-eye-line"></i>
                             </a>
 
-                            <a href="" class="action__btn" aria-label="Add to Wishlist">
+                            <a href="" class="action__btn wishlist__btn" aria-label="Add to Wishlist" data-id="{{ $product->id }}">
                                 <i class="ri-heart-line"></i>
                             </a>
 
-                            <a href="" class="action__btn" aria-label="Compare">
+                            <!-- <a href="" class="action__btn" aria-label="Compare">
                                 <i class="ri-shuffle-line"></i>
-                            </a>
+                            </a> -->
                         </div>
 
-                        <div class="product__badge light-pink">Hot</div>
+                        <div class="product__badge light-gold">New</div>
 
                     </div>
 
                     <div class="product__content">
-                        <span class="product__category">Clothing</span>
-                        <a href="">
-                            <h3 class="product__title">Colorful Pattern Shirts</h3>
+                        <span class="product__category">{{ $product->category->name }} </span>
+                        <a href="{{ route('product.show', $product->id) }}">
+                               <h3 class="product__title">{{ $product->name }}</h3>
                         </a>
                         <div class="product__rating">
                             <i class="ri-star-line"></i>
@@ -1394,17 +1404,17 @@ Home
                             <i class="ri-star-line"></i>
                         </div>
                         <div class="product__price flex-1">
-                            <span class="new__price">$238.85</span>
-                            <span class="old__price">$245.8</span>
+                            <span class="new__price">NGN {{ number_format($product->price) }}</span>
+                            <span class="old__price">NGN {{ number_format($product->sales) }}</span>
                         </div>
 
-                        <a href="" class="action__btn cart__btn" aria-label="Add To Cart">
+                        <a href="" class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
                             <i class="ri-shopping-cart-2-line"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="product__item swiper-slide">
+                <!-- <div class="product__item swiper-slide">
                     <div class="product__banner">
                         <a href="" class="product_images">
                             <img src="{{ asset('assets/product-7-1.jpg') }}" alt="" class="product__img default">
@@ -1450,9 +1460,9 @@ Home
                             <i class="ri-shopping-cart-2-line"></i>
                         </a>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="product__item swiper-slide">
+                <!-- <div class="product__item swiper-slide">
                     <div class="product__banner">
                         <a href="" class="product_images">
                             <img src="{{ asset('assets/product-1-1.jpg') }}" alt="" class="product__img default">
@@ -1498,9 +1508,9 @@ Home
                             <i class="ri-shopping-cart-2-line"></i>
                         </a>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="product__item swiper-slide">
+                <!-- <div class="product__item swiper-slide">
                     <div class="product__banner">
                         <a href="" class="product_images">
                             <img src="{{ asset('assets/product-1-1.jpg') }}" alt="" class="product__img default">
@@ -1546,9 +1556,9 @@ Home
                             <i class="ri-shopping-cart-2-line"></i>
                         </a>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="product__item swiper-slide">
+                <!-- <div class="product__item swiper-slide">
                     <div class="product__banner">
                         <a href="" class="product_images">
                             <img src="{{ asset('assets/product-1-1.jpg') }}" alt="" class="product__img default">
@@ -1594,9 +1604,9 @@ Home
                             <i class="ri-shopping-cart-2-line"></i>
                         </a>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="product__item swiper-slide">
+                <!-- <div class="product__item swiper-slide">
                     <div class="product__banner">
                         <a href="" class="product_images">
                             <img src="{{ asset('assets/product-1-1.jpg') }}" alt="" class="product__img default">
@@ -1642,9 +1652,9 @@ Home
                             <i class="ri-shopping-cart-2-line"></i>
                         </a>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="product__item swiper-slide">
+                <!-- <div class="product__item swiper-slide">
                     <div class="product__banner">
                         <a href="" class="product_images">
                             <img src="{{ asset('assets/product-1-1.jpg') }}" alt="" class="product__img default">
@@ -1690,7 +1700,11 @@ Home
                             <i class="ri-shopping-cart-2-line"></i>
                         </a>
                     </div>
-                </div>
+                </div> -->
+                @endforeach
+                    @else
+                    <p style="color: red;">No new products available.</p>
+                @endif
             </div>
         </div>
     </section>

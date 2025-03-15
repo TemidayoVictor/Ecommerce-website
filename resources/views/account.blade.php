@@ -15,6 +15,19 @@
 </section>
 
 <section class="accounts section--lg">
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>    
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     <div class="accounts__container container grid">
         <div class="account__tabs">
             <p class="account__tab" data-target="#dashboard">
@@ -111,9 +124,11 @@
             <div class="tab__content active-tab" content id="update-profile">
                 <h3 class="tab__header">Update Profile</h3>
                 <div class="tab__body">
-                    <form action="" class="form grid">
-                        <input type="text" class="form__input" placeholder="Username">
-                        <div class="form__btn"><button class="btn btn--md">Save</button></div>
+                    <form action="" method="POST" class="form grid">
+                    @csrf
+                        <input type="text" class="form__input" value="{{ Auth::user()->name }}" placeholder="Username" required>
+                        <input type="email" name="email" class="form__input" value="{{ Auth::user()->email }}">
+                        <div class="form__btn"><button type="submit" class="btn btn--md">Save</button></div>
                     </form>
                 </div>
             </div>
@@ -123,31 +138,75 @@
             <div class="tab__content active-tab" content id="address">
                 <h3 class="tab__header">Shipping Address</h3>
                 <div class="tab__body">
+                @if($address)
                     <address class="address">
-                        3522 Interstate <br/>
-                        75 Business Spur, <br />
-                        Saulte Ste. <br />
-                        Marie, MI 49783
+                    {{ $address->address_line1 }} <br/>
+                    {{ $address->address_line2 ? $address->address_line2 . '<br/>' : '' }}
+                    {{ $address->city }}, {{ $address->state }} <br />
+                    {{ $address->zipcode }}, {{ $address->country }}
                     </address>
-                    <p class="city">New York</p>
-                    <a href="" class="edit">Edit</a>
+                    <p class="city">{{ $address->country }}</p>
+                    @else
+                     <p>No shipping address found.</p>
+                    @endif
+                    <a href="#" id="edit-address-btn" class="edit">Edit</a>
                 </div>
             </div>
         </div>
+
+
+
+
+        <div id="address-form" style="display: none;" class="tabs__content">
+        <h3 class="tab__header">Edit Shipping Address</h3>
+        <div class="tab__body">
+    <form action="{{ route('account.shipping-address') }}" method="POST">
+        @csrf
+        <div>
+            <label>Address Line 1</label>
+            <input type="text" name="address_line1" value="{{ $address->address_line1 ?? '' }}" required>
+        </div>
+        <div>
+            <label>Address Line 2</label>
+            <input type="text" name="address_line2" value="{{ $address->address_line2 ?? '' }}">
+        </div>
+        <div>
+            <label>City</label>
+            <input type="text" name="city" value="{{ $address->city ?? '' }}" required>
+        </div>
+        <div>
+            <label>State</label>
+            <input type="text" name="state" value="{{ $address->state ?? '' }}" required>
+        </div>
+        <div>
+            <label>Zip Code</label>
+            <input type="text" name="zipcode" value="{{ $address->zipcode ?? '' }}" required>
+        </div>
+        <div>
+            <label>Country</label>
+            <input type="text" name="country" value="{{ $address->country ?? '' }}" required>
+        </div>
+        <button type="submit">Save Address</button>
+    </form>
+        </div>
+</div>
+
+
 
         <div class="tabs__content">
             <div class="tab__content active-tab" content id="change-password">
                 <h3 class="tab__header">Change Password</h3>
                 <div class="tab__body">
-                    <form action="" class="form grid">
+                    <form method="POST" action="{{ route('account.change-password') }}" class="form grid">
+                    @csrf
                         
-                        <input type="text" class="form__input" placeholder="Current Password">
+                        <input type="password" name="current_password" class="form__input" placeholder="Current Password" required>
 
-                        <input type="text" class="form__input" placeholder="New Password">
+                        <input type="password" name="new_password" class="form__input" placeholder="New Password" required>
 
-                        <input type="text" class="form__input" placeholder="Confirm Password">
+                        <input type="password" name="new_password_confirmation" class="form__input" placeholder="Confirm Password" required>
 
-                        <div class="form__btn"><button class="btn btn--md">Save</button></div>
+                        <div class="form__btn"><button type="submit" class="btn btn--md">Save</button></div>
                     </form>
                 </div>
             </div>

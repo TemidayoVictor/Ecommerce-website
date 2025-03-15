@@ -2402,3 +2402,94 @@ body .admin {
     }
 }
 
+
+/* Address Section Styling */
+.tab__body {
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    max-width: 400px;
+}
+
+.address {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.city {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.edit {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.edit:hover {
+    background: #0056b3;
+}
+
+/* Hidden Form Styling */
+#address-form {
+    display: none;
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 400px;
+}
+
+#address-form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#address-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#address-form button {
+    background: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#address-form button:hover {
+    background: #218838;
+}
+
+/* Smooth Show Effect */
+.show-form {
+    display: block !important;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

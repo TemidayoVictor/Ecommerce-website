@@ -92,15 +92,17 @@
                         </li>
 
                         <li class="nav__item">
-                            <a href="" class="nav__link">My Account</a>
-                        </li>
-
-                        <li class="nav__item">
                             <a href="" class="nav__link">Compare</a>
                         </li>
 
                         <li class="nav__item">
-                            <a href="" class="nav__link">Login</a>
+                        @if(auth()->check())
+                        <!-- User is logged in -->
+                        <a href="{{ route('account') }}" class="nav__link">My Account</a>
+                    @else
+                        <!-- User is not logged in -->
+                        <a href="{{ route('login') }}" class="nav__link">Login / Sign up</a>
+                    @endif
                         </li>
                     </ul>
 
@@ -459,6 +461,14 @@
                 });
             }
         </script>
+
+<script>
+    document.getElementById("edit-address-btn").addEventListener("click", function(event) {
+    event.preventDefault();
+    document.getElementById("address-form").classList.toggle("show-form");
+});
+
+</script>
 
     </body>
 </html>

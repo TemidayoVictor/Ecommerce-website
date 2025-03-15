@@ -10,6 +10,8 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ShippingAddressController;
+// use App\Http\Controllers\ProfileController;
 
 
 // Admin routes (Will be put in middleware later)
@@ -88,6 +90,21 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/account', [AccountController::class, 'index'])
     ->name('account')
     ->middleware('auth');
+
+Route::post('/account/change-password', [AccountController::class, 'changePassword'])
+    ->name('account.change-password')
+    ->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/account', [ShippingAddressController::class, 'index'])->name('account');
+    Route::post('/account/shipping-address', [ShippingAddressController::class, 'store'])->name('account.shipping-address');
+});
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/account', [ProfileController::class, 'index'])->name('account');
+//     Route::post('/account/update-profile', [ProfileController::class, 'updateProfile'])->name('account.updateProfile');
+// });
+
 
 Route::get('/cart', function () {
     return view('cart');

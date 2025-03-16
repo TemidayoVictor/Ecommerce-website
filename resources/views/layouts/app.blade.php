@@ -69,6 +69,9 @@
             </div>
 
             <nav class="nav container white">
+            <div class="header__action-btn  nav__toggle" id="nav-toggle">
+                        <img src="{{ asset('assets/menu-burger.svg') }}" alt="">
+                    </div>
                 <a href="" class="nav__logo">
                     <img src="{{ asset('assets/T&T logo.png') }}" alt="" class="nav__logo-img">
                 </a>
@@ -127,10 +130,12 @@
                         <img src="{{ asset('assets/icon-cart.svg') }}" alt="">
                         <span class="count" id="cart-count">0</span>
                     </a>
-
-                    <div class="header__action-btn  nav__toggle" id="nav-toggle">
-                        <img src="{{ asset('assets/menu-burger.svg') }}" alt="">
-                    </div>
+                    @if(auth()->check())
+                    <a href="{{ route('account') }}" class="header__action-btn"><i class="ri-user-line" style="font-size: 26px; text-decoration:none;"></i></a>
+                    @else
+                    <a href="{{ route('login') }}" class="header__action-btn"><i class="ri-user-line"></i></a>
+                    @endif
+                    
                 </div>
             </nav>
         </header>

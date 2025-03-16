@@ -2499,3 +2499,27 @@ body .admin {
     }
 }
 
+/* Add this to your existing CSS */
+@media (max-width: 768px) { /* Mobile breakpoint */
+    .nav.container.white {
+      position: relative;
+      justify-content: center; /* Center main nav items */
+    }
+  
+    .nav__logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  
+    .header__user-actions {
+      margin-left: auto; /* Keep cart/burger icons on right */
+    }
+  
+    /* Optional: Ensure logo image is properly sized */
+    .nav__logo-img {
+      display: block;
+      max-width: 120px; /* Adjust based on your logo size */
+      height: auto;
+    }
+  }

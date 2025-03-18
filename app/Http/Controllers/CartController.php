@@ -4,9 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
+    public function index() {
+        $cart = session('cart', []);
+        $total = 0;
+        $subtotal = 0;
+        $shipping = 0;
+        $location = Session::get('delivery_location');
+        $coupon = Session::get('coupon');
+        if($location) {
+            $shipping = $location['price'];
+        }
+
+        return view('cart', [
+            'cart' => $cart,
+            'total' => $total,
+            'subtotal' => $subtotal,
+            'shipping' => $shipping,
+            'coupon' => $coupon,
+        ]);
+    }
+
+
     public function add(Request $request)
     {
 
@@ -78,6 +100,15 @@ class CartController extends Controller
     {
         $cart = session()->get('cart', []);
         return response()->json(['cartCount' => count($cart)]);
+    }
+
+    public function getCartTotal()
+    {
+        $cart = session()->get('cart', []);
+        $totalSum = array_reduce($cart, function ($sum, $item) {
+            return $sum + ($item['price'] * $item['quantity']);
+        }, 0);
+        return response()->json(['total' => $totalSum]);
     }
 
 }

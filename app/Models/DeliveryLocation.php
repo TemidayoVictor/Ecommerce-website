@@ -13,4 +13,8 @@ class DeliveryLocation extends Model
         'description',
         'price',
     ];
+
+    public function order() {
+        return $this->belongsTo(Order::class);
+    }
 }

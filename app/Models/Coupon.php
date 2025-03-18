@@ -22,4 +22,8 @@ class Coupon extends Model
         return ($this->usage_limit === null || $this->used < $this->usage_limit) &&
                ($this->expires_at === null || Carbon::now()->lessThan($this->expires_at));
     }
+
+    public function order() {
+        return $this->belongsTo(Order::class);
+    }
 }

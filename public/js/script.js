@@ -22,7 +22,7 @@ if(navClose) {
   })
 }
 
-// function to make notifiction disappper after 5 seconds
+// function to make notifiction disappper after 3 seconds
 if (notification) {
     notification.classList.add("show");
     setTimeout(() => {

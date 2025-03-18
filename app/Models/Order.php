@@ -29,4 +29,12 @@ class Order extends Model
     public function orderItem() {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function coupon() {
+        return $this->hasMany(Coupon::class);
+    }
+
+    public function deliverylocation() {
+        return $this->hasMany(DeliveryLocation::class);
+    }
 }

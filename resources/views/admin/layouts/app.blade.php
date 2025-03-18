@@ -43,7 +43,7 @@
             @endif
 
             @if (session('error'))
-                <div  class=" notification status stat-2 failed">
+                <div id="notification" class="status stat-2 failed">
                     <p>{{ session('error') }}</p>
                 </div>
             @endif

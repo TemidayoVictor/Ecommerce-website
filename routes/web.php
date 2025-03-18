@@ -73,10 +73,12 @@ Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
 Route::get('/product/{id}', [AdminProductController::class, 'show'])->name('product.show');
 
 // cart
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.count');
+Route::get('/cart/total', [CartController::class, 'getCartTotal'])->name('cart.total');
 
 // Wishlist
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index')->middleware('auth');
@@ -88,6 +90,13 @@ Route::get('/wishlist/count', [WishlistController::class, 'count'])->name('wishl
 Route::get('/checkout', [OrderController::class, 'index'])->name('place-order');
 Route::post('/checkout', [OrderController::class, 'placeOrder']);
 Route::get('/order/{id}', [OrderController::class, 'details'])->name('order-details');
+
+Route::get('/api/delivery-locations', [OrderController::class, 'getLocations']);
+Route::post('/api/save-location', [OrderController::class, 'saveLocation']);
+
+Route::post('/apply-coupon', [OrderController::class, 'applyCoupon'])->name('apply.coupon');
+
+Route::post('/remove-coupon', [OrderController::class, 'removeCoupon'])->name('remove.coupon');
 
 // GET route for displaying the combined login/register page
 Route::get('/login', [AuthController::class, 'showCombinedForm'])->name('login');
@@ -119,10 +128,6 @@ Route::middleware('auth')->group(function () {
 //     Route::post('/account/update-profile', [ProfileController::class, 'updateProfile'])->name('account.updateProfile');
 // });
 
-
-Route::get('/cart', function () {
-    return view('cart');
-});
 
 
 Route::get('/compare', function () {

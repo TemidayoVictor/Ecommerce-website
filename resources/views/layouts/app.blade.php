@@ -27,19 +27,19 @@
     <body>
         <div>
             @foreach ($errors->all() as $message)
-                <div id="notification" class="status stat-2 failed">
+                <div id="notification" class="page-notification stat-2 failed">
                     <p>{{ $message }}</p>
                 </div>
             @endforeach
 
             @if (session('success'))
-                <div id="notification" class="status stat-2 success">
+                <div id="notification" class="page-notification show stat-2 success">
                     <p>{{ session('success') }}</p>
                 </div>
             @endif
 
             @if (session('error'))
-                <div  class=" notification status stat-2 failed">
+                <div id="notification" class="page-notification stat-2 failed">
                     <p>{{ session('error') }}</p>
                 </div>
             @endif
@@ -131,11 +131,15 @@
                         <span class="count" id="cart-count">0</span>
                     </a>
                     @if(auth()->check())
-                    <a href="{{ route('account') }}" class="header__action-btn"><i class="ri-user-line" style="font-size: 26px; text-decoration:none;"></i></a>
+                        <a href="{{ route('account') }}" class="header__action-btn two">
+                            <img src="{{ asset('assets/icon-user.png') }}" alt="">
+                        </a>
                     @else
-                    <a href="{{ route('login') }}" class="header__action-btn"><i class="ri-user-line"></i></a>
+                    <a href="{{ route('login') }}" class="header__action-btn two">
+                        <img src="{{ asset('assets/icon-user.png') }}" alt="">
+                    </a>
                     @endif
-                    
+
                 </div>
             </nav>
         </header>
@@ -280,6 +284,14 @@
                     });
             }
 
+            function updateCartTotal() {
+                fetch("{{ route('cart.total') }}")
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('carts-total').innerText = data.total;
+                    });
+            }
+
             function addToCart(product) {
                 fetch("{{ route('cart.add') }}", {
                     method: "POST",
@@ -343,6 +355,7 @@
                     subtotalSpan.innerText = newSubtotal;
 
                     updateCart(productId, quantity); // Send update to backend
+                    updateCartTotal();
                 });
             });
 
@@ -364,6 +377,7 @@
                         subtotalSpan.innerText = newSubtotal;
 
                         updateCart(productId, quantity); // Send update to backend
+                        updateCartTotal();
                     }
                 });
             });
@@ -467,13 +481,12 @@
             }
         </script>
 
-<script>
-    document.getElementById("edit-address-btn").addEventListener("click", function(event) {
-    event.preventDefault();
-    document.getElementById("address-form").classList.toggle("show-form");
-});
-
-</script>
+        <script>
+            document.getElementById("edit-address-btn").addEventListener("click", function(event) {
+                event.preventDefault();
+                document.getElementById("address-form").classList.toggle("show-form");
+            });
+        </script>
 
     </body>
 </html>

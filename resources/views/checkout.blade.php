@@ -46,14 +46,41 @@
                             <h4>Shipping</h4>
                             <p>NGN  {{number_format($shipping) }}</p>
                         </div>
-                        <div class="flex-4">
-                            <h4>Grand Total</h4>
-                            <p>NGN  {{number_format($shipping + $total) }}</p>
-                        </div>
+                        @if ($coupon)
+                            <div class="flex-4">
+                                <h4>Total</h4>
+                                <p>NGN  {{number_format($shipping + $total) }}</p>
+                            </div>
+
+                            @if ($coupon->type == 'fixed')
+                                <div class="flex-4">
+                                    <h4>Coupon discount</h4>
+                                    <p> - NGN {{ $coupon->discount }}</p>
+                                </div>
+                                <div class="flex-4">
+                                    <h4>Grand Total</h4>
+                                    <p>NGN  {{number_format($shipping + $total - $coupon->discount) }}</p>
+                                </div>
+                            @else
+                                <div class="flex-4">
+                                    <h4>Coupon discount</h4>
+                                    <p>{{ $coupon->discount }}% off</p>
+                                </div>
+                                <div class="flex-4">
+                                    <h4>Grand Total</h4>
+                                    <p>NGN  {{number_format($shipping + $total - (($coupon->discount / 100) * $total )) }}</p>
+                                </div>
+                            @endif
+
+                        @else
+                            <div class="flex-4">
+                                <h4>Grand Total</h4>
+                                <p>NGN  {{number_format($shipping + $total) }}</p>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
-
-
             </div>
 
             <div class="checkout__group">

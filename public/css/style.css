@@ -246,6 +246,42 @@ a.stat {
     padding-block: 1rem;
     resize: none;
 }
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    width: 40%;
+    border-radius: 5px;
+}
+.close-btn {
+    float: right;
+    cursor: pointer;
+}
+.delivery-item {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 5px 0;
+    cursor: pointer;
+}
+.delivery-item:hover {
+    background-color: #f0f0f0;
+}
+.hidden {
+    display: none;
+}
+
 /* Header and Nav */
 header.user {
     position: fixed;
@@ -344,6 +380,10 @@ header.user {
 
 .header__action-btn img{
     width: 1.5rem;
+}
+
+.header__action-btn.two img{
+    width: 1.9rem;
 }
 
 .header__action-btn .count {
@@ -1220,12 +1260,19 @@ header.user {
 
 .checkout_total {
     background-color: #f8f9fa;
-    padding: .5em 1em;
-    border-radius: .5rem;
+    border-radius: .3rem;
+    margin-top: 1.5rem;
+    border: 1px solid var(--border-color);
 }
 
 .checkout_total .flex-4 {
     margin-block: .5em;
+    padding: .5em 1em;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.checkout_total .flex-4:last-child {
+    border-bottom: 0;
 }
 
 .order__table tr th, .order__table tr td {
@@ -1902,6 +1949,39 @@ header.user {
     transform: translateY(0);
 }
 
+.page-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: bold;
+    display: none; /* Initially hidden */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: translateY(-20px);
+    z-index: 1500;
+
+}
+
+/* Show notification */
+.page-notification.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page-notification.success {
+    background-color: #4CAF50;
+}
+
+.page-notification.failed {
+    background-color: red;
+}
+
 .cartbtn {
     border: 1px solid var(--first-color);
     padding: .3rem .6rem;
@@ -1918,6 +1998,17 @@ header.user {
 
 .cartprice {
     margin-inline: .5rem;
+}
+
+.selectedLocation {
+    margin-top: .7rem;
+    background-color: #f8f9fa;
+    border-radius: .3rem;
+    padding: .5rem;
+}
+
+.selectedLocation p {
+    margin-block: .5rem;
 }
 
 /* FOR MEDIUM DEVICES */
@@ -2505,17 +2596,17 @@ body .admin {
       position: relative;
       justify-content: center; /* Center main nav items */
     }
-  
+
     .nav__logo {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
     }
-  
+
     .header__user-actions {
       margin-left: auto; /* Keep cart/burger icons on right */
     }
-  
+
     /* Optional: Ensure logo image is properly sized */
     .nav__logo-img {
       display: block;

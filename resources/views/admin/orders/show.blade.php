@@ -83,6 +83,10 @@
                 <h4>Additional Info</h4>
                 <p style="text-align: justify;"> {{ $order->additional_information }} </p>
             </div>
+            <div class="detail-box">
+                <h4>Ordered At:</h4>
+                <p style="text-align: justify;"> {{ $order->created_at->format('F d, Y') }} </p>
+            </div>
         </div>
         <div class="details-actions">
             <div class="flex">

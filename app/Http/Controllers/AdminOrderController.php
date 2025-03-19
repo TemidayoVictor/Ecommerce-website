@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\DeliveryLocation;
+use App\Models\User;
 
 class AdminOrderController extends Controller
 {
@@ -72,5 +73,15 @@ class AdminOrderController extends Controller
         else {
             return redirect()->route('admin.orders')->with('error', 'Order not Found');
         }
+    }
+
+    public function userOrders($id) {
+        $user = User::findOrFail($id);
+        $pageTitle = $user->name."'s Orders";
+        $orders = Order::where('user_id', $id)->orderBy('id', 'desc')->get();
+        return view('admin.orders.index', [
+            'pageTitle' => $pageTitle,
+            'orders' => $orders,
+        ]);
     }
 }

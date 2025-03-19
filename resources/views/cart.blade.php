@@ -267,6 +267,8 @@
 
             // Proceed to checkout - Save in session
             proceedButton.addEventListener("click", function () {
+                proceedButton.innerText = "Processing. . . ";
+                proceedButton.disable = true;
                 const locationId = document.querySelector(".delivery-item[data-name='" + locationName.textContent + "']").dataset.id;
                 fetch("{{ url('/api/save-location') }}", {
                     method: "POST",

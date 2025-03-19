@@ -50,6 +50,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::post('/update-payment/{id}', [AdminOrderController::class, 'updatePayment'])->name('update-payment');
     Route::post('/update-shipping/{id}', [AdminOrderController::class, 'updateShipping'])->name('update-shipping');
 
+    Route::get('/user/orders/{id}', [AdminOrderController::class, 'userOrders'])->name('order-user');
+
     // Users
 
 //     Route::middleware(['auth', 'admin'])->group(function () {

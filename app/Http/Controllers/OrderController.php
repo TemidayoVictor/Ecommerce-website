@@ -9,6 +9,8 @@ use App\Models\DeliveryLocation;
 use App\Models\Coupon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ShippingAddress;
 
 class OrderController extends Controller
 {
@@ -19,6 +21,7 @@ class OrderController extends Controller
         $shipping = 0;
         $location = Session::get('delivery_location');
         $coupon = Session::get('coupon');
+        $check = false;
         if($location) {
             $shipping = $location['price'];
         }
@@ -30,12 +33,32 @@ class OrderController extends Controller
             }
         }
 
-        return view('checkout', [
-            'cartItem' => $cartItem,
-            'total' => $total,
-            'shipping' => $shipping,
-            'coupon' => $coupon,
-        ]);
+        // check if user is logged in
+        if (auth::check()) {
+            $check = true;
+            $user = auth()->user();
+            $userId = $user->id;
+            $addressCheck = ShippingAddress::where('user_id', $userId)->first();
+            return view('checkout', [
+                'cartItem' => $cartItem,
+                'total' => $total,
+                'shipping' => $shipping,
+                'coupon' => $coupon,
+                'check' => $check,
+                'addressCheck' => $addressCheck,
+                'user' => $user,
+            ]);
+        }
+
+        else {
+            return view('checkout', [
+                'cartItem' => $cartItem,
+                'total' => $total,
+                'shipping' => $shipping,
+                'coupon' => $coupon,
+                'check' => $check
+            ]);
+        }
     }
 
     // Fetch all delivery locations
@@ -68,6 +91,7 @@ class OrderController extends Controller
             'address' => 'required',
             'city' => 'required',
             'country' => 'required',
+            'state' => 'required',
             'phone' => 'required',
             'email' => 'required',
             'note',
@@ -110,6 +134,12 @@ class OrderController extends Controller
         if(auth()->user()) {
             $user = auth()->user();
             $userId = $user->id;
+
+            // update shipping address
+            ShippingAddress::updateOrCreate(
+                ['user_id' => $userId],
+                ['address' => $request->address, 'city' => $request->city, 'state' => $request->state, 'country' => $request->country,]
+            );
         }
 
         $orderNumber = rand(100000000, 999999999);

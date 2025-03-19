@@ -24,7 +24,12 @@ class Order extends Model
         'shipping',
         'delivery_location_id',
         'coupon_id',
+        'state',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 
     public function orderItem() {
         return $this->hasMany(OrderItem::class);

@@ -24,7 +24,7 @@
         </div>
         <br>
         <br>
-        
+
     <div class="accounts__container container grid">
         <div class="account__tabs">
             <p class="account__tab" data-target="#dashboard">
@@ -59,7 +59,7 @@
 
         <div class="tabs__content">
             <div class="tab__content active-tab" content id="dashboard">
-                 <h3 class="tab__header">Your Messages</h3> 
+                 <h3 class="tab__header">Your Messages</h3>
                 <div class="tab__body">
                     <p class="tab__description">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam alias voluptates maxime labore ad ipsam, sed tempora iusto placeat ipsum?
@@ -137,8 +137,8 @@
                 <div class="tab__body">
                 @if($address)
                     <address class="address">
-                    {{ $address->address_line1 }} <br/>
-                    {{ $address->address_line2 ? $address->address_line2 . '<br/>' : '' }}
+                    {{ $address->address }} <br/>
+                    {{-- {{ $address->address_line2 ? $address->address_line2 . '<br/>' : '' }} --}}
                     {{ $address->city }}, {{ $address->state }} <br />
                     {{ $address->zipcode }}, {{ $address->country }}
                     </address>
@@ -196,7 +196,7 @@
                 <div class="tab__body">
                     <form method="POST" action="{{ route('account.change-password') }}" class="form grid">
                     @csrf
-                        
+
                         <input type="password" name="current_password" class="form__input" placeholder="Current Password" required>
 
                         <input type="password" name="new_password" class="form__input" placeholder="New Password" required>

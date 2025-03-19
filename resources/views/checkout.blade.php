@@ -88,30 +88,94 @@
 
                 <form action="" class="form grid" method="post">
                     @csrf
-                    <div style="width:100%;">
-                        <h4 class="checkout__title">Name</h4>
-                        <input style="width:100%;" type="text" placeholder="Name" name="name" value="{{ old('name') }}" required class="form__input">
-                    </div>
-                    <div>
-                        <h4 class="checkout__title">Address</h4>
-                        <input style="width:100%;" type="text" placeholder="Address" name="address" value="{{ old('address') }}" required class="form__input">
-                    </div>
-                    <div>
-                        <h4 class="checkout__title">City</h4>
-                        <input style="width:100%;" type="text" placeholder="City" name="city" value="{{ old('city') }}" required class="form__input">
-                    </div>
-                    <div>
-                        <h4 class="checkout__title">Country</h4>
-                        <input style="width:100%;" type="text" placeholder="Country" name="country" value="{{ old('country') }}" required class="form__input">
-                    </div>
-                    <div>
-                        <h4 class="checkout__title">Phone</h4>
-                        <input style="width:100%;" type="text" placeholder="Phone" name="phone" value="{{ old('phone') }}" required class="form__input">
-                    </div>
-                    <div>
-                        <h4 class="checkout__title">Email</h4>
-                        <input style="width:100%;" type="email" placeholder="Email" name="email" value="{{ old('email') }}" required class="form__input">
-                    </div>
+                    @if($check)
+
+                        <div style="width:100%;">
+                            <h4 class="checkout__title">Name</h4>
+                            <input style="width:100%;" type="text" placeholder="Name" name="name" value="{{ $user->name }}" required class="form__input">
+                        </div>
+
+                    @if ($addressCheck)
+
+                        <div>
+                            <h4 class="checkout__title">Address</h4>
+                            <input style="width:100%;" type="text" placeholder="Address" name="address" value="{{ $addressCheck->address }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">City</h4>
+                            <input style="width:100%;" type="text" placeholder="City" name="city" value="{{ $addressCheck->city }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">State</h4>
+                            <input style="width:100%;" type="text" placeholder="State" name="state" value="{{ $addressCheck->state }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">Country</h4>
+                            <input style="width:100%;" type="text" placeholder="Country" name="country" value="{{ $addressCheck->country }}" required class="form__input">
+                        </div>
+
+                    @else
+
+                        <div>
+                            <h4 class="checkout__title">Address</h4>
+                            <input style="width:100%;" type="text" placeholder="Address" name="address" value="{{ old('address') }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">City</h4>
+                            <input style="width:100%;" type="text" placeholder="City" name="city" value="{{ old('city') }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">State</h4>
+                            <input style="width:100%;" type="text" placeholder="State" name="state" value="{{ old('state') }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">Country</h4>
+                            <input style="width:100%;" type="text" placeholder="Country" name="country" value="{{ old('country') }}" required class="form__input">
+                        </div>
+
+                    @endif
+
+                        <div>
+                            <h4 class="checkout__title">Phone</h4>
+                            <input style="width:100%;" type="text" placeholder="Phone" name="phone" value="{{ $user->phone }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">Email</h4>
+                            <input style="width:100%;" type="email" placeholder="Email" name="email" value="{{ $user->email }}" required class="form__input">
+                        </div>
+
+                    @else
+
+                        <div style="width:100%;">
+                            <h4 class="checkout__title">Name</h4>
+                            <input style="width:100%;" type="text" placeholder="Name" name="name" value="{{ old('name') }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">Address</h4>
+                            <input style="width:100%;" type="text" placeholder="Address" name="address" value="{{ old('address') }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">City</h4>
+                            <input style="width:100%;" type="text" placeholder="City" name="city" value="{{ old('city') }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">State</h4>
+                            <input style="width:100%;" type="text" placeholder="State" name="state" value="{{ old('state') }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">Country</h4>
+                            <input style="width:100%;" type="text" placeholder="Country" name="country" value="{{ old('country') }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">Phone</h4>
+                            <input style="width:100%;" type="text" placeholder="Phone" name="phone" value="{{ old('phone') }}" required class="form__input">
+                        </div>
+                        <div>
+                            <h4 class="checkout__title">Email</h4>
+                            <input style="width:100%;" type="email" placeholder="Email" name="email" value="{{ old('email') }}" required class="form__input">
+                        </div>
+
+                    @endif
 
                     <h3 class="checkout__title">Additional Information</h3>
 

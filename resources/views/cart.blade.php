@@ -188,9 +188,11 @@
                     </tr> --}}
                 </table>
 
-                <a href="{{ route('place-order') }}" class="btn flex btn--md hidden" id="proceedToCheckout">
+                <p id="notice">Please select a shipping location to proceed to checkout</p>
+
+                <button class="btn flex btn--md hidden" id="proceedToCheckout">
                     <i class="ri-shopping-cart-line"></i></i> Proceed To checkout
-                </a>
+                </button>
             </div>
         </div>
     </section>
@@ -207,6 +209,7 @@
             const locationAxis = document.getElementById("locationAxis");
             const proceedButton = document.getElementById("proceedToCheckout");
             const shipping = document.getElementById("shipping");
+            const notice = document.getElementById("notice");
 
             // Open modal
             openModal.addEventListener("click", function () {
@@ -255,6 +258,9 @@
                 selectedLocationDiv.classList.remove("hidden");
                 proceedButton.classList.remove("hidden");
 
+                // hide notice
+                notice.style.display = "none";
+
                 // Close modal
                 modal.style.display = "none";
             }
@@ -262,7 +268,6 @@
             // Proceed to checkout - Save in session
             proceedButton.addEventListener("click", function () {
                 const locationId = document.querySelector(".delivery-item[data-name='" + locationName.textContent + "']").dataset.id;
-
                 fetch("{{ url('/api/save-location') }}", {
                     method: "POST",
                     headers: {

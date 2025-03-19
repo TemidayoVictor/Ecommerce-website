@@ -515,6 +515,10 @@ header.user {
     width: 100%;
 }
 
+.btn.flex.hidden {
+    display: none;
+}
+
 .flex {
     display: flex;
     align-items: center;

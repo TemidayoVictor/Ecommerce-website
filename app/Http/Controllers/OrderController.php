@@ -8,6 +8,7 @@ use App\Models\OrderItem;
 use App\Models\DeliveryLocation;
 use App\Models\Coupon;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -47,10 +48,11 @@ class OrderController extends Controller
     public function saveLocation(Request $request)
     {
         $request->validate([
-            'location_id' => 'required|exists:delivery_locations,id',
+            'location_id' => 'required',
         ]);
 
-        $location = DeliveryLocation::find($request->location_id);
+        $location = DeliveryLocation::findOrFail($request->location_id);
+
         Session::put('delivery_location', [
             'id' => $location->id,
             'name' => $location->name,

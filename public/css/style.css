@@ -2499,6 +2499,109 @@ body .admin {
     }
 }
 
+/* Admin Table Styling */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header */
+.admin-table th {
+    background: hwb(123 18% 51%);
+    color: white;
+    text-align: left;
+    padding: 12px;
+    font-size: 16px;
+}
+
+/* Table Body */
+.admin-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* Alternate Row Colors */
+.admin-table tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* Hover Effect */
+.admin-table tbody tr:hover {
+    background: #f1f1f1;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .admin-user-table {
+        overflow-x: auto;
+    }
+}
+
+/* Admin Form Container */
+.admin-form {
+    max-width: 500px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Group */
+.admin-form .form-group {
+    margin-bottom: 15px;
+}
+
+/* Labels */
+.admin-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Input Fields */
+.admin-form input[type="text"],
+.admin-form input[type="email"],
+.admin-form input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Checkbox */
+.admin-form .checkbox {
+    display: flex;
+    align-items: center;
+}
+
+/* Submit Button */
+.admin-form .btn {
+    width: 100%;
+    padding: 10px;
+    background: hwb(123 18% 51%);;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.admin-form .btn:hover {
+    background: #0056b3;
+}
+
+
+
 
 /* Address Section Styling */
 .tab__body {

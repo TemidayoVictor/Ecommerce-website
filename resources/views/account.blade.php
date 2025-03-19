@@ -15,23 +15,20 @@
 </section>
 
 <section class="accounts section--lg">
-        @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>    
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+        <div class="tabs__content">
+            <div class="tab__content active-tab">
+            @if(auth()->check())
+            <h3 class="tab__header">Welcome, {{ auth()->user()->name }}</h3>
+                @endif
             </div>
-        @endif
+        </div>
+        <br>
+        <br>
+        
     <div class="accounts__container container grid">
         <div class="account__tabs">
             <p class="account__tab" data-target="#dashboard">
-                <i class="ri-delete-bin-line table__trash"></i> Dashboard
+                <i class="ri-delete-bin-line table__trash"></i> Messages
             </p>
 
             <p class="account__tab" data-target="#orders">
@@ -62,7 +59,7 @@
 
         <div class="tabs__content">
             <div class="tab__content active-tab" content id="dashboard">
-                <h3 class="tab__header">Hello Rosie</h3>
+                 <h3 class="tab__header">Your Messages</h3> 
                 <div class="tab__body">
                     <p class="tab__description">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam alias voluptates maxime labore ad ipsam, sed tempora iusto placeat ipsum?
@@ -124,10 +121,10 @@
             <div class="tab__content active-tab" content id="update-profile">
                 <h3 class="tab__header">Update Profile</h3>
                 <div class="tab__body">
-                    <form action="" method="POST" class="form grid">
+                    <form action="{{ route('account.updateProfile') }}" method="POST" class="form grid">
                     @csrf
-                        <input type="text" class="form__input" value="{{ Auth::user()->name }}" placeholder="Username" required>
-                        <input type="email" name="email" class="form__input" value="{{ Auth::user()->email }}">
+                        <input type="text" name="name" id="name" class="form__input" value="{{ old('name', auth()->user()->name) }}" placeholder="Username">
+                        <input type="email" name="email" id="email" class="form__input" value="{{ old('email', auth()->user()->email) }}" placeholder="Email">
                         <div class="form__btn"><button type="submit" class="btn btn--md">Save</button></div>
                     </form>
                 </div>

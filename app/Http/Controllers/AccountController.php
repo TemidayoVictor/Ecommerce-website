@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class AccountController extends Controller
 {
@@ -35,6 +37,45 @@ class AccountController extends Controller
     ]);
 
     return back()->with('success', 'Password updated successfully!');
+}
+
+public function updateProfile(Request $request)
+{
+
+    $user = Auth::user(); // Get logged-in user
+
+    // Validate the request
+    $request->validate([
+        'name' => ['nullable', 'string', 'max:255'],
+        'email' => [
+            'nullable',
+            'email:rfc,dns',
+            'max:255',
+            Rule::unique('users')->ignore($user->id),
+        ],
+    ]);
+
+    // Update user details
+    // Update only the fields that were submitted
+    if ($request->filled('name')) {
+        $existingName = \App\Models\User::where(DB::raw('LOWER(name)'), strtolower($request->name))
+                                        ->where('id', '!=', $user->id)
+                                        ->exists();
+                                        
+        if ($existingName) {
+            return back()->with('error', 'The name is already taken.');
+        }
+
+        $user->name = $request->name; // Update name only if provided
+    }
+
+    if ($request->filled('email')) {
+        $user->email = $request->email;
+    }
+
+    $user->update(); // Save changes
+
+    return back()->with('success', 'Profile updated successfully!');
 }
 
 }

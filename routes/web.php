@@ -12,7 +12,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ShippingAddressController;
 use App\Http\Controllers\AdminSettingController;
-// use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+
 
 
 // Admin routes (Will be put in middleware later)
@@ -48,6 +49,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 
     Route::post('/update-payment/{id}', [AdminOrderController::class, 'updatePayment'])->name('update-payment');
     Route::post('/update-shipping/{id}', [AdminOrderController::class, 'updateShipping'])->name('update-shipping');
+
+    // Users
+
+//     Route::middleware(['auth', 'admin'])->group(function () {
+//     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+// });
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+
 
     // Settings
     // Delivery Location
@@ -123,10 +134,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/account/shipping-address', [ShippingAddressController::class, 'store'])->name('account.shipping-address');
 });
 
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/account', [ProfileController::class, 'index'])->name('account');
-//     Route::post('/account/update-profile', [ProfileController::class, 'updateProfile'])->name('account.updateProfile');
-// });
+Route::middleware('auth')->group(function () {
+    Route::post('/account/update-profile', [AccountController::class, 'updateProfile'])->name('account.updateProfile');
+});
 
 
 

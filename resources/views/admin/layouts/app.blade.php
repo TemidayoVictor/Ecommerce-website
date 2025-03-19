@@ -18,7 +18,7 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item active"><a href="/admin/dashboard" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-users"></i> Users</a></li>
+                <li class="sidebar-item"><a href="{{ route('admin.users') }}" class="sidebar-link"><i class="fas fa-users"></i> Users</a></li>
                 <li class="sidebar-item"><a href=" {{ route('admin.products') }} " class="sidebar-link"><i class="fas fa-box"></i> Products</a></li>
                 <li class="sidebar-item"><a href=" {{ route('admin.orders') }} " class="sidebar-link"><i class="fas fa-cart-plus"></i> Orders</a></li>
                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="fas fa-chart-line"></i> Reports</a></li>

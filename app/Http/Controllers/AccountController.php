@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Wishlist;
+use App\Models\ShippingAddress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -13,8 +15,13 @@ class AccountController extends Controller
 
     public function index()
     {
-        // You can pass any user data if needed
-        return view('account');
+        $user = Auth::user(); // Get the logged-in user
+
+        // Fetch wishlist items for the logged-in user
+        $wishlistItems = Wishlist::where('user_id', $user->id)->with('product')->get();
+        $address = $user->shippingAddress;
+
+        return view('account', compact('wishlistItems', 'address'));
     }
 
     public function changePassword(Request $request)

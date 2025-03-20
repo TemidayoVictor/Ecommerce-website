@@ -480,13 +480,47 @@
                 });
             }
         </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const editButton = document.querySelector(".edit-address");
+    const addressDisplay = document.getElementById("address-display");
+    const addressForm = document.getElementById("address-form");
 
-        <script>
-            document.getElementById("edit-address-btn").addEventListener("click", function(event) {
-                event.preventDefault();
-                document.getElementById("address-form").classList.toggle("show-form");
-            });
-        </script>
+    if (editButton) {
+        editButton.addEventListener("click", function () {
+            addressDisplay.style.display = "none"; // Hide address
+            addressForm.style.display = "block"; // Show form
+        });
+    }
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const links = document.querySelectorAll(".account-sidebar a");
+    const sections = document.querySelectorAll(".account-section");
+
+    links.forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            // Remove active class from all links and sections
+            links.forEach(l => l.parentElement.classList.remove("active"));
+            sections.forEach(section => section.classList.remove("active"));
+
+            // Get target section ID from data-target attribute
+            const targetId = this.getAttribute("data-target");
+            const targetSection = document.getElementById(targetId);
+
+            // Show the selected section and highlight the link
+            if (targetSection) {
+                targetSection.classList.add("active");
+                this.parentElement.classList.add("active");
+            }
+        });
+    });
+});
+</script>
 
     </body>
 </html>

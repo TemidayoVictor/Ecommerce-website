@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ShippingAddressController extends Controller
 {
-     public function index()
-    {
-        $address = Auth::user()->shippingAddress;
-        return view('account', compact('address')); // Pass the address to the view
-    }
 
     public function store(Request $request)
     {

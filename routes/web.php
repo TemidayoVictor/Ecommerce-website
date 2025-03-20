@@ -132,7 +132,6 @@ Route::post('/account/change-password', [AccountController::class, 'changePasswo
     ->middleware('auth');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/account', [ShippingAddressController::class, 'index'])->name('account');
     Route::post('/account/shipping-address', [ShippingAddressController::class, 'store'])->name('account.shipping-address');
 });
 

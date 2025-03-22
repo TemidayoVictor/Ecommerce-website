@@ -14,7 +14,7 @@
             @csrf
             <div class="input-field">
                 <label for=""> <h4>Category</h4> </label>
-                <select name="category" id="" required>
+                <select name="category" id="category" required>
                     <option value="">Select Category</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -24,13 +24,8 @@
 
             <div class="input-field">
                 <label for=""> <h4>Brand</h4> </label>
-                <select name="brand" id="">
+                <select id="brand" name="brand" disabled>
                     <option value="">Select Brand</option>
-                    @foreach ($brands as $brand)
-                        <option value="{{ $brand->id }}" {{ old('brand') == $brand->id ? 'selected' : '' }}>
-                            {{ $brand->name }}
-                        </option>
-                    @endforeach
                 </select>
             </div>
 
@@ -83,3 +78,7 @@
         </form>
     </div>
 @endsection
+
+@push('scripts')
+    @include('scripts.category-brand')
+@endpush

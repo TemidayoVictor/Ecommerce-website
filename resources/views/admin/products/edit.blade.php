@@ -15,7 +15,7 @@
 
             <div class="input-field">
                 <label for=""> <h4>Category</h4> </label>
-                <select name="category" id="" required>
+                <select name="category" id="category" required>
                     <option value="">Select Category</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -25,13 +25,10 @@
 
             <div class="input-field">
                 <label for=""> <h4>Brand</h4> </label>
-                <select name="brand" id="">
-                    <option value="">Select Brand</option>
-                    @foreach ($brands as $brand)
-                        <option value="{{ $brand->id }}" {{ $product->brand_id == $brand->id ? 'selected' : '' }}>
-                            {{ $brand->name }}
-                        </option>
-                    @endforeach
+                <select name="brand" id="brand" disabled>
+                    <option value="{{ $product->brand->id }}">
+                        {{ $product->brand->name }}
+                    </option>
                 </select>
             </div>
 
@@ -131,3 +128,7 @@
         @endif
     </div>
 @endsection
+
+@push('scripts')
+    @include('scripts.category-brand')
+@endpush

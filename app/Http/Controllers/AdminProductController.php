@@ -297,6 +297,10 @@ class AdminProductController extends Controller
         }
     }
 
+    public function getBrands($id) {
+        return response()->json(Brand::where('category_id', $id)->get());
+    }
+
     public function deleteImage(Request $request, $id) {
         $productImage = ProductImage::find($id);
 

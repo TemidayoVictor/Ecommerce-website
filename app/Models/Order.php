@@ -25,6 +25,7 @@ class Order extends Model
         'delivery_location_id',
         'coupon_id',
         'state',
+        'sale_id'
     ];
 
     public function user() {

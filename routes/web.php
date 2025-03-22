@@ -40,6 +40,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     // Brands
     Route::get('/brands', [AdminProductController::class, 'brands'])->name('brands');
     Route::post('/brands', [AdminProductController::class, 'addBrand']);
+    Route::get('/get-brands/{id}', [AdminProductController::class, 'getBrands'])->name('get-brands');
 
     // Product Images
     Route::post('/delete-image/{id}', [AdminProductController::class, 'deleteImage'])->name('delete-image');
@@ -56,15 +57,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 
     Route::get('/user/orders/{id}', [AdminOrderController::class, 'userOrders'])->name('order-user');
 
-    // Users
+    //Admin User Management
 
-//     Route::middleware(['auth', 'admin'])->group(function () {
-//     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
-// });
+    //     Route::middleware(['auth', 'admin'])->group(function () {
+    //     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+    // });
+
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
-
 
     // Settings
     // Delivery Location
@@ -75,6 +76,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::post('/settings/edit-delivery-location/{id}', [AdminSettingController::class, 'editLocationPost']);
 
     Route::post('/settings/delete-delivery-location/{id}', [AdminSettingController::class, 'deleteLocation'])->name('settings.delete-location');
+
+    // Sales
+    Route::get('/settings/create-sales', [AdminSettingController::class, 'createSales'])->name('settings.create-sales');
+    Route::post('/settings/create-sales', [AdminSettingController::class, 'createSalesPost']);
+    Route::post('/settings/update-sales/{id}', [AdminSettingController::class, 'updateSales'])->name('settings.update-sales');
+    Route::post('/settings/end-sales/{id}', [AdminSettingController::class, 'endSales'])->name('settings.end-sales');
 
     // Coupon
     Route::get('/settings/generate-coupon', [AdminSettingController::class, 'generateCoupon'])->name('settings.generate-coupon');

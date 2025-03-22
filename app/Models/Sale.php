@@ -4,19 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Sale extends Model
 {
     //
-    protected $table = 'products';
+    protected $table = 'sales';
     protected $fillable = [
         'category_id',
         'brand_id',
         'name',
-        'price',
-        'description',
-        'sales',
-        'stock',
-        'featured',
+        'start_time',
+        'end_time',
+        'discount',
+        'discount_type',
+        'revenue',
         'status',
     ];
 
@@ -27,13 +27,4 @@ class Product extends Model
     public function brand() {
         return $this->belongsTo(Brand::class);
     }
-
-    public function productImage() {
-        return $this->hasMany(ProductImage::class);
-    }
-
-    public function productAddition() {
-        return $this->hasMany(ProductAddition::class);
-    }
-
 }

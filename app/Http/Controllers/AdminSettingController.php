@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\DeliveryLocation;
 use App\Models\Coupon;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Brand;
+use App\Models\Sale;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -119,6 +123,214 @@ class AdminSettingController extends Controller
         }
 
         return redirect()->back()->with('success', 'Coupon codes generated Successfully');
+    }
+
+    public function createSales() {
+        $pageTitle = "Sales";
+
+        $categories = Category::all();
+        $brands = Brand::all();
+
+        $onSale = false;
+        $sale = null;
+
+        $check = Sale::where('status', 'running')->with('category', 'brand')->first();
+        if($check) {
+            $onSale = true;
+            $sale = $check;
+        }
+
+        $sales = Sale::all();
+
+        return view('admin.settings.sales', [
+            'pageTitle' => $pageTitle,
+            'categories' => $categories,
+            'brands' => $brands,
+            'onSale' => $onSale,
+            'sale' => $sale,
+            'sales' => $sales,
+        ]);
+    }
+
+    public function createSalesPost(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'start' => 'required',
+        ]);
+
+        $category = $request->category;
+        $brand = $request->brand;
+        $type = $request->type;
+        $discount = $request->discount;
+        $start = $request->start;
+        $end = $request->end;
+
+        if($brand && $discount) {
+            $products = Product::where('brand_id', $brand)->get();
+            foreach($products as $product) {
+                if($type == 'percentage') {
+                    $discountedPrice = $product->price - ($product->price * $discount / 100);
+                }
+
+                else {
+                    $discountedPrice = $product->price - $discount;
+                }
+
+                $product->update([
+                    'sales' => $discountedPrice,
+                    'status' => 'on_sale',
+                ]);
+            }
+        }
+
+        elseif($brand && !$discount) {
+            $products = Product::where('brand_id', $brand)->get();
+            foreach($products as $product) {
+                $product->update([
+                    'status' => 'on_sale',
+                ]);
+            }
+        }
+
+        elseif($category && $discount) {
+            $products = Product::where('category_id', $category)->get();
+            foreach($products as $product) {
+                if($type == 'percentage') {
+                    $discountedPrice = $product->price - ($product->price * $discount / 100);
+                }
+
+                else {
+                    $discountedPrice = $product->price - $discount;
+                }
+
+                $product->update([
+                    'sales' => $discountedPrice,
+                    'status' => 'on_sale',
+                ]);
+            }
+        }
+
+        elseif($category && !$discount) {
+            $products = Product::where('category_id', $category)->get();
+            foreach($products as $product) {
+                $product->update([
+                    'status' => 'on_sale',
+                ]);
+            }
+        }
+
+        elseif(!$category && !$brand && $discount) {
+            $products = Product::all();
+            foreach($products as $product) {
+                if($type == 'percentage') {
+                    $discountedPrice = $product->price - ($product->price * $discount / 100);
+                }
+
+                else {
+                    $discountedPrice = $product->price - $discount;
+                }
+
+                $product->update([
+                    'sales' => $discountedPrice,
+                    'status' => 'on_sale',
+                ]);
+            }
+        }
+
+        else {
+            $products = Product::all();
+            foreach($products as $product) {
+                $product->update([
+                    'status' => 'on_sale',
+                ]);
+            }
+        }
+
+        if($start < Carbon::now()->format('Y-m-d')) {
+            return redirect()->back()->with('error', 'Start date cannot be less than today');
+        }
+
+        elseif($end !== NULL && $end < $start) {
+            return redirect()->back()->with('error', 'End date cannot be less than start date');
+        }
+
+        else {
+
+            if($discount == NULL) {
+                $discount = 0;
+            }
+
+            $sale = Sale::create([
+                'category_id' => $category,
+                'brand_id' => $brand,
+                'name' => $request->name,
+                'start_time' => Carbon::parse($start)->format('Y-m-d'),
+                'end_time' => Carbon::parse($end)->format('Y-m-d'),
+                'discount' => $discount,
+                'discount_type' => $type,
+                'revenue' => 0,
+                'status' => 'running',
+            ]);
+
+            return redirect()->back()->with('success', 'Sales Stared Successfully');
+        }
+    }
+
+    public function endSales($id) {
+        $sale = Sale::findorFail($id);
+        $category = $sale->category_id;
+        $brand = $sale->brand_id;
+
+        if($brand) {
+            $products = Product::where('brand_id', $brand)->get();
+            foreach($products as $product) {
+                $product->update([
+                    'sales' => $product->price,
+                    'status' => 'available',
+                ]);
+            }
+        }
+
+        elseif($category) {
+            $products = Product::where('category_id', $category)->get();
+            foreach($products as $product) {
+                $product->update([
+                    'sales' => $product->price,
+                    'status' => 'available',
+                ]);
+            }
+        }
+
+        else {
+            $products = Product::all();
+            foreach($products as $product) {
+                $product->update([
+                    'sales' => $product->price,
+                    'status' => 'available',
+                ]);
+            }
+        }
+
+        $sale->update([
+            'status' => 'ended',
+            'end_time' => Carbon::now()->format('Y-m-d'),
+        ]);
+
+        return redirect()->back()->with('success', 'Sales Ended Successfully');
+    }
+
+    public function updateSales(Request $request, $id) {
+        $request->validate([
+            'end' => 'required',
+        ]);
+
+        $sale = Sale::findorFail($id);
+        $sale->update([
+            'end_time' => $request->end,
+        ]);
+
+        return redirect()->back()->with('success', 'Sales Updated Successfully');
+
     }
 
     private function generateCode() {

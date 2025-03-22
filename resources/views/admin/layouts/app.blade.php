@@ -73,35 +73,36 @@
     <script src="{{ asset('js/script.js') }}"></script>
 
     <script>
-    document.querySelectorAll(".delete-btn").forEach(button => {
-    button.addEventListener("click", function() {
-        console.log("Delete button clicked!"); // Debugging
-        let subscriberId = this.closest("form").dataset.id;
-        console.log("Subscriber ID:", subscriberId); // Debugging
+        document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", function() {
+            console.log("Delete button clicked!"); // Debugging
+            let subscriberId = this.closest("form").dataset.id;
+            console.log("Subscriber ID:", subscriberId); // Debugging
 
-        if (confirm("Are you sure you want to delete this subscriber?")) {
-            console.log("Confirmed deletion"); // Debugging
-            fetch(`/admin/newsletter/${subscriberId}`, {
-                method: "DELETE",
-                headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Server response:", data); // Debugging
-                if (data.success) {
-                    alert("Subscriber deleted successfully!");
-                    location.reload(); // Refresh to update the list
-                } else {
-                    alert("Error deleting subscriber.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
-        }
+            if (confirm("Are you sure you want to delete this subscriber?")) {
+                console.log("Confirmed deletion"); // Debugging
+                fetch(`/admin/newsletter/${subscriberId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Server response:", data); // Debugging
+                    if (data.success) {
+                        alert("Subscriber deleted successfully!");
+                        location.reload(); // Refresh to update the list
+                    } else {
+                        alert("Error deleting subscriber.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        });
     });
-});
-</script>
+    </script>
+    @stack('scripts')
 </body>
 </html>

@@ -25,6 +25,7 @@ class NewsletterController extends Controller
                     ->subject('New Newsletter Subscription');
         });
 
+
         return response()->json(['success' => 'Thank you for subscribing!']);
     }
 
@@ -34,4 +35,18 @@ class NewsletterController extends Controller
         $subscribers = Newsletter::latest()->paginate(10);
         return view('admin.newsletter.index', compact('subscribers'));
     }
+
+    public function destroy($id)
+{
+    $subscriber = Newsletter::find($id);
+
+    if (!$subscriber) {
+        return redirect()->back()->with('error', 'Subscriber not found.');
+    }
+
+    $subscriber->delete();
+
+    return redirect()->back()->with('success', 'Subscriber deleted successfully.');
+}
+
 }

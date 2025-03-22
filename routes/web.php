@@ -168,6 +168,8 @@ Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('new
 // Admin route to view newsletter subscribers
 Route::get('/admin/newsletter', [NewsletterController::class, 'index'])->name('admin.newsletter');
 
+Route::delete('/admin/newsletter/{id}', [NewsletterController::class, 'destroy'])->name('newsletter.delete');
+
     Route::get('/compare', function () {
         return view('compare');
     });

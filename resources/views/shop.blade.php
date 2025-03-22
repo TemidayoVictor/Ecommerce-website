@@ -642,18 +642,18 @@
             @endif
         </div>
 
-        {{-- <ul class="pagination">
-            <li><a href="" class="pagination__link active">01</a></li>
-            <li><a href="" class="pagination__link">02</a></li>
-            <li><a href="" class="pagination__link">03</a></li>
+        <ul class="pagination">
+            <li><a href="" class="pagination__link active"></a></li>
+            <li><a href="" class="pagination__link">{{ $products->appends(request()->query())->links() }}</a></li>
+            <!-- <li><a href="" class="pagination__link">03</a></li>
             <li><a href="" class="pagination__link">...</a></li>
-            <li><a href="" class="pagination__link">16</a></li>
+            <li><a href="" class="pagination__link">16</a></li> -->
             <li>
                 <a href="" class="pagination__link icon">
                     <i class="ri-arrow-right-s-line"></i>
                 </a>
             </li>
-        </ul> --}}
+        </ul> 
     </section>
 
 @endsection

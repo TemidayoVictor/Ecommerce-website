@@ -157,12 +157,12 @@
                     <p class="newsletter__description">
                         ... and receive $25 coupon for shopping
                     </p>
-                    <form action="" id="newsletter-form" class="newsletter__form">
+                    <form id="newsletter-form" class="newsletter__form">
                         @csrf
                         <input
                             type="text"
                             placeholder="Enter your email"
-                            class="newsletter__input"
+                            class="newsletter__input" name="email"
                         >
                         <button type="submit" class="newsletter__btn">Subscribe</button>
                         <p id="newsletter-message"></p>

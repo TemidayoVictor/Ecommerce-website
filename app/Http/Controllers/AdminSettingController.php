@@ -260,12 +260,20 @@ class AdminSettingController extends Controller
                 $discount = 0;
             }
 
+            if(!$end) {
+                $endTime = NULL;
+            }
+
+            else {
+                $endTime = Carbon::parse($end)->format('Y-m-d');
+            }
+
             $sale = Sale::create([
                 'category_id' => $category,
                 'brand_id' => $brand,
                 'name' => $request->name,
                 'start_time' => Carbon::parse($start)->format('Y-m-d'),
-                'end_time' => Carbon::parse($end)->format('Y-m-d'),
+                'end_time' => $endTime,
                 'discount' => $discount,
                 'discount_type' => $type,
                 'revenue' => 0,

@@ -125,8 +125,12 @@ Home
                                 <i class="ri-star-line"></i>
                             </div>
                             <div class="product__price flex-1">
-                                <span class="new__price">NGN {{ number_format($product->price) }}</span>
-                                <span class="old__price">$245.8</span>
+                                @if($product->status == 'on_sale')
+                                    <span class="new__price">NGN {{ number_format($product->sales) }}</span>
+                                    <span class="old__price">NGN {{ number_format($product->price) }}</span>
+                                @else
+                                    <span class="new__price">NGN {{ number_format($product->price) }}</span>
+                                @endif
                             </div>
 
                             <a href="#" class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
@@ -1265,89 +1269,17 @@ Home
     </section>
 
     <section class="deals section">
-        <div class="deals__container container grid">
-            <div class="deals__item">
-                <div class="deals__group">
-                    <h3 class="deals__brand">Deal of the Day</h3>
-                    <span class="deals__category">Limited Quantities</span>
-                </div>
-                <h4 class="deals__title">Summer Collection New Mordern Design</h4>
-
-                <div class="deals__price flex-1">
-                    <span class="new__price">$139.00</span>
-                    <span class="old__price">$160.99</span>
-                </div>
-
-                <div class="deals_group">
-                    <p class="deals__countdown-text">Hurry up, offer ends in:</p>
-
-                    <div class="countdown">
-                        <div class="countdown__amount">
-                            <p class="countdown__period">02</p>
-                            <span class="unit">Days</span>
-                        </div>
-                        <div class="countdown__amount">
-                            <p class="countdown__period">20</p>
-                            <span class="unit">Hour</span>
-                        </div>
-                        <div class="countdown__amount">
-                            <p class="countdown__period">17</p>
-                            <span class="unit">Mins</span>
-                        </div>
-                        <div class="countdown__amount">
-                            <p class="countdown__period">30</p>
-                            <span class="unit">Secs</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="deals__btn">
-                    <a href="" class="btn btn--md">Shop Now</a>
-                </div>
-
-            </div>
-
-            <div class="deals__item">
-                <div class="deals__group">
-                    <h3 class="deals__brand">Women Clothing</h3>
-                    <span class="deals__category">Try something new this vacation</span>
-                </div>
-                <h4 class="deals__title">Summer Collection New Mordern Design</h4>
-
-                <div class="deals__price flex-1">
-                    <span class="new__price">$139.00</span>
-                    <span class="old__price">$160.99</span>
-                </div>
-
-                <div class="deals_group">
-                    <p class="deals__countdown-text">Hurry up, offer ends in:</p>
-
-                    <div class="countdown">
-                        <div class="countdown__amount">
-                            <p class="countdown__period">02</p>
-                            <span class="unit">Days</span>
-                        </div>
-                        <div class="countdown__amount">
-                            <p class="countdown__period">20</p>
-                            <span class="unit">Hour</span>
-                        </div>
-                        <div class="countdown__amount">
-                            <p class="countdown__period">17</p>
-                            <span class="unit">Mins</span>
-                        </div>
-                        <div class="countdown__amount">
-                            <p class="countdown__period">30</p>
-                            <span class="unit">Secs</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="deals__btn">
-                    <a href="" class="btn btn--md">Shop Now</a>
-                </div>
-
+        @if($sale)
+        <div class="container banner">
+            <h3>{{ $sale->name }} starts in: </h3>
+            <div id="countdown">
+                <p id="countdown-text">
+                </p>
             </div>
         </div>
+        @else
+
+        @endif
     </section>
 
     <section class="new__arrivals container section">
@@ -1943,6 +1875,8 @@ Home
             </div>
         </div>
     </section>
-
-
 @endsection
+
+@push('scripts')
+    @include('scripts.countdown')
+@endpush

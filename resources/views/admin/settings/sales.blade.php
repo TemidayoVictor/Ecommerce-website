@@ -27,10 +27,10 @@
 
                 @if($sale->discount)
                     <div class="input-field">
-                        <h4>Discount Type - {{ $sale->type }}</h4>
+                        <h4>Discount Type - {{ $sale->discount_type }}</h4>
                     </div>
                     <div class="input-field">
-                        <h4>Discount Value - {{ $sale->discount }}</h4>
+                        <h4>Discount Value - {{ $sale->discount }}{{ $sale->discount_type == 'percentage' ? '%' : ''}}</h4>
                     </div>
                 @endif
 
@@ -44,14 +44,17 @@
                     </div>
                 @else
                     <div class="input-field">
-                        <h4>End Date: Not End Date Set</h4>
+                        <h4>End Date: No End Date Set</h4>
                     </div>
                 @endif
 
                 <div class="input-field">
-                    <h4>Revenue - {{ $sale->revenue }}</h4>
+                    <h4>Revenue Generated - NGN {{ $sale->revenue }}</h4>
                 </div>
 
+            </div>
+
+            <div class="section-title">
             </div>
 
             <form action="{{ route('admin.settings.update-sales', ['id' => $sale->id]) }}" method="post">
@@ -123,7 +126,7 @@
 
                     <div class="input-field">
                         <label for=""><h4>End Date</h4></label>
-                        <input type="date" class="form-control" id="end" name="end" value="{{ old('end') }}">
+                        <input type="date" class="form-control" id="end" name="end" required value="{{ old('end') }}">
                     </div>
                 </div>
 
@@ -140,7 +143,7 @@
                         <div class="">
                             <h4> {{ $sale->name }} </h4>
                             <div class="flex" style="margin-top: .5rem">
-                                <p>Started - {{ \Carbon\Carbon::parse($sale->start_time)->format('F d, Y') }}</p>
+                                <p>Start Date - {{ \Carbon\Carbon::parse($sale->start_time)->format('F d, Y') }}</p>
                                 @if($sale->status == 'running')
                                     <p style="color: green">Running</p>
                                 @else

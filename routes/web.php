@@ -91,6 +91,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 // General Routes
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::post('/search', [HomeController::class, 'search'])->name('search');
+Route::get('/api/get-active-sale', [HomeController::class, 'getActiveSale'])->name('get-active-sale');
 
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
 

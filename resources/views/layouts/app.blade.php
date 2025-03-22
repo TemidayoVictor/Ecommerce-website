@@ -482,73 +482,75 @@
                 });
             }
         </script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const editButton = document.querySelector(".edit-address");
-    const addressDisplay = document.getElementById("address-display");
-    const addressForm = document.getElementById("address-form");
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const editButton = document.querySelector(".edit-address");
+                const addressDisplay = document.getElementById("address-display");
+                const addressForm = document.getElementById("address-form");
 
-    if (editButton) {
-        editButton.addEventListener("click", function () {
-            addressDisplay.style.display = "none"; // Hide address
-            addressForm.style.display = "block"; // Show form
-        });
-    }
-});
-</script>
+                if (editButton) {
+                    editButton.addEventListener("click", function () {
+                        addressDisplay.style.display = "none"; // Hide address
+                        addressForm.style.display = "block"; // Show form
+                    });
+                }
+            });
+        </script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const links = document.querySelectorAll(".account-sidebar a");
-    const sections = document.querySelectorAll(".account-section");
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const links = document.querySelectorAll(".account-sidebar a");
+                const sections = document.querySelectorAll(".account-section");
 
-    links.forEach(link => {
-        link.addEventListener("click", function (event) {
+                links.forEach(link => {
+                    link.addEventListener("click", function (event) {
+                        event.preventDefault();
+
+                        // Remove active class from all links and sections
+                        links.forEach(l => l.parentElement.classList.remove("active"));
+                        sections.forEach(section => section.classList.remove("active"));
+
+                        // Get target section ID from data-target attribute
+                        const targetId = this.getAttribute("data-target");
+                        const targetSection = document.getElementById(targetId);
+
+                        // Show the selected section and highlight the link
+                        if (targetSection) {
+                            targetSection.classList.add("active");
+                            this.parentElement.classList.add("active");
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            document.getElementById("newsletter-form").addEventListener("submit", function(event) {
             event.preventDefault();
 
-            // Remove active class from all links and sections
-            links.forEach(l => l.parentElement.classList.remove("active"));
-            sections.forEach(section => section.classList.remove("active"));
+            let formData = new FormData(this);
 
-            // Get target section ID from data-target attribute
-            const targetId = this.getAttribute("data-target");
-            const targetSection = document.getElementById(targetId);
-
-            // Show the selected section and highlight the link
-            if (targetSection) {
-                targetSection.classList.add("active");
-                this.parentElement.classList.add("active");
-            }
+            fetch("{{ route('newsletter.subscribe') }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("newsletter-message").innerText = data.success;
+                document.getElementById("newsletter-message").style.color = "green";
+            })
+            .catch(error => {
+                document.getElementById("newsletter-message").innerText = "Subscription failed. Try again.";
+                document.getElementById("newsletter-message").style.color = "red";
+            });
         });
-    });
-});
-</script>
 
-<script>
-    document.getElementById("newsletter-form").addEventListener("submit", function(event) {
-    event.preventDefault();
-    
-    let formData = new FormData(this);
-    
-    fetch("{{ route('newsletter.subscribe') }}", {
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-        },
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("newsletter-message").innerText = data.success;
-        document.getElementById("newsletter-message").style.color = "green";
-    })
-    .catch(error => {
-        document.getElementById("newsletter-message").innerText = "Subscription failed. Try again.";
-        document.getElementById("newsletter-message").style.color = "red";
-    });
-});
+        </script>
 
-</script>
+        @stack('scripts')
 
     </body>
 </html>

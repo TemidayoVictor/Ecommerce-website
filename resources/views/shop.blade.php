@@ -96,8 +96,12 @@
                             <i class="ri-star-line"></i>
                         </div>
                         <div class="product__price flex-1">
-                            <span class="new__price">NGN {{ number_format($product->price) }}</span>
-                            <span class="old__price">$245.8</span>
+                            @if($product->status == 'on_sale')
+                                <span class="new__price">NGN {{ number_format($product->sales) }}</span>
+                                <span class="old__price">NGN {{ number_format($product->price) }}</span>
+                            @else
+                                <span class="new__price">NGN {{ number_format($product->price) }}</span>
+                            @endif
                         </div>
 
                         <button class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
@@ -653,7 +657,7 @@
                     <i class="ri-arrow-right-s-line"></i>
                 </a>
             </li>
-        </ul> 
+        </ul>
     </section>
 
 @endsection

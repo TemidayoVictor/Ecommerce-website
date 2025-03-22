@@ -42,4 +42,10 @@ class Order extends Model
     public function deliverylocation() {
         return $this->hasMany(DeliveryLocation::class);
     }
+
+    public function items()
+{
+    return $this->hasMany(OrderItem::class);
+}
+
 }

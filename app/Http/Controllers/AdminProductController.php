@@ -332,8 +332,16 @@ class AdminProductController extends Controller
 
     public function show($id)
 {
-    $product = Product::with('productImage', 'brand')->findOrFail($id);
-    return view('details', compact('product'));
+    $product = Product::with('productImage', 'brand', 'category')->findOrFail($id);
+
+    // Fetch related products (same category, exclude current product)
+    $relatedProducts = Product::where('category_id', $product->category_id)
+                              ->where('id', '!=', $product->id)
+                              ->latest()
+                              ->limit(6) // Show only 6 related products
+                              ->get();
+
+    return view('details', compact('product', 'relatedProducts'));
 }
 
 

@@ -18,8 +18,46 @@
 
         <p class="total__products">We found <span>{{ $products->count() }}</span> items from you</p>
 
+        <form method="GET" action="{{ route('shop') }}" class="shop-filters">
+    <div>
+        <label>Category:</label>
+        <select name="category" onchange="this.form.submit()">
+            <option value="">All Categories</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                    {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div>
+        <label>Brand:</label>
+        <select name="brand" onchange="this.form.submit()">
+            <option value="">All Brands</option>
+            @foreach($brands as $brand)
+                <option value="{{ $brand->id }}" {{ request('brand') == $brand->id ? 'selected' : '' }}>
+                    {{ $brand->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div>
+        <label>Sort By:</label>
+        <select name="sort" onchange="this.form.submit()">
+            <option value="">Default</option>
+            <option value="price_low_high" {{ request('sort') == 'price_low_high' ? 'selected' : '' }}>Price: Low to High</option>
+            <option value="price_high_low" {{ request('sort') == 'price_high_low' ? 'selected' : '' }}>Price: High to Low</option>
+            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Latest</option>
+            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Oldest</option>
+        </select>
+    </div>
+</form>
+
         <div class="products__container grid">
-            @forelse($products as $product)
+        @if ($products->count() > 0)
+            @foreach($products as $product)
                 <div class="product__item">
                     <div class="product__banner">
                         <a href="{{ route('product.show', $product->id) }}" class="product_images">
@@ -36,9 +74,9 @@
                                 <i class="ri-heart-line"></i>
                             </a>
 
-                            <a href="" class="action__btn" aria-label="Compare">
+                            <!-- <a href="" class="action__btn" aria-label="Compare">
                                 <i class="ri-shuffle-line"></i>
-                            </a>
+                            </a> -->
                         </div>
 
                         <div class="product__badge light-pink">Hot</div>
@@ -595,13 +633,13 @@
                         </a>
                     </div>
                 </div> -->
-            @empty
+                @endforeach
+            @else
             <div>
                 <p>Sorry, we could not find any products</p>
             </div>
 
-            @endforelse
-
+            @endif
         </div>
 
         {{-- <ul class="pagination">

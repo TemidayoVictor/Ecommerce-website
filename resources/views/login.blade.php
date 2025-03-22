@@ -28,6 +28,9 @@
                 <div class="form__btn">
                     <button type="submit" class="btn--sm btn">Login</button>
                 </div>
+                <p style="text-decoration:none;">
+                    <a href="{{ route('password.request') }}" class="forgot-password">Forgot Password?</a>
+                </p>
             </form>
         </div>
 

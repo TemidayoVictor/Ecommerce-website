@@ -51,6 +51,9 @@
         <!-- Orders Section -->
         <section id="orders" class="account-section">
             <h3>Your Orders</h3>
+            @if($orders->isEmpty())
+        <p>You have no orders yet.</p>
+            @else
             <table class="account-table">
                 <thead>
                     <tr>
@@ -61,14 +64,17 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach ($orders as $order)
                     <tr>
-                        <td>#12345</td>
-                        <td>Jan 5, 2025</td>
-                        <td>Processing</td>
-                        <td>NGN12,500</td>
+                        <td>#{{ $order->order_number }}</td>
+                        <td>{{ $order->created_at->format('M d, Y') }}</td>
+                        <td>{{ $order->status }}</td>
+                        <td>NGN{{ number_format($order->total, 2) }}</td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
+            @endif
         </section>
 
         <!-- Wishlist Section -->

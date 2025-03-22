@@ -157,13 +157,15 @@
                     <p class="newsletter__description">
                         ... and receive $25 coupon for shopping
                     </p>
-                    <form action="" class="newsletter__form">
+                    <form action="" id="newsletter-form" class="newsletter__form">
+                        @csrf
                         <input
                             type="text"
                             placeholder="Enter your email"
                             class="newsletter__input"
                         >
                         <button type="submit" class="newsletter__btn">Subscribe</button>
+                        <p id="newsletter-message"></p>
                     </form>
                 </div>
             </section>
@@ -520,6 +522,32 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+</script>
+
+<script>
+    document.getElementById("newsletter-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    let formData = new FormData(this);
+    
+    fetch("{{ route('newsletter.subscribe') }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("newsletter-message").innerText = data.success;
+        document.getElementById("newsletter-message").style.color = "green";
+    })
+    .catch(error => {
+        document.getElementById("newsletter-message").innerText = "Subscription failed. Try again.";
+        document.getElementById("newsletter-message").style.color = "red";
+    });
+});
+
 </script>
 
     </body>

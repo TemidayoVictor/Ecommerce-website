@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\HomeController;
@@ -13,6 +15,8 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ShippingAddressController;
 use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\NewsletterController;
 
 
 
@@ -139,11 +143,34 @@ Route::middleware('auth')->group(function () {
     Route::post('/account/update-profile', [AccountController::class, 'updateProfile'])->name('account.updateProfile');
 });
 
+    // Forgot Password Form
+Route::get('/forgot-password', [PasswordResetController::class, 'showForgotPasswordForm'])
+->middleware('guest')
+->name('password.request');
 
+// Send Reset Link
+Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])
+->middleware('guest')
+->name('password.email');
 
-Route::get('/compare', function () {
-    return view('compare');
-});
+// Password Reset Form
+Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])
+->middleware('guest')
+->name('password.reset');
+
+// Handle Password Reset
+Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])
+->middleware('guest')
+->name('password.update');
+
+Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+
+// Admin route to view newsletter subscribers
+Route::get('/admin/newsletter', [NewsletterController::class, 'index'])->name('admin.newsletter');
+
+    Route::get('/compare', function () {
+        return view('compare');
+    });
 
 
 Route::get('/details', function () {

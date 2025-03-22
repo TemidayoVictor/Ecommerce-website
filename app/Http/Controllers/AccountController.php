@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Wishlist;
+use App\Models\Order;
 use App\Models\ShippingAddress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,11 @@ class AccountController extends Controller
         $wishlistItems = Wishlist::where('user_id', $user->id)->with('product')->get();
         $address = $user->shippingAddress;
 
-        return view('account', compact('wishlistItems', 'address'));
+        // Fetch orders for the logged-in user
+        $orders = Order::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+
+
+        return view('account', compact('wishlistItems', 'address', 'orders'));
     }
 
     public function changePassword(Request $request)

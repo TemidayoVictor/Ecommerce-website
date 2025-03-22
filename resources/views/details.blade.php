@@ -326,11 +326,12 @@
         <h3 class="section__title"><span>Related</span> Products</h3>
 
         <div class="products__container grid">
-                   
+        @foreach ($relatedProducts as $related)
                     <div class="product__item">
                         <div class="product__banner">
-                            <a href="" class="product_images">
-                                <img src="{{ asset('assets/product-1-1.jpg') }}" alt="" class="product__img default">
+                            <a href="{{ route('product.show', $related->id) }}" class="product_images">
+                                <img src="{{ asset('storage/' . ($related->productImage->last()->image ?? 'default.png')) }}" 
+                         alt="{{ $related->name }}" class="product__img default">
                                 <img src="{{ asset('assets/product-1-2.jpg') }}" alt="" class="product__img hover">
                             </a>
 
@@ -339,13 +340,13 @@
                                     <i class="ri-eye-line"></i>
                                 </a>
 
-                                <a href="" class="action__btn" aria-label="Add to Wishlist">
+                                <a href="" class="action__btn wishlist__btn" data-id="{{ $product->id }}" aria-label="Add to Wishlist">
                                     <i class="ri-heart-line"></i>
                                 </a>
 
-                                <a href="" class="action__btn" aria-label="Compare">
+                                <!-- <a href="" class="action__btn" aria-label="Compare">
                                     <i class="ri-shuffle-line"></i>
-                                </a>
+                                </a> -->
                             </div>
 
                             <div class="product__badge light-blue">Hot</div>
@@ -355,7 +356,7 @@
                         <div class="product__content">
                             <span class="product__category">Clothing</span>
                             <a href="">
-                                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                                <h3 class="product__title">{{ $related->name }}</h3>
                             </a>
                             <div class="product__rating">
                                 <i class="ri-star-line"></i>
@@ -365,17 +366,17 @@
                                 <i class="ri-star-line"></i>
                             </div>
                             <div class="product__price flex-1">
-                                <span class="new__price">$238.85</span>
-                                <span class="old__price">$245.8</span>
+                                <span class="new__price">NGN{{ number_format($related->price, 2) }}</span>
+                                <span class="old__price">NGN {{ number_format($related->sales) }}</span>
                             </div>
 
-                            <a href="" class="action__btn cart__btn" aria-label="Add To Cart">
+                            <a href="" class="action__btn cart__btn add__btn" aria-label="Add To Cart" aria-label="Add To Cart" data-id="{{ $product->id }}">
                                 <i class="ri-shopping-cart-2-line"></i>
                             </a>
                         </div>
                     </div>
 
-                    <div class="product__item">
+                    <!-- <div class="product__item">
                         <div class="product__banner">
                             <a href="" class="product_images">
                                 <img src="{{ asset('assets/product-1-1.jpg') }}" alt="" class="product__img default">
@@ -517,7 +518,8 @@
                                 <i class="ri-shopping-cart-2-line"></i>
                             </a>
                         </div>
-                    </div>
+                    </div> -->
+                    @endforeach
                 </div>
      </section>
     

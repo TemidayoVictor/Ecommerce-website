@@ -2508,6 +2508,7 @@ body .admin {
 
     .admin .flex, .admin .flex-2, .admin .flex-3, .flex-3 {
         flex-direction: column;
+        align-items: start;
     }
 
     .admin .sidebar {

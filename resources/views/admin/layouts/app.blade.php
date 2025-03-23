@@ -51,7 +51,7 @@
         </div>
 
         <header>
-            <div class="flex">
+            <div class="flex-4">
                 <div class="navbar-title">
                     <h2>{{ $pageTitle ?? 'Dashboard' }}</h2>
                     <div class="flex-1">

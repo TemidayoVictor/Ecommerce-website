@@ -17,11 +17,15 @@ use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\NewsletterController;
-
+use App\Http\Controllers\AdminDashboardController;
 
 
 // Admin routes (Will be put in middleware later)
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
+
+    // dashboard
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
     // Products
     Route::get('/products', [AdminProductController::class, 'index'])->name('products');
 
@@ -185,10 +189,6 @@ Route::delete('/admin/newsletter/{id}', [NewsletterController::class, 'destroy']
 
 Route::get('/details', function () {
     return view('details');
-});
-
-Route::get('/admin/dashboard', function () {
-    return view('admin.index');
 });
 
 Route::get('/home', function () {

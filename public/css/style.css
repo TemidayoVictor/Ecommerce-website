@@ -2408,8 +2408,8 @@ body .admin {
 
 .admin .quick-views{
     display: grid;
-    gap: .5em;
-    grid-template-columns: repeat(auto-fit, minmax(8em, 1fr));
+    gap: 1em;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
 }
 
 .admin .product-box-container {
@@ -2506,7 +2506,7 @@ body .admin {
         display: none;
     }
 
-    .admin .flex-3, .flex-3 {
+    .admin .flex, .admin .flex-2, .admin .flex-3, .flex-3 {
         flex-direction: column;
     }
 
@@ -2547,6 +2547,10 @@ body .admin {
 
     .admin .main-content header{
         height: 5em;
+    }
+
+    .admin .quick-views{
+        grid-template-columns: repeat(auto-fit, minmax(9em, 1fr));
     }
 }
 

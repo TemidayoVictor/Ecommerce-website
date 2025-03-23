@@ -103,6 +103,7 @@
         });
     });
     </script>
+    @include('scripts.adm-menu')
     @stack('scripts')
 </body>
 </html>

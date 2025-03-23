@@ -2,8 +2,6 @@
 const navMenu = document.getElementById('nav-menu'),
       navToggle = document.getElementById('nav-toggle'),
       navClose = document.getElementById('nav-close'),
-      adminMenuOpen = document.getElementById('admin-menu-open'),
-      adminMenuClose = document.getElementById('admin-menu-close'),
       sidebar = document.getElementById('sidebar');
 let notification = document.getElementById("notification");
 let fieldIndex = 0;
@@ -143,21 +141,6 @@ var swiperCategories = new Swiper(".categories__container", {
 
     })
   })
-
-  // ADMIN MENU SHOW
-if(adminMenuOpen) {
-    adminMenuOpen.addEventListener('click', () => {
-      sidebar.classList.add('active');
-    })
-  }
-
-  // ADMIN MENU HIDE
-  if(adminMenuClose) {
-    adminMenuClose.addEventListener('click', () => {
-      sidebar.classList.remove('active');
-    })
-  }
-
 
   function addField() {
     let newField = `

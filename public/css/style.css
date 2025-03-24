@@ -3180,3 +3180,33 @@ body .admin {
         padding: 10px;
     }
 }
+
+.rating i {
+    font-size: 20px;
+    color: gray;
+}
+
+.rating i.filled {
+    color: gold;
+}
+
+/* For clickable stars */
+.rating-input {
+    display: flex;
+    gap: 5px;
+}
+
+.rating-input input {
+    display: none;
+}
+
+.rating-input label i {
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.rating-input input:checked ~ label i {
+    color: gold;
+}
+

@@ -220,30 +220,38 @@
 
             <div class="details__tab-content"  content id="reviews">
                 <div class="reviews__container grid">
+                    @if ($product)
+                @if ($product->reviews->where('approved', true)->count() > 0)
+                @foreach ($product->reviews->where('approved', true) as $review)
                     <div class="review__single">
                         <div>
                             <img src="{{ asset('assets/avatar-1.jpg') }}" alt="" class="review__img">
-                            <h4 class="review__title">Jacky Chan</h4>
+                            <h4 class="review__title">{{ $review->user->name }}</h4>
                         </div>
 
                         <div class="review__data">
                             <div class="review__rating">
-                            <i class="ri-star-line"></i>
-                            <i class="ri-star-line"></i>
-                            <i class="ri-star-line"></i>
-                            <i class="ri-star-line"></i>
-                            <i class="ri-star-line"></i>
+                                <div class="rating">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= $product->average_rating)
+                                        <i class="ri-star-fill" style="color: gold;"></i> <!-- Filled Star -->
+                                    @else
+                                        <i class="ri-star-line" style="color: gray;"></i> <!-- Empty Star -->
+                                    @endif
+                                @endfor
+                            </div>
+                            <p>{{ $product->reviews->where('approved', true)->count() }} reviews</p>
                             </div>
 
                             <p class="review__description">
-                                Thank you very fast shipping from Poland only 3 days.
+                            {{ $review->review }}
                             </p>
 
                             <span class="review__date">December 4, 2020 at 3:12 pm</span>
                         </div>
                     </div>
 
-                    <div class="review__single">
+                    <!-- <div class="review__single">
                         <div>
                             <img src="{{ asset('assets/avatar-2.jpg') }}" alt="" class="review__img">
                             <h4 class="review__title">Jacky Chan</h4>
@@ -287,22 +295,44 @@
 
                             <span class="review__date">December 4, 2020 at 3:12 pm</span>
                         </div>
-                    </div>
+                    </div> -->
+                    @endforeach
+                    @else
+                    <p>No reviews yet.</p>
+                    @endif
+                    @else
+                    <p>Product not found</p>
+                    @endif
                 </div>
+            
 
                 <div class="review_form">
+                @auth
                     <h4 class="reivew__form-title">Add a review</h4>
+                    <form action="{{ route('review.store', $product->id) }}" class="form grid" method="POST">
+                  @csrf
 
-                 <div class="rate__product">
-                        <i class="ri-star-line"></i>
-                        <i class="ri-star-line"></i>
-                        <i class="ri-star-line"></i>
-                        <i class="ri-star-line"></i>
-                        <i class="ri-star-line"></i>
+                 <div class="rate__product rating">
+
+                    <input type="radio" name="rating" value="1" id="star1">
+                    <label for="star1"><i class="ri-star-line"></i></label>
+
+                    <input type="radio" name="rating" value="2" id="star2">
+                    <label for="star2"><i class="ri-star-line"></i></label>
+
+                    <input type="radio" name="rating" value="3" id="star3">
+                    <label for="star3"><i class="ri-star-line"></i></label>
+
+                    <input type="radio" name="rating" value="4" id="star4">
+                    <label for="star4"><i class="ri-star-line"></i></label>
+
+                    <input type="radio" name="rating" value="5" id="star5">
+                    <label for="star5"><i class="ri-star-line"></i></label>
+
                   </div>
 
-                  <form action="" class="form grid">
-                    <textarea class="form__input textarea" placeholder="Write Comment">
+                  
+                    <textarea name="review" class="form__input textarea" placeholder="Write Comment" required>
                         
                     </textarea>
 
@@ -313,9 +343,12 @@
                     </div>
 
                     <div class="form__btn">
-                        <button class="btn">Submit Review</button>
+                        <button class="btn" type="submit">Submit Review</button>
                     </div>
                   </form>
+                  @else
+                <p><a href="{{ route('login') }}">Login</a> to write a review.</p>
+                @endauth
                 </div>
             </div>
         </div>

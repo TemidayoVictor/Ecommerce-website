@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\ReviewController;
 
 
 // Admin routes (Will be put in middleware later)
@@ -181,6 +182,15 @@ Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('new
 Route::get('/admin/newsletter', [NewsletterController::class, 'index'])->name('admin.newsletter');
 
 Route::delete('/admin/newsletter/{id}', [NewsletterController::class, 'destroy'])->name('newsletter.delete');
+
+Route::post('/product/{id}/review', [ReviewController::class, 'store'])->middleware('auth')->name('review.store');
+
+// Admin routes for review approval
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/reviews', [ReviewController::class, 'index'])->name('admin.reviews');
+    Route::post('/admin/reviews/{id}/approve', [ReviewController::class, 'approve'])->name('admin.reviews.approve');
+    Route::delete('/admin/reviews/{id}/delete', [ReviewController::class, 'destroy'])->name('admin.reviews.delete');
+});
 
     Route::get('/compare', function () {
         return view('compare');

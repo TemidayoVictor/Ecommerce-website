@@ -338,6 +338,14 @@ class AdminProductController extends Controller
 {
     $product = Product::with('productImage', 'brand', 'category')->findOrFail($id);
 
+    $product = Product::with(['reviews' => function ($query) {
+        $query->where('approved', true);
+    }])->find($id);
+
+    if (!$product) {
+        return redirect()->route('shop')->with('error', 'Product not found.');
+    }
+
     // Fetch related products (same category, exclude current product)
     $relatedProducts = Product::where('category_id', $product->category_id)
                               ->where('id', '!=', $product->id)

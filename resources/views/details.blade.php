@@ -139,7 +139,7 @@
                 Additional Info
             </span>
             <span class="detail__tab" data-target="#reviews">
-            Reviews(3)
+            Reviews({{ $product->reviews->where('approved', true)->count() }})
            </span>
         </div>
 
@@ -225,7 +225,7 @@
                 @foreach ($product->reviews->where('approved', true) as $review)
                     <div class="review__single">
                         <div>
-                            <img src="{{ asset('assets/avatar-1.jpg') }}" alt="" class="review__img">
+                            <!-- <img src="{{ asset('assets/avatar-1.jpg') }}" alt="" class="review__img"> -->
                             <h4 class="review__title">{{ $review->user->name }}</h4>
                         </div>
 
@@ -240,14 +240,13 @@
                                     @endif
                                 @endfor
                             </div>
-                            <p>{{ $product->reviews->where('approved', true)->count() }} reviews</p>
                             </div>
 
                             <p class="review__description">
                             {{ $review->review }}
                             </p>
 
-                            <span class="review__date">December 4, 2020 at 3:12 pm</span>
+                            <!-- <span class="review__date">December 4, 2020 at 3:12 pm</span> -->
                         </div>
                     </div>
 
@@ -315,19 +314,19 @@
                  <div class="rate__product rating">
 
                     <input type="radio" name="rating" value="1" id="star1">
-                    <label for="star1"><i class="ri-star-line"></i></label>
+                    <label for="star1"><i class="ri-star-line" style="color: gold;"></i></label>
 
                     <input type="radio" name="rating" value="2" id="star2">
-                    <label for="star2"><i class="ri-star-line"></i></label>
+                    <label for="star2"><i class="ri-star-line" style="color: gold;"></i></label>
 
                     <input type="radio" name="rating" value="3" id="star3">
-                    <label for="star3"><i class="ri-star-line"></i></label>
+                    <label for="star3"><i class="ri-star-line" style="color: gold;"></i></label>
 
                     <input type="radio" name="rating" value="4" id="star4">
-                    <label for="star4"><i class="ri-star-line"></i></label>
+                    <label for="star4"><i class="ri-star-line" style="color: gold;"></i></label>
 
                     <input type="radio" name="rating" value="5" id="star5">
-                    <label for="star5"><i class="ri-star-line"></i></label>
+                    <label for="star5"><i class="ri-star-line" style="color: gold;"></i></label>
 
                   </div>
 

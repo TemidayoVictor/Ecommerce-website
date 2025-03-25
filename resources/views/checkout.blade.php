@@ -99,7 +99,7 @@
 
                         <div>
                             <h4 class="checkout__title">Address</h4>
-                            <input style="width:100%;" type="text" placeholder="Address" name="address" value="{{ $addressCheck->address }}" required class="form__input">
+                            <input style="width:100%;" type="text" placeholder="Address" name="address" value="{{ $addressCheck->address_line1 }}" required class="form__input">
                         </div>
                         <div>
                             <h4 class="checkout__title">City</h4>

@@ -138,7 +138,7 @@ class OrderController extends Controller
             // update shipping address
             ShippingAddress::updateOrCreate(
                 ['user_id' => $userId],
-                ['address' => $request->address, 'city' => $request->city, 'state' => $request->state, 'country' => $request->country,]
+                ['address_line1' => $request->address, 'city' => $request->city, 'state' => $request->state, 'country' => $request->country,]
             );
         }
 

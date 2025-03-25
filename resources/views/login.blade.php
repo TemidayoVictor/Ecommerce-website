@@ -26,7 +26,7 @@
                 <input type="password" name="password" class="form__input" placeholder="Your Password" id="login_password" required>
 
                 <div class="form__btn">
-                    <button type="submit" class="btn--sm btn">Login</button>
+                    <button type="submit" class="btn--sm btn" style="background-color: #2E7D32;">Login</button>
                 </div>
                 <p style="text-decoration:none;">
                     <a href="{{ route('password.request') }}" class="forgot-password">Forgot Password?</a>
@@ -48,7 +48,7 @@
                 <input type="password"  name="password_confirmation" id="register_password_confirmation" class="form__input" placeholder="Confirm Password" required>
 
                 <div class="form__btn">
-                    <button type="submit" class="btn--sm btn">Create Account</button>
+                    <button type="submit" class="btn--sm btn" style="background-color: #2E7D32;">Create Account</button>
                 </div>
             </form>
         </div>

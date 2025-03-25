@@ -86,7 +86,7 @@
             <div class="left white">
                 <div class="checkout_total">
                     <div class="title">
-                        <h3>Client Details</h3>
+                        <h3>Your Details</h3>
                     </div>
                     <div class="details-cont">
                         <div class="detail-box">
@@ -133,7 +133,7 @@
                         </div>
 
                         <div class="flex-4" style="margin-top: 1em;">
-                            <p>Shippng Status:</p>
+                            <p>Shipping Status:</p>
                             @if($order->shipping_status == "Delivered")
                                 <p class="stat success">Delivered</p>
                             @else

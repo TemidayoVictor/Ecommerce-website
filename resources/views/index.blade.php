@@ -132,10 +132,15 @@ Home
                                     <span class="new__price">NGN {{ number_format($product->price) }}</span>
                                 @endif
                             </div>
-
+                            @if ($product->stock > 0)
                             <a href="#" class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
                                 <i class="ri-shopping-cart-2-line"></i>
                             </a>
+                            @else
+                            <a href="#" class="action__btn cart__btn btn-disabled" aria-label="Add To Cart" data-id="{{ $product->id }}" disabled>
+                                <i class="ri-shopping-cart-2-line"></i>
+                            </a>
+                            @endif
                         </div>
                     </div>
 
@@ -530,9 +535,15 @@ Home
                                 @endif
                             </div>
 
+                            @if ($product->stock > 0)
                             <a href="" class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
                                 <i class="ri-shopping-cart-2-line"></i>
                             </a>
+                            @else
+                            <a href="" class="action__btn cart__btn btn-disabled" aria-label="Add To Cart" data-id="{{ $product->id }}" disabled>
+                                <i class="ri-shopping-cart-2-line"></i>
+                            </a>
+                            @endif
                         </div>
                     </div>
 
@@ -925,9 +936,15 @@ Home
                                 @endif
                             </div>
 
+                            @if ($product->stock > 0)
                             <a href="" class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
                                 <i class="ri-shopping-cart-2-line"></i>
                             </a>
+                            @else
+                            <a href="" class="action__btn cart__btn btn-disabled" aria-label="Add To Cart" data-id="{{ $product->id }}" disabled>
+                                <i class="ri-shopping-cart-2-line"></i>
+                            </a>
+                            @endif
                         </div>
                     </div>
 
@@ -1352,8 +1369,14 @@ Home
                                 @endif
                         </div>
 
+                        @if ($product->stock > 0)
                         <a href="" class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
                             <i class="ri-shopping-cart-2-line"></i>
+                        </a>
+                        @else
+                        <a href="" class="action__btn cart__btn btn-disabled" aria-label="Add To Cart" data-id="{{ $product->id }}" disabled>
+                            <i class="ri-shopping-cart-2-line"></i>
+                            @endif
                         </a>
                     </div>
                 </div>

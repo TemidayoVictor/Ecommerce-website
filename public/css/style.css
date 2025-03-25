@@ -142,12 +142,12 @@ table {
 }
 
 .stat.pending {
-    background-color: aqua;
+    background-color:  #2E7D32;
     color: #000;
 }
 
 .stat.success {
-    background-color: green;
+    background-color: #2E7D32;
     color: white;
 }
 
@@ -272,7 +272,7 @@ a.stat {
 }
 
 .banner {
-    background-color: var(--first-color-alt);
+    background-color: #D4A017;
     padding: 2rem;
     width: 100%;
     border-radius: .5rem;
@@ -341,7 +341,7 @@ header.user {
 }
 
 .header__top {
-    background-color: var(--first-color-alt);
+    background-color: #8B4513;
     border-bottom: 1px solid var(--border-color);
     padding-block: .875rem;
 }
@@ -437,7 +437,7 @@ header.user {
     position: absolute;
     top: -0.625rem;
     right: -0.625rem;
-    background-color: var(--first-color);
+    background-color: #8B4513 ;
     color: var(--body-color);
     height: 1.2rem;
     width: 1.2rem;
@@ -504,7 +504,7 @@ header.user {
 
 .btn {
     display: inline-block;
-    background-color: var(--first-color);
+    background-color: #D4A017;
     border: 1px solid var(--first-color);
     color: var(--body-color);
     padding-inline: 1.75rem;
@@ -967,7 +967,8 @@ header.user {
 }
 
 .newsletter {
-    background-color: hsl(166, 23%, 74%);
+    /* background-color: hsl(166, 23%, 74%); */
+    background-color: #D4A017;
 }
 
 .newsletter__container {
@@ -1978,7 +1979,7 @@ header.user {
     position: fixed;
     top: 20px;
     right: 20px;
-    background-color: #4CAF50; /* Green for success */
+    background-color: #2E7D32; /* Green for success */
     color: white;
     padding: 15px 20px;
     border-radius: 8px;

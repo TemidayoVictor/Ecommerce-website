@@ -79,7 +79,7 @@
                             </a> -->
                         </div>
 
-                        <div class="product__badge light-pink">Hot</div>
+                        <div class="product__badge green">Hot</div>
 
                     </div>
 
@@ -104,9 +104,15 @@
                             @endif
                         </div>
 
+                        @if ($product->stock > 0)
                         <button class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
                             <i class="ri-shopping-cart-2-line"></i>
                         </button>
+                        @else
+                        <button class="action__btn cart__btn btn-disabled" aria-label="Add To Cart" data-id="{{ $product->id }}" disabled>
+                            <i class="ri-shopping-cart-2-line"></i>
+                        </button>
+                        @endif
                     </div>
                 </div>
 

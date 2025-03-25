@@ -111,21 +111,26 @@
                 <div class="details__action">
                 
                     <input type="number" name="quantity" value="{{ $productQuantity }}" min="1" class="quantity">
-               
+
+                    @if ($product->stock > 0)
                     <button href="" class="btn btn--sm add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
                         Add To Cart
                     </button>
-                    
+                    @else
+                    <button class="btn btn--sm btn-disabled" disabled>
+                        Out of stock
+                    </button>
+                @endif
                     <a href="" class="details__action-btn wishlist__btn" data-id="{{ $product->id }}">
                         <i class="ri-heart-line"></i>
                     </a>
                 </div>
 
                 <ul class="details__meta">
-                    <li class="meta__list flex-1">  <span>SKU:</span> FWM15VKT</li>
-                    <li class="meta__list flex-1">  <span>Tags:</span> Clothes, Men</li>
+                    <!-- <li class="meta__list flex-1">  <span>SKU:</span> FWM15VKT</li> -->
+                    <li class="meta__list flex-1">  <span>Category:</span>{{ $product->category->name }}</li>
                     @if($product->stock > 0)
-                    <li class="meta__list flex-1">  <span>Availability:</span> {{ $product->stock }} Items in Stock</li>
+                    <li class="meta__list flex-1">  <span>Availability:</span><b> {{ $product->stock }}</b> Items in Stock</li>
                     @else
                     <li class="meta__list flex-1">  <span>Availability:</span><b> Out of Stock</b></li>
                     @endif
@@ -349,7 +354,7 @@
                     </div>
                   </form>
                   @else
-                <p><a href="{{ route('login') }}">Login</a> to write a review.</p>
+                <p><b><a style="color: #2E7D32;" href="{{ route('login') }}">Login</a></b> to write a review.</p>
                 @endauth
                 </div>
             </div>
@@ -401,13 +406,22 @@
                                 <i class="ri-star-line"></i>
                             </div>
                             <div class="product__price flex-1">
-                                <span class="new__price">NGN{{ number_format($related->price, 2) }}</span>
-                                <span class="old__price">NGN {{ number_format($related->sales) }}</span>
+                            @if($product->status == 'on_sale')
+                                    <span class="new__price">NGN {{ number_format($related>sales) }}</span>
+                                    <span class="old__price">NGN {{ number_format($related->price) }}</span>
+                                @else
+                                    <span class="new__price">NGN {{ number_format($related->price) }}</span>
+                                @endif
                             </div>
-
-                            <a href="" class="action__btn cart__btn add__btn" aria-label="Add To Cart" aria-label="Add To Cart" data-id="{{ $product->id }}">
+                            @if ($related->stock > 0)
+                            <a href="" class="action__btn cart__btn add__btn" aria-label="Add To Cart" data-id="{{ $product->id }}">
                                 <i class="ri-shopping-cart-2-line"></i>
                             </a>
+                            @else
+                            <button class="btn btn--sm btn-disabled" disabled>
+                                Out of stock
+                            </button>
+                        @endif
                         </div>
                     </div>
 

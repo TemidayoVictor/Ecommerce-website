@@ -66,10 +66,10 @@
                 <tbody>
                 @foreach ($orders as $order)
                     <tr>
-                        <td>#{{ $order->order_number }}</td>
+                        <td> <a href="{{ route('order-details', $order->id) }}">#{{ $order->order_number }}</a> </td>
                         <td>{{ $order->created_at->format('M d, Y') }}</td>
                         <td>{{ $order->status }}</td>
-                        <td>NGN{{ number_format($order->total, 2) }}</td>
+                        <td>NGN{{number_format($order->shipping + $order->total) }}</td>
                     </tr>
                     @endforeach
                 </tbody>

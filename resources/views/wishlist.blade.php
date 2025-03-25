@@ -55,7 +55,7 @@
 
                         <td><span class="table__stock">{{ $item->product->stock_status ?? 'In Stock' }}</span></td>
 
-                        <td><a href="" class="btn btn btn--sm add__btn">Add to cart</a></td>
+                        <td><a href="" class="btn btn btn--sm add__btn" data-id="{{ $item->id }}">Add to cart</a></td>
 
                         <td>
                             <button type="submit" id="remove-wishlist-btn" data-id="{{ $item->id }}">

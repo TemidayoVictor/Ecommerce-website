@@ -51,7 +51,7 @@
             <div class="header__top">
                 <div class="header__container container">
                     <div class="header__contact">
-                        <span> +1 (757) 648-9243 </span>
+                        <span> +1 (757) 979-5258 </span>
                         <span>Our Location</span>
                     </div>
                     <p class="header__alert-news">
@@ -184,7 +184,7 @@
                         </p>
 
                         <p class="footer__description">
-                            <span>Phone: </span> +1 (757) 648-9243
+                            <span>Phone: </span> +1 (757) 979-5258
                         </p>
 
                         <p class="footer__description">
@@ -197,15 +197,15 @@
 
                             <div class="footer__social-links flex-1">
 
-                                <a href="" class="footer__logo">
+                                <a href="#" class="footer__logo">
                                     <img src="{{ asset('assets/icon-facebook.svg') }}" alt="" class="footer__social-icon">
                                 </a>
 
-                                <a href="" class="footer__logo">
+                                <a href="#" class="footer__logo">
                                     <img src="{{ asset('assets/icon-twitter.svg') }}" alt="" class="footer__social-icon">
                                 </a>
 
-                                <a href="" class="footer__logo">
+                                <a href="#" class="footer__logo">
                                     <img src="{{ asset('assets/icon-instagram.svg') }}" alt="" class="footer__social-icon">
                                 </a>
 
@@ -230,12 +230,12 @@
                     <div class="footer__content">
                         <h3 class="footer__title">My Account</h3>
                         <ul class="footer__links">
-                            <li> <a href="" class="footer__link">Sign In</a> </li>
-                            <li> <a href="" class="footer__link">View Cart</a> </li>
-                            <li> <a href="" class="footer__link">My Wishlist</a> </li>
+                            <li> <a href="{{ route('login') }}" class="footer__link">Sign In</a> </li>
+                            <li> <a href="/cart" class="footer__link">View Cart</a> </li>
+                            <li> <a href="{{ route('wishlist.index') }}" class="footer__link">My Wishlist</a> </li>
                             <li> <a href="" class="footer__link">Track My Order</a> </li>
-                            <li> <a href="" class="footer__link">Help</a> </li>
-                            <li> <a href="" class="footer__link">Order</a> </li>
+                            <!-- <li> <a href="" class="footer__link">Help</a> </li> -->
+                            <li> <a href="{{ route('account') }}" class="footer__link">Order</a> </li>
                         </ul>
                     </div>
 

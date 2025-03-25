@@ -45,15 +45,18 @@
                 <p class="product__brand">Brand: Not specified</p>
                 @endif
                 <span class="details__price flex-1">
-                    <span class="new__price">NGN{{ number_format($product->price, 2) }}</span>
-                    <span class="old__price">$200</span>
-                    <span class="save__price">25% off</span>
+                @if($product->status == 'on_sale')
+                                    <span class="new__price">NGN {{ number_format($product->sales) }}</span>
+                                    <span class="old__price">NGN {{ number_format($product->price) }}</span>
+                                @else
+                                    <span class="new__price">NGN {{ number_format($product->price) }}</span>
+                                @endif
                 </span>
                 <p class="short__description">
                 {{ $product->description }}
                 </p>
 
-                <ul class="product__list">
+                <!-- <ul class="product__list">
                     <li class="list__item flex-1">
                         <i class="ri-vip-crown-line"></i>  1 year Aljazeerah Guarantee 
                     </li>
@@ -63,7 +66,7 @@
                     <li class="list__item flex-1">
                         <i class="ri-bank-card-line"></i> Cash on Delivery available
                     </li>
-                </ul>
+                </ul> -->
 
                 <!-- <div class="details__color flex-1">
                     <span class="details__color-title">Color</span>
@@ -87,7 +90,7 @@
                     </ul>
                 </div> -->
 
-                <div class="details__size flex-1">
+                <!-- <div class="details__size flex-1">
                     <span class="details__size-title">Size</span>
 
                     <ul class="size__list">
@@ -103,7 +106,7 @@
                             <a href="" class="size__link">XXL</a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
 
                 <div class="details__action">
                 
@@ -135,15 +138,15 @@
     <!-- DETAILS TAB -->
     <section class="details__tab container swiper ">
         <div class="detail__tabs">
-            <span class="detail__tab active-tab" data-target="#info">
+            <!-- <span class="detail__tab active-tab" data-target="#info">
                 Additional Info
-            </span>
-            <span class="detail__tab" data-target="#reviews">
+            </span> -->
+            <span class="detail__tab active-tab" data-target="#reviews">
             Reviews({{ $product->reviews->where('approved', true)->count() }})
            </span>
         </div>
 
-        <div class="details__tabs-content">
+     <!--   <div class="details__tabs-content">
             <div class="details__tab-content active-tab" content id="info">
                 <table class="info__table">
                     <tr>
@@ -216,9 +219,9 @@
                         <td>M, S </td>
                     </tr>
                 </table>
-            </div>
+            </div> -->
 
-            <div class="details__tab-content"  content id="reviews">
+            <div class="details__tab-content active-tab"  content id="reviews">
                 <div class="reviews__container grid">
                     @if ($product)
                 @if ($product->reviews->where('approved', true)->count() > 0)
@@ -335,11 +338,11 @@
                         
                     </textarea>
 
-                    <div class="form__group grid">
+                    <!-- <div class="form__group grid">
                         <input type="text" placeholder="Name" class="form__input"/>
 
                         <input type="email" placeholder="Email" class="form__input"/>
-                    </div>
+                    </div> -->
 
                     <div class="form__btn">
                         <button class="btn" type="submit">Submit Review</button>

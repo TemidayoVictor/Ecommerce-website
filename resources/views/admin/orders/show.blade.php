@@ -85,7 +85,7 @@
             </div>
             <div class="detail-box">
                 <h4>Ordered At:</h4>
-                <p style="text-align: justify;"> {{ $order->created_at->format('F d, Y') }} </p>
+                <p style="text-align: justify;"> {{ $order->created_at->format('F d, Y h:i A') }} </p>
             </div>
         </div>
         <div class="details-actions">

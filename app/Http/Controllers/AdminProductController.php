@@ -55,7 +55,6 @@ class AdminProductController extends Controller
 
         $featured = $request->has('featured') ? 1 : 0;
 
-
         $product = Product::create([
             'category_id' => $request->category,
             'brand_id' => $request->brand,

@@ -15,7 +15,7 @@ class AuthController extends Controller
             // Return the view that contains both login and registration forms
             return view('login'); // This loads resources/views/login.blade.php
         }
-        
+
         public function login(Request $request)
         {
             // Validate and process login
@@ -23,17 +23,24 @@ class AuthController extends Controller
                 'email'    => ['required', 'email'],
                 'password' => ['required'],
             ]);
-    
+
             if (\Illuminate\Support\Facades\Auth::attempt($credentials, $request->filled('remember'))) {
                 $request->session()->regenerate();
+
+                // Check if the authenticated user is an admin
+
+                if (Auth::user()->is_admin == 1) {
+                    return redirect()->intended('/admin/dashboard'); // Redirect admins
+                }
+
                 return redirect()->intended('/');
             }
-    
+
             return back()->withErrors([
                 'email' => 'Incorrect Email or Password.',
             ])->withInput();
         }
-        
+
         public function register(Request $request)
         {
             // Validate and process registration
@@ -42,16 +49,16 @@ class AuthController extends Controller
                 'email'                 => ['required', 'email', 'max:255', 'unique:users'],
                 'password'              => ['required', 'min:8', 'confirmed'],
             ]);
-    
+
             $validated['password'] = \Illuminate\Support\Facades\Hash::make($validated['password']);
-            
+
             $user = \App\Models\User::create($validated);
-            
+
             \Illuminate\Support\Facades\Auth::login($user);
-            
+
             return redirect('/');
         }
-        
+
         public function logout(Request $request)
         {
             \Illuminate\Support\Facades\Auth::logout();
@@ -59,5 +66,5 @@ class AuthController extends Controller
             $request->session()->regenerateToken();
             return redirect('/');
         }
-    }    
+    }
 

@@ -95,6 +95,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin_use'
     Route::get('/settings/generate-coupon', [AdminSettingController::class, 'generateCoupon'])->name('settings.generate-coupon');
     Route::post('/settings/generate-coupon', [AdminSettingController::class, 'generateCouponPost']);
     Route::post('/settings/delete-coupon/{id}', [AdminSettingController::class, 'deleteCoupon'])->name('settings.delete-coupon');
+
+    // Review
+    Route::get('/admin/reviews', [ReviewController::class, 'index'])->name('admin.reviews');
+    Route::post('/admin/reviews/{id}/approve', [ReviewController::class, 'approve'])->name('admin.reviews.approve');
+    Route::delete('/admin/reviews/{id}/delete', [ReviewController::class, 'destroy'])->name('admin.reviews.delete');
 });
 
 // General Routes
@@ -188,13 +193,6 @@ Route::get('/admin/newsletter', [NewsletterController::class, 'index'])->name('a
 Route::delete('/admin/newsletter/{id}', [NewsletterController::class, 'destroy'])->name('newsletter.delete');
 
 Route::post('/product/{id}/review', [ReviewController::class, 'store'])->middleware('auth')->name('review.store');
-
-// Admin routes for review approval
-Route::middleware('auth')->group(function () {
-    Route::get('/admin/reviews', [ReviewController::class, 'index'])->name('admin.reviews');
-    Route::post('/admin/reviews/{id}/approve', [ReviewController::class, 'approve'])->name('admin.reviews.approve');
-    Route::delete('/admin/reviews/{id}/delete', [ReviewController::class, 'destroy'])->name('admin.reviews.delete');
-});
 
     Route::get('/compare', function () {
         return view('compare');

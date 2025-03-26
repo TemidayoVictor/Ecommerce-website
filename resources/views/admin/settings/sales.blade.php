@@ -26,21 +26,25 @@
                 @endif
 
                 @if($sale->discount)
-                    <div class="input-field">
-                        <h4>Discount Type - {{ $sale->discount_type }}</h4>
+                    <div class="flex sales">
+                        <h4>Discount Type</h4>
+                        <h4>{{ $sale->discount_type }}</h4>
                     </div>
-                    <div class="input-field">
-                        <h4>Discount Value - {{ $sale->discount }}{{ $sale->discount_type == 'percentage' ? '%' : ''}}</h4>
+                    <div class="flex sales">
+                        <h4>Discount Value</h4>
+                        <h4>{{ $sale->discount }}{{ $sale->discount_type == 'percentage' ? '%' : ''}}</h4>
                     </div>
                 @endif
 
-                <div class="input-field">
-                    <h4>Start Date: {{ \Carbon\Carbon::parse($sale->start_time)->format('F d, Y') }}</h4>
+                <div class="flex sales">
+                    <h4>Start Date</h4>
+                    <h4>{{ \Carbon\Carbon::parse($sale->start_time)->format('F d, Y') }}</h4>
                 </div>
 
                 @if($sale->end_time)
-                    <div class="input-field">
-                        <h4>End Date: {{ \Carbon\Carbon::parse($sale->end_time)->format('F d, Y') }}</h4>
+                    <div class="flex sales">
+                        <h4>End Date</h4>
+                        <h4>{{ \Carbon\Carbon::parse($sale->end_time)->format('F d, Y') }}</h4>
                     </div>
                 @else
                     <div class="input-field">
@@ -48,13 +52,11 @@
                     </div>
                 @endif
 
-                <div class="input-field">
-                    <h4>Revenue Generated - NGN {{ $sale->revenue }}</h4>
+                <div class="flex sales">
+                    <h4>Revenue Generated</h4>
+                    <h4>NGN {{ number_format($sale->revenue) }}</h4>
                 </div>
 
-            </div>
-
-            <div class="section-title">
             </div>
 
             <form action="{{ route('admin.settings.update-sales', ['id' => $sale->id]) }}" method="post">

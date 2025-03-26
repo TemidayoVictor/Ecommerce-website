@@ -1296,7 +1296,7 @@ Home
     <section class="deals section">
         @if($sale)
         <div class="container banner">
-            <h3>{{ $sale->name }} starts in: </h3>
+            <h3>{{ $sale->name }}: </h3>
             <div id="countdown">
                 <p id="countdown-text">
                 </p>

@@ -6,12 +6,12 @@
 
 @section('content')
     <div class="quick-views admin-section">
-        <div class="view">
+        <a href="{{ route('admin.users') }}" class="view">
             <div class="number">
                 <h3>{{ number_format($users) }}</h3>
             </div>
             <p>Users</p>
-        </div>
+        </a>
 
         <div class="view">
             <div class="number">
@@ -27,19 +27,19 @@
             <p>Monthly Revenue</p>
         </div>
 
-        <div class="view">
+        <a href="{{ route('admin.pending-order') }}" class="view">
             <div class="number">
                 <h3>{{ number_format($pendingOrders) }}</h3>
             </div>
             <p>Pending Orders</p>
-        </div>
+        </a>
 
-        <div class="view">
+        <a href="{{ route('admin.unfulfilled-order') }}" class="view">
             <div class="number">
                 <h3>{{ number_format($unfulilledfOrders) }}</h3>
             </div>
             <p>Unfulfilled Orders</p>
-        </div>
+        </a>
     </div>
 
 @endsection

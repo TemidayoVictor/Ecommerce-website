@@ -38,7 +38,7 @@
                                     <a href=" {{ route('admin.edit-products', ['id' => $product->id ]) }} " class="btn btn--sm">Edit</a>
                                     <form action=" {{ route('admin.delete-product', ['id' => $product->id]) }} " method="post">
                                         @csrf
-                                        <button class="btn btn--sm delete">Delete</button>
+                                        <button class="btn btn--sm delete" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
                                     </form>
                                 </div>
                             </div>

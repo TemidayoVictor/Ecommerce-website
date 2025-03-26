@@ -95,4 +95,22 @@ class AdminOrderController extends Controller
             'orders' => $orders,
         ]);
     }
+
+    public function pendingOrders() {
+        $pageTitle = "Pending Orders";
+        $orders = Order::where('status', 'Pending')->orderBy('id', 'desc')->get();
+        return view('admin.orders.index', [
+            'pageTitle' => $pageTitle,
+            'orders' => $orders,
+        ]);
+    }
+
+    public function unfulfilledOrders() {
+        $pageTitle = "Unfulfilled Orders";
+        $orders = Order::where('shipping_status', 'Pending')->orderBy('id', 'desc')->get();
+        return view('admin.orders.index', [
+            'pageTitle' => $pageTitle,
+            'orders' => $orders,
+        ]);
+    }
 }

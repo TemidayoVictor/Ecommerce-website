@@ -22,7 +22,7 @@ use App\Http\Controllers\ReviewController;
 
 
 // Admin routes (Will be put in middleware later)
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin_use'], function() {
 
     // dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
@@ -62,6 +62,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 
     Route::get('/orders/user/{id}', [AdminOrderController::class, 'userOrders'])->name('order-user');
     Route::get('/orders/coupon/{id}', [AdminOrderController::class, 'couponOrders'])->name('coupon-order');
+    Route::get('/order/pending', [AdminOrderController::class, 'pendingOrders'])->name('pending-order');
+    Route::get('/order/unfulfilled', [AdminOrderController::class, 'unfulfilledOrders'])->name('unfulfilled-order');
 
     //Admin User Management
 

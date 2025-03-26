@@ -2446,9 +2446,23 @@ body .admin {
 }
 
 .admin .view {
-    border: 1px solid black;
+    border: 1px solid var(--first-color);
     text-align: center;
     border-radius: .3rem;
+    color: var(--first-color);
+}
+
+.admin .view .number h3 {
+    color: var(--first-color);
+}
+
+.admin .view:hover {
+    background-color: var(--first-color);
+    color: white;
+}
+
+.admin .view:hover .number h3 {
+    color: white;
 }
 
 .view__ {
@@ -2511,6 +2525,13 @@ body .admin {
 .admin .data .data-body:last-child {
     border-bottom: none;
 }
+
+.sales {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: .5rem;
+}
+
 
 /* footer */
 .admin footer {

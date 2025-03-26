@@ -45,13 +45,24 @@ class CartController extends Controller
             // Get the last image of product else use default image
             $image = $product->productImage->isNotEmpty() ? $product->productImage->last()->image : 'default.png';
 
+            if($product->status == "on_sale") {
+                $productPrice = $product->sales;
+                $sales = true;
+            }
+
+            else {
+                $productPrice = $product->price;
+                $sales = false;
+            }
+
             $cart[$productId] = [
                 "name"     => $product->name,
                 "quantity" => 1,
                 "description" => $product->description,
-                "price"    => $product->price,
+                "price"    => $productPrice,
                 "image"  => $image,
                 "id" => $product->id,
+                "sales" => $sales,
             ];
         }
 

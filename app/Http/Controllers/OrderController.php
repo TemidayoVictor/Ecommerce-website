@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ShippingAddress;
+use App\Models\Sale;
 
 class OrderController extends Controller
 {
@@ -99,9 +100,11 @@ class OrderController extends Controller
 
         $cartItem = session('cart', []);
         $total = 0;
+        $salesTotal = 0;
         $shipping = 0;
         $deliveryLocationId = NULL;
         $couponId = NULL;
+        $saleId = NULL;
         $location = Session::get('delivery_location');
         $coupon = Session::get('coupon');
         if($location) {
@@ -117,6 +120,9 @@ class OrderController extends Controller
             foreach($cartItem as $item) {
                 $lineTotal = $item['price'] * $item['quantity'];
                 $total += $lineTotal;
+                if($item['sales']) {
+                    $salesTotal += $lineTotal;
+                }
             }
         }
 
@@ -140,6 +146,17 @@ class OrderController extends Controller
                 ['user_id' => $userId],
                 ['address_line1' => $request->address, 'city' => $request->city, 'state' => $request->state, 'country' => $request->country,]
             );
+        }
+
+        // check if any sale is currently ongoing
+        $sale = Sale::where('status', 'running')->first();
+        if($sale) {
+            $saleId = $sale->id;
+            $previousRevenue = $sale->revenue;
+            $newRevenue = $previousRevenue + $salesTotal;
+            $sale->update([
+                'revenue' => $newRevenue
+            ]);
         }
 
         $orderNumber = rand(100000000, 999999999);
@@ -171,6 +188,8 @@ class OrderController extends Controller
             'shipping' => $shipping,
             'delivery_location_id' => $deliveryLocationId,
             'coupon_id' => $couponId,
+            'sale_id' => $saleId,
+            'sale_revenue' => $salesTotal,
         ]);
 
         // add each item in the cart to he database

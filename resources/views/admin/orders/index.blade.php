@@ -31,7 +31,7 @@
             </div>
         </a>
     @empty
-        <p>You do not have any orders currently</p>
+        <p style="text-align: center">No Orders were found</p>
     @endforelse
 </div>
 

@@ -56,6 +56,19 @@
                     <div class="data-body">
                         <div class="flex">
                             <h4 style="color: {{ $coupon->isValid() ? 'green' : 'red' }};"><strong>{{ $coupon->code }}</strong></h4>
+                            <p>Expires - {{ \Carbon\Carbon::parse($coupon->expires_at)->format('F d, Y') }}</p>
+                        </div>
+                        <div class="flex">
+                            <p>Used - {{ $coupon->used }} / {{ $coupon->usage_limit }}</p>
+                            <div class="flex">
+                                @if($coupon->used > 0)
+                                    <a href="{{ route('admin.coupon-order', ['id' => $coupon->id]) }}" class="view__" >View orders</a>
+                                @endif
+                                <form action="{{ route('admin.settings.delete-coupon', ['id' => $coupon->id]) }}" method="post">
+                                    @csrf
+                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this coupon?')" class="btn btn--sm link delete">Delete</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 @empty

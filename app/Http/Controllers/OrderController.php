@@ -144,6 +144,16 @@ class OrderController extends Controller
 
         $orderNumber = rand(100000000, 999999999);
 
+        // update coupon status
+        if($coupon) {
+            $couponDetail = Coupon::findOrFail($coupon->id);
+            $used = $couponDetail->used;
+            $newUsed = $used + 1;
+            $couponDetail->update([
+                'used' => $newUsed,
+            ]);
+        }
+
         // create order
         $order = Order::create([
             'name' => $request->name,
@@ -172,6 +182,7 @@ class OrderController extends Controller
                 'amount' => $item['price'] * $item['quantity'],
             ]);
         }
+
         session()->forget('cart');
         Session::forget('delivery_location');
         Session::forget('coupon');

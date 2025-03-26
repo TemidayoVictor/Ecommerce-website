@@ -30,13 +30,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     // Products
     Route::get('/products', [AdminProductController::class, 'index'])->name('products');
 
-    Route::get('/add-products', [AdminProductController::class, 'addProducts'])->name('add-products');
-    Route::post('/add-products', [AdminProductController::class, 'addProductPost']);
+    Route::get('/products-add', [AdminProductController::class, 'addProducts'])->name('add-products');
+    Route::post('/products-add', [AdminProductController::class, 'addProductPost']);
 
-    Route::get('/edit-product/{id}', [AdminProductController::class, 'editProduct'])->name('edit-products');
-    Route::post('/edit-product/{id}', [AdminProductController::class, 'editProductPost']);
+    Route::get('/product-edit/{id}', [AdminProductController::class, 'editProduct'])->name('edit-products');
+    Route::post('/product-edit/{id}', [AdminProductController::class, 'editProductPost']);
 
-    Route::post('/delete-product/{id}', [AdminProductController::class, 'deleteProduct'])->name('delete-product');
+    Route::post('/product-delete/{id}', [AdminProductController::class, 'deleteProduct'])->name('delete-product');
 
     // Categories
     Route::get('/categories', [AdminProductController::class, 'categories'])->name('categories');
@@ -60,7 +60,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::post('/update-payment/{id}', [AdminOrderController::class, 'updatePayment'])->name('update-payment');
     Route::post('/update-shipping/{id}', [AdminOrderController::class, 'updateShipping'])->name('update-shipping');
 
-    Route::get('/user/orders/{id}', [AdminOrderController::class, 'userOrders'])->name('order-user');
+    Route::get('/orders/user/{id}', [AdminOrderController::class, 'userOrders'])->name('order-user');
+    Route::get('/orders/coupon/{id}', [AdminOrderController::class, 'couponOrders'])->name('coupon-order');
 
     //Admin User Management
 
@@ -91,6 +92,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     // Coupon
     Route::get('/settings/generate-coupon', [AdminSettingController::class, 'generateCoupon'])->name('settings.generate-coupon');
     Route::post('/settings/generate-coupon', [AdminSettingController::class, 'generateCouponPost']);
+    Route::post('/settings/delete-coupon/{id}', [AdminSettingController::class, 'deleteCoupon'])->name('settings.delete-coupon');
 });
 
 // General Routes
@@ -111,7 +113,7 @@ Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.c
 Route::get('/cart/total', [CartController::class, 'getCartTotal'])->name('cart.total');
 
 // Wishlist
-Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index')->middleware('auth');
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index')->middleware(['auth']);
 Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add')->middleware('auth');
 Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove')->middleware('auth');
 Route::get('/wishlist/count', [WishlistController::class, 'count'])->name('wishlist.count')->middleware('auth');

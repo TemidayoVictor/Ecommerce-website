@@ -125,6 +125,12 @@ class AdminSettingController extends Controller
         return redirect()->back()->with('success', 'Coupon codes generated Successfully');
     }
 
+    public function deleteCoupon($id) {
+        $coupon = Coupon::findorFail($id);
+        $coupon->delete();
+        return redirect()->back()->with('success', 'Coupon Deleted Successfully');
+    }
+
     public function createSales() {
         $pageTitle = "Sales";
 

@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\DeliveryLocation;
 use App\Models\User;
+use App\Models\Coupon;
 
 class AdminOrderController extends Controller
 {
@@ -77,8 +78,18 @@ class AdminOrderController extends Controller
 
     public function userOrders($id) {
         $user = User::findOrFail($id);
-        $pageTitle = $user->name."'s Orders";
+        $pageTitle = "Orders";
         $orders = Order::where('user_id', $id)->orderBy('id', 'desc')->get();
+        return view('admin.orders.index', [
+            'pageTitle' => $pageTitle,
+            'orders' => $orders,
+        ]);
+    }
+
+    public function couponOrders($id) {
+        $coupon = Coupon::findOrFail($id);
+        $pageTitle = "Orders";
+        $orders = Order::where('coupon_id', $id)->orderBy('id', 'desc')->get();
         return view('admin.orders.index', [
             'pageTitle' => $pageTitle,
             'orders' => $orders,

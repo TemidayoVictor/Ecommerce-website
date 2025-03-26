@@ -566,6 +566,18 @@ header.user {
     display: none;
 }
 
+.btn.link {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    font-size: 1rem;
+}
+
+.btn.link.delete {
+    color: orangered;
+}
+
 .flex {
     display: flex;
     align-items: center;
@@ -1627,99 +1639,99 @@ header.user {
 
     .nav__menu-top,
     .nav__toggle {
-    display: flex;
-}
+        display: flex;
+    }
 
-.nav__menu-top {
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-    margin-bottom: 1.25rem;
-}
+    .nav__menu-top {
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+        margin-bottom: 1.25rem;
+    }
 
-.nav__menu-logo img {
-    width: 100px;
-}
+    .nav__menu-logo img {
+        width: 100px;
+    }
 
-.nav__close {
-    font-size: var(--h2-font-size);
-    line-height: 1rem;
-}
+    .nav__close {
+        font-size: var(--h2-font-size);
+        line-height: 1rem;
+    }
 
-.header__action-btn img {
-    width: 21px;
-}
+    .header__action-btn img {
+        width: 21px;
+    }
 
-.header__container {
-    grid-template-columns: 5.5fr 6.5fr;
-}
+    .header__container {
+        grid-template-columns: 5.5fr 6.5fr;
+    }
 
-.countdown {
-    column-gap: 1rem;
-}
+    .countdown {
+        column-gap: 1rem;
+    }
 
-.countdown__period {
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-}
+    .countdown__period {
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+    }
 
-.countdown__amount::after {
-    right: -30%;
-    top: 14%;
-}
+    .countdown__amount::after {
+        right: -30%;
+        top: 14%;
+    }
 
-.swiper-button-next,
-.swiper-button-prev {
-    top: -28px;
-    width: 26px;
-    height: 26px;
-}
+    .swiper-button-next,
+    .swiper-button-prev {
+        top: -28px;
+        width: 26px;
+        height: 26px;
+    }
 
-.swiper-button-prev {
-    right: 36px;
-}
+    .swiper-button-prev {
+        right: 36px;
+    }
 
-.account__tab {
-    padding: 0.75rem 1rem;
-}
+    .account__tab {
+        padding: 0.75rem 1rem;
+    }
 
-.checkout__group:nth-child(2) {
-    padding: 1.5rem;
-}
+    .checkout__group:nth-child(2) {
+        padding: 1.5rem;
+    }
 
-.details__brand {
-    margin-block: 0.75rem;
-}
+    .details__brand {
+        margin-block: 0.75rem;
+    }
 
-.details__price {
-    padding-block: 0.75rem;
-}
+    .details__price {
+        padding-block: 0.75rem;
+    }
 
-.short__description {
-    margin-bottom: 1.5rem;
-}
+    .short__description {
+        margin-bottom: 1.5rem;
+    }
 
-.details__color {
-    margin-block: 1.75rem 1.25rem;
-}
+    .details__color {
+        margin-block: 1.75rem 1.25rem;
+    }
 
-.details__size {
-    margin-bottom: 2.25rem;
-}
+    .details__size {
+        margin-bottom: 2.25rem;
+    }
 
-.color__link {
-    width: 22px;
-    height: 22%;
-}
+    .color__link {
+        width: 22px;
+        height: 22%;
+    }
 
-.size__link {
-    padding: 0.375rem 0.625rem;
-}
+    .size__link {
+        padding: 0.375rem 0.625rem;
+    }
 
-.details__action {
-    margin-bottom: 2.75rem;
-}
+    .details__action {
+        margin-bottom: 2.75rem;
+    }
 }
 
 
@@ -2155,6 +2167,14 @@ header.user {
         width: 100%;
     }
 
+    .modal-content {
+        background-color: white;
+        margin: 15% auto;
+        padding: 20px;
+        width: 80%;
+        border-radius: 5px;
+    }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -2429,6 +2449,11 @@ body .admin {
     border: 1px solid black;
     text-align: center;
     border-radius: .3rem;
+}
+
+.view__ {
+    color: var(--first-color);
+    text-decoration: underline;
 }
 
 .admin .section-title {

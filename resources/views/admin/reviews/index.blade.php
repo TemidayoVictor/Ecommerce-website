@@ -1,5 +1,9 @@
 @extends('admin.layouts.app')
 
+@section('title')
+    All Reviews
+@endsection
+
 @section('content')
     <h2>Pending Reviews</h2>
     <table class="admin-table">

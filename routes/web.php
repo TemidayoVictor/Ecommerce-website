@@ -96,10 +96,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin_use'
     Route::post('/settings/generate-coupon', [AdminSettingController::class, 'generateCouponPost']);
     Route::post('/settings/delete-coupon/{id}', [AdminSettingController::class, 'deleteCoupon'])->name('settings.delete-coupon');
 
-    // Review
-    Route::get('/admin/reviews', [ReviewController::class, 'index'])->name('admin.reviews');
-    Route::post('/admin/reviews/{id}/approve', [ReviewController::class, 'approve'])->name('admin.reviews.approve');
-    Route::delete('/admin/reviews/{id}/delete', [ReviewController::class, 'destroy'])->name('admin.reviews.delete');
+    // Reviews
+    Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews');
+    Route::post('/reviews/{id}/approve', [ReviewController::class, 'approve'])->name('reviews.approve');
+    Route::delete('/reviews/{id}/delete', [ReviewController::class, 'destroy'])->name('reviews.delete');
+
+    // Newsletter
+    Route::get('/newsletter', [NewsletterController::class, 'index'])->name('newsletter');
+    Route::delete('/newsletter/{id}', [NewsletterController::class, 'destroy'])->name('newsletter.delete');
 });
 
 // General Routes
@@ -188,10 +192,6 @@ Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']
 Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 // Admin route to view newsletter subscribers
-Route::get('/admin/newsletter', [NewsletterController::class, 'index'])->name('admin.newsletter');
-
-Route::delete('/admin/newsletter/{id}', [NewsletterController::class, 'destroy'])->name('newsletter.delete');
-
 Route::post('/product/{id}/review', [ReviewController::class, 'store'])->middleware('auth')->name('review.store');
 
     Route::get('/compare', function () {

@@ -8,12 +8,12 @@ Home
     <section class="home section--lg">
         <div class="home__container container grid">
             <div class="home__content">
-                <span class="home__subtitle">Hot Promotions</span>
-                <h1 class="home__title">Fashion Trending <span>Great Collection</span></h1>
-                <p class="home__description">Save more with coupons & up to 20% off</p>
-                <a href="" class="btn">Shop Now</a>
+                <span class="home__subtitle">Savor the Flavor</span>
+                <h1 class="home__title">Your favorite local dish <span>Just a click away</span></h1>
+                <p class="home__description">Fresh tasty and ready for you</p>
+                <a href="" class="btn">Order Now</a>
             </div>
-            <img src=" {{ asset('assets/home-img.png') }} " alt="" class="home__img">
+            <img src=" {{ asset('assets/homepage.png') }} " alt="" class="home__img">
         </div>
     </section>
 

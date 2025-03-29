@@ -679,6 +679,8 @@ header.user {
 .product__img {
     vertical-align: middle;
     transition: all 1.5s var(--transition);
+    height: 10rem;
+    width: 100%;
 }
 
 .product__item:hover .product__img {
@@ -2173,6 +2175,15 @@ header.user {
         padding: 20px;
         width: 80%;
         border-radius: 5px;
+    }
+
+    .box {
+        font-size: 1rem;
+        padding: .3rem;
+    }
+
+    .msg {
+        font-size: 1.2rem;
     }
 
 }

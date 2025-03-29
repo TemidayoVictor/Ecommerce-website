@@ -1293,7 +1293,7 @@ Home
 
     </section>
 
-    <section class="deals section">
+    <section class="new__arrivals container section">
         @if($sale)
         <div class="container banner">
             <h3>{{ $sale->name }}: </h3>

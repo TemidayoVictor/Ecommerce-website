@@ -55,7 +55,7 @@
     </div>
 </form>
 
-        <div class="products__container grid">
+        <div class="products__container new grid">
         @if ($products->count() > 0)
             @foreach($products as $product)
                 <div class="product__item">

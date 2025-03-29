@@ -652,8 +652,10 @@ header.user {
     cursor: pointer;
 }
 
-.products__container {
-    grid-template-columns: repeat(4, 1fr);
+.products__container.new {
+    /* grid-template-columns: repeat(4, 1fr); */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
 }
 
 .product__item {
@@ -679,11 +681,12 @@ header.user {
 .product__img {
     vertical-align: middle;
     transition: all 1.5s var(--transition);
+    height: 10rem;
     width: 100%;
 }
 
 .img2 {
-    height: 20rem;
+    height: 10rem;
 }
 
 .product__item:hover .product__img {

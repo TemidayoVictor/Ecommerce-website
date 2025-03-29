@@ -84,7 +84,7 @@ Home
 
         <div class="tab__items">
             <div class="tab__item active-tab" content id="featured">
-                <div class="products__container grid">
+                <div class="products__container new grid">
                 @if(isset($featuredProducts) && $featuredProducts->count() > 0)
                 @foreach($featuredProducts as $product)
                     <div class="product__item">
@@ -487,7 +487,7 @@ Home
             </div>
 
             <div class="tab__item" content id="popular">
-                <div class="products__container grid">
+                <div class="products__container new grid">
                 @foreach($products as $product)
                 <div class="product__item">
                         <div class="product__banner">
@@ -887,7 +887,7 @@ Home
             </div>
 
             <div class="tab__item" content id="new-added">
-                <div class="products__container grid">
+                <div class="products__container new grid">
                 @if(isset($newlyAddedProducts) && $newlyAddedProducts->count() > 0)
                 @foreach ($newlyAddedProducts as $product)
                     <div class="product__item">

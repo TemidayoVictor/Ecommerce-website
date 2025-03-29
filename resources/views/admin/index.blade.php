@@ -13,12 +13,12 @@
             <p>Users</p>
         </a>
 
-        <div class="view">
+        {{-- <div class="view">
             <div class="number">
                 <h3>250</h3>
             </div>
             <p>Products Sold</p>
-        </div>
+        </div> --}}
 
         <div class="view">
             <div class="number">

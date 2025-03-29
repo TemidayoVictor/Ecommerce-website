@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="product-continer admin-section">
-        <div class="admin flex section-title">
+        <div class="admin flex-6 section-title">
             <h3 class="">Products</h3>
             <a href="{{ route('admin.add-products') }}" class="btn btn--sm">Add Products</a>
         </div>
@@ -16,17 +16,17 @@
                     <div class="flex product-box">
                         <div class="flex-2 left">
                             <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="Product Image">
-                            <div>
+                            <div class="product-body">
                                 <h4 class="product-title">{{ $product->name }}</h4>
-                                <div class="flex">
+                                <div class="flex-6">
                                     <p><strong>Price:</strong></p>
                                     <p>NGN {{ number_format($product->price) }}</p>
                                 </div>
-                                <div class="flex">
+                                <div class="flex-6">
                                     <p><strong>Category:</strong></p>
                                     <p> {{ $product->category->name }} </p>
                                 </div>
-                                <div class="flex">
+                                <div class="flex-6">
                                     <p><strong>Available Stock:</strong></p>
                                     @if($product->stock > 0)
                                         <p>{{ $product->stock }} Unit(s)</p>
@@ -34,7 +34,7 @@
                                         <p style="color: red">Out of Stock</p>
                                     @endif
                                 </div>
-                                <div style="margin-top: .5rem" class="flex">
+                                <div style="margin-top: .5rem" class="flex-6">
                                     <a href=" {{ route('admin.edit-products', ['id' => $product->id ]) }} " class="btn btn--sm">Edit</a>
                                     <form action=" {{ route('admin.delete-product', ['id' => $product->id]) }} " method="post">
                                         @csrf

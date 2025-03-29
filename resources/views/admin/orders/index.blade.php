@@ -13,10 +13,10 @@
                 <h3>{{ $order->name }}</h3>
                 <h3>NGN {{ number_format($order->total) }}</h3>
             </div>
-            <div class="flex">
+            <div class="flex-6">
                 {{-- <p>{{ \Carbon\Carbon::parse($order->created_at)->diffForHumans(); }}</p> --}}
                 <p>{{ $order->created_at->format('F d, Y') }}</p>
-                <div class="flex">
+                <div class="flex-6">
                     @if($order->status == "Paid")
                         <p class="stat success">Approved</p>
                     @else

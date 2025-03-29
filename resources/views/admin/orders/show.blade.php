@@ -71,7 +71,7 @@
             </div>
             <div class="detail-box">
                 <h4>Phone</h4>
-                <div class="flex">
+                <div class="flex-6">
                     <p>{{ $order->phone }}</p>
                     <div class="flex">
                         <a href=" {{ "tel:".$order->phone }} " class="stat success">Phone</a>

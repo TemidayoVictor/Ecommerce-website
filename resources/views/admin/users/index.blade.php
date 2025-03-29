@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="flex">
+<div class="flex-6">
     <h3> {{ $pageTitle }} </h3>
     <a href="{{ route('admin.users.create') }}" class="btn btn--sm">Add a user</a>
 </div>

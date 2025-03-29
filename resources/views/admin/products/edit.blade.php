@@ -23,12 +23,15 @@
                 </select>
             </div>
 
+
             <div class="input-field">
                 <label for=""> <h4>Brand</h4> </label>
-                <select name="brand" id="brand" disabled>
-                    <option value="{{ $product->brand->id }}">
-                        {{ $product->brand->name }}
-                    </option>
+                <select id="brand" name="brand" disabled>
+                    @if ($product->brand != NULL)
+                        <option value="{{ $product->brand->id }}">{{ $product->brand->name }}</option>
+                    @else
+                        <option value="">Select Brand</option>
+                    @endif
                 </select>
             </div>
 

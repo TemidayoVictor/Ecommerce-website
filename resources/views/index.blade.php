@@ -90,8 +90,8 @@ Home
                     <div class="product__item">
                         <div class="product__banner">
                             <a href="{{ route('product.show', $product->id) }}" class="product_images">
-                                <img src="{{ asset('storage/' . $product->productImage->first()->image) }}" alt="Product Image" class="product__img default">
-                                <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="" class="product__img hover">
+                                <img src="{{ asset('storage/' . $product->productImage->first()->image) }}" alt="Product Image" class="product__img img2 default">
+                                <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="" class="product__img img2 hover">
                             </a>
 
                             <div class="product__actions">
@@ -492,8 +492,8 @@ Home
                 <div class="product__item">
                         <div class="product__banner">
                             <a href="{{ route('product.show', $product->id) }}" class="product_images">
-                                <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="Product Image" class="product__img default">
-                                <img src="{{ asset('assets/product-1-2.jpg') }}" alt="" class="product__img hover">
+                                <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="Product Image" class="product__img img2 default">
+                                <img src="{{ asset('assets/product-1-2.jpg') }}" alt="" class="product__img img2 hover">
                             </a>
 
                             <div class="product__actions">
@@ -893,8 +893,8 @@ Home
                     <div class="product__item">
                         <div class="product__banner">
                         <a href="{{ route('product.show', $product->id) }}" class="product_images">
-                            <img src="{{ asset('storage/' . $product->productImage->first()->image) }}" alt="Product Image" class="product__img default">
-                            <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="" class="product__img hover">
+                            <img src="{{ asset('storage/' . $product->productImage->first()->image) }}" alt="Product Image" class="product__img img2 default">
+                            <img src="{{ asset('storage/' . $product->productImage->last()->image) }}" alt="" class="product__img img2 hover">
                             </a>
 
                             <div class="product__actions">

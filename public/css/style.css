@@ -679,8 +679,11 @@ header.user {
 .product__img {
     vertical-align: middle;
     transition: all 1.5s var(--transition);
-    height: 10rem;
     width: 100%;
+}
+
+.img2 {
+    height: 20rem;
 }
 
 .product__item:hover .product__img {

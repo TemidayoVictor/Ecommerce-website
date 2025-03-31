@@ -25,10 +25,10 @@
                 <li class="sidebar-item {{ Str::startsWith(request()->path(), 'admin/user') ? 'active' : '' }}"><a href="{{ route('admin.users') }}" class="sidebar-link"><i class="fas fa-users"></i> Users</a></li>
                 <li class="sidebar-item {{ Str::startsWith(request()->path(), 'admin/product') ? 'active' : '' }}"><a href=" {{ route('admin.products') }} " class="sidebar-link"><i class="fas fa-box"></i> Products</a></li>
                 <li class="sidebar-item {{ Str::startsWith(request()->path(), 'admin/order') ? 'active' : '' }}"><a href=" {{ route('admin.orders') }} " class="sidebar-link"><i class="fas fa-cart-plus"></i> Orders</a></li>
-                <li class="sidebar-item {{ Str::startsWith(request()->path(), '') ? '' : '' }}"><a href="#" class="sidebar-link"><i class="fas fa-chart-line"></i> Reports</a></li>
                 <li class="sidebar-item {{ Str::startsWith(request()->path(), 'admin/newsletter') ? 'active' : '' }}"><a href="{{ route('admin.newsletter') }}" class="sidebar-link"><i class="fas fa-envelope"></i> Subscribers</a></li>
                 <li class="sidebar-item {{ Str::startsWith(request()->path(), 'admin/reviews') ? 'active' : '' }}"><a href="{{ route('admin.reviews') }}" class="sidebar-link"><i class="fas fa-pen"></i> Reviews</a></li>
                 <li class="sidebar-item {{ Str::startsWith(request()->path(), 'admin/setting') ? 'active' : '' }}"><a href="{{ route('admin.settings') }}" class="sidebar-link"><i class="fas fa-cogs"></i> Settings</a></li>
+                <li class="sidebar-item {{ Str::startsWith(request()->path(), '') ? '' : '' }}"><a href="/" class="sidebar-link"><i class="fas fa-home"></i> Website</a></li>
             </ul>
         </aside>
     </div>

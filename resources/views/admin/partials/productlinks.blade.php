@@ -8,4 +8,7 @@
     @if($pageTitle != 'Brands')
         <a href="{{ route('admin.brands') }}" class="btn btn--sm">Brand</a>
     @endif
+    @if($pageTitle != 'Kitchen')
+        <a href="{{ route('admin.add-kitchen') }}" class="btn btn--sm">Kitchen</a>
+    @endif
 </div>

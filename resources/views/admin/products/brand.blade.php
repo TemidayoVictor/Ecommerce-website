@@ -10,7 +10,7 @@
             <h3 class=""> {{ $pageTitle }} </h3>
             @include('admin.partials.productlinks')
         </div>
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="input-field">
@@ -29,6 +29,11 @@
             </div>
 
             <div class="input-field">
+                <label for=""> <h4>Add Image</h4> </label>
+                <input type="file" name="image" required accept="image/*">
+            </div>
+
+            <div class="input-field">
                 <button type="submit" class="btn btn--md">Add Category</button>
             </div>
         </form>
@@ -43,13 +48,13 @@
                             <p>Category:</p>
                             <p> {{ $brand->category->name }} </p>
                         </div>
-                        <div class="flex">
+                        {{-- <div class="flex">
                             <p>Status:</p>
                             <form action="" method="post">
                                 @csrf
                                 <button class="btn btn--sm delete">Deactivate</button>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 @empty
                     <p>You have not added any brand yet</p>

@@ -47,6 +47,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin_use'
     Route::post('/brands', [AdminProductController::class, 'addBrand']);
     Route::get('/get-brands/{id}', [AdminProductController::class, 'getBrands'])->name('get-brands');
 
+    // kitchen
+    Route::get('/kitchen', [AdminProductController::class, 'kitchen'])->name('kitchen');
+    Route::get('/add-kitchen', [AdminProductController::class, 'addKitchen'])->name('add-kitchen');
+
+    Route::get('/edit-kitchen/{id}', [AdminProductController::class, 'editKitchen'])->name('edit-kitchen');
+
     // Product Images
     Route::post('/delete-image/{id}', [AdminProductController::class, 'deleteImage'])->name('delete-image');
 
@@ -110,6 +116,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin_use'
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::post('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/api/get-active-sale', [HomeController::class, 'getActiveSale'])->name('get-active-sale');
+Route::get('/shop/{id}', [HomeController::class, 'categoryProducts'])->name('category-products');
+Route::get('/shop/{cat}/{id}', [HomeController::class, 'brandProducts'])->name('brand-products');
 
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
 

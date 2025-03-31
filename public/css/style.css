@@ -60,7 +60,7 @@
     box-sizing: border-box;
 }
 
-input, textarea, body {
+input, textarea, body, select {
     color: var(--text-color);
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
@@ -606,6 +606,33 @@ header.user {
     color: var(--text-color);
     font-size: var(--small-font-size);
 }
+
+.category-div {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(8em, 1fr));
+}
+
+.category-element {
+    border: 1px solid var(--border-color);
+    border-radius: .3rem;
+}
+
+.category-element:hover {
+    background-color: #eceaea;
+}
+
+.category-element .image {
+    height: 3rem;
+    width: 3rem;
+}
+
+.category-element .image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
 
 /* swiper */
 
@@ -2530,13 +2557,6 @@ body .admin {
     text-overflow: ellipsis;
 }
 
-.admin .product-box {
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-    border-radius: 0;
-    padding-bottom: 1rem;
-}
-
 .admin .product-box p {
     font-size: .8rem;
 }
@@ -2633,6 +2653,13 @@ body .admin {
     .admin .product-continer .left img {
         width: 100%;
         border-radius: .5rem;
+    }
+
+    .admin .product-box {
+        border: none;
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 0;
+        padding-bottom: 1rem;
     }
 }
 

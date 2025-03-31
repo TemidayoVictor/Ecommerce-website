@@ -18,6 +18,7 @@ class Product extends Model
         'stock',
         'featured',
         'status',
+        'type',
     ];
 
     public function category() {
@@ -40,12 +41,12 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
-    
+
     // Get the average rating (returns 0 if no reviews)
     public function getAverageRatingAttribute()
     {
         return round($this->reviews()->where('approved', true)->avg('rating')) ?? 0;
     }
-    
+
 
 }

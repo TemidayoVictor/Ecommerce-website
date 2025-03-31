@@ -11,7 +11,7 @@ Home
                 <span class="home__subtitle">Savor the Flavor</span>
                 <h1 class="home__title">Your favorite local dish <span>Just a click away</span></h1>
                 <p class="home__description">Fresh tasty and ready for you</p>
-                <a href="" class="btn">Order Now</a>
+                <a href=" {{ route('shop') }} " class="btn">Order Now</a>
             </div>
             <img src=" {{ asset('assets/homepage.png') }} " alt="" class="home__img">
         </div>
@@ -19,44 +19,44 @@ Home
 
     <section class="categories container section">
         <div class="flex margin-bottom">
-            <h3 class="section__title-2"><span>Popular</span> Categories</h3>
-            <div class="swiper-navs">
+            <h3 class="section__title-2"><span>Find</span> Out</h3>
+            {{-- <div class="swiper-navs">
                 <div class="">
                     <i class="swiper-move-prev ri-arrow-left-s-line"></i>
                 </div>
                 <div class="">
                     <i class=" swiper-move-next ri-arrow-right-s-line"></i>
                 </div>
-            </div>
+            </div> --}}
         </div>
-        <div class="categories__container swiper">
+        {{-- <div class="categories__container swiper">
             <div class="swiper-wrapper">
                 <a href="" class="category__item swiper-slide">
-                    <img src="{{ asset('assets/category-1.jpg') }}" alt="" class="category__img">
-                    <h3 class="category__title">T-Shirt</h3>
+                    <img src="{{ asset('assets/kitchen.jpg') }}" alt="" class="category__img">
+                    <h3 class="category__title">Kitchen</h3>
                 </a>
 
                 <a href="" class="category__item swiper-slide">
-                    <img src="{{ asset('assets/category-2.jpg') }}" alt="" class="category__img">
-                    <h3 class="category__title">T-Shirt</h3>
+                    <img src="{{ asset('assets/african.jpg') }}" alt="" class="category__img">
+                    <h3 class="category__title">African Food and Groceries</h3>
                 </a>
 
                 <a href="" class="category__item swiper-slide">
-                    <img src="{{ asset('assets/category-3.jpg') }}" alt="" class="category__img">
-                    <h3 class="category__title">T-Shirt</h3>
+                    <img src="{{ asset('assets/africancloth.jpg') }}" alt="" class="category__img">
+                    <h3 class="category__title">African Clothing and Fashion</h3>
                 </a>
 
                 <a href="" class="category__item swiper-slide">
-                    <img src="{{ asset('assets/category-4.jpg') }}" alt="" class="category__img">
-                    <h3 class="category__title">T-Shirt</h3>
+                    <img src="{{ asset('assets/beauty.jpg') }}" alt="" class="category__img">
+                    <h3 class="category__title">Beauty and personal care</h3>
                 </a>
 
                 <a href="" class="category__item swiper-slide">
-                    <img src="{{ asset('assets/category-5.jpg') }}" alt="" class="category__img">
-                    <h3 class="category__title">T-Shirt</h3>
+                    <img src="{{ asset('assets/utensils.jpg') }}" alt="" class="category__img">
+                    <h3 class="category__title">Home and Kitchen Utensils</h3>
                 </a>
 
-                <a href="" class="category__item swiper-slide">
+                <!-- <a href="" class="category__item swiper-slide">
                     <img src="{{ asset('assets/category-6.jpg') }}" alt="" class="category__img">
                     <h3 class="category__title">T-Shirt</h3>
                 </a>
@@ -69,8 +69,21 @@ Home
                 <a href="" class="category__item swiper-slide">
                     <img src="{{ asset('assets/category-8.jpg') }}" alt="" class="category__img">
                     <h3 class="category__title">T-Shirt</h3>
-                </a>
+                </a> -->
             </div>
+        </div> --}}
+
+        <div class="category-div">
+            @foreach ($categories as $category)
+                <a href="{{ route('category-products', ['id' => $category->slug]) }}" class="category-element flex">
+                    <div class="image">
+                        <img src="{{ asset('storage/' . $category->image) }}" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>{{ $category->name }}</h3>
+                    </div>
+                </a>
+            @endforeach
         </div>
 
     </section>
@@ -127,6 +140,7 @@ Home
                             <div class="product__price flex-1">
                                 @if($product->status == 'on_sale')
                                     <span class="new__price">NGN {{ number_format($product->sales) }}</span>
+                                    <br>
                                     <span class="old__price">NGN {{ number_format($product->price) }}</span>
                                 @else
                                     <span class="new__price">NGN {{ number_format($product->price) }}</span>
@@ -1676,7 +1690,7 @@ Home
         </div>
     </section>
 
-    <section class="showcase section">
+    <!-- <section class="showcase section">
         <div class="showcase__container container grid">
             <div class="showcase__wrapper">
                 <h3 class="section__title">Hot Releases</h3>
@@ -1909,7 +1923,7 @@ Home
 
             </div>
         </div>
-    </section>
+    </section> -->
 @endsection
 
 @push('scripts')
